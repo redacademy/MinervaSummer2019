@@ -8,9 +8,9 @@ type User @model {
   location: String! @isUnique
   interest: [Interest!]! @relation(name: "UserInterest")
   posts: [Post!]! @relation(name: "UserPosts")
-  connectedWith: [User!]! @relation(name: "UserConnected")
+  userConnection: [User!]! @relation(name: "UserConnected")
   favposts: [Post!]! @relation(name: "UserFavPosts")
-  likes: [Post!]! @relation(name: "Likes")
+  likes: [Post!]! @relation(name: "PostLikes")
   comments: [Comments!]! @relation(name: "UserComments")
 
 }
@@ -29,7 +29,7 @@ type Post @model {
   content: String
   comments: [Comments!]! @relation(name: "PostComments")
   author: User! @relation(name: "UserPosts")
-  likes: [User!]! @relation(name: "Likes")
+  likes: [User!]! @relation(name: "PostLikes")
   favedBy: [User!]! @relation(name: "UserFavPosts")
 }
 
