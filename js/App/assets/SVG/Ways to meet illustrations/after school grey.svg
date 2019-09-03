@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>After School - book</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols-UX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="After-School" transform="translate(-15.000000, -16.000000)" stroke="#4D4D4F" stroke-width="1.8">
+            <g id="After-School---book" transform="translate(16.000000, 17.000000)">
+                <path d="M0.171,32.82516 L0.171,4.51098" id="Path"></path>
+                <path d="M28.7622,33.25266 L28.7622,35.64666 L4.20318,35.64666 C4.20318,35.64666 1.85706,35.60562 0.84474,34.62066 C0.440597921,34.1379602 0.200981834,33.5389199 0.16074,32.91066" id="Path"></path>
+                <path d="M27.43524,0.171 L3.20796,0.171 C1.55986232,0.148113817 0.202827818,1.46083075 0.171,3.10878 L0.171,3.87828 C0.202827818,5.52622925 1.55986232,6.83894618 3.20796,6.81606 L28.7622,6.81606 L28.7622,17.50014" id="Path"></path>
+                <path d="M26.01594,0.171 C26.01594,0.171 22.98924,3.70044 27.43524,6.81606" id="Path"></path>
+                <ellipse id="Oval" cx="27.71226" cy="25.3764" rx="7.92072" ry="7.87626"></ellipse>
+                <polyline id="Path" points="22.80456 24.97968 25.97148 28.94346 32.61996 23.05764"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

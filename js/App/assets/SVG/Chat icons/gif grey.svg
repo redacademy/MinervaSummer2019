@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.3 (81716) - https://sketch.com -->
+    <title>gif</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols-UX" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/gif" transform="translate(1.000000, 1.000000)" fill="#4D4D4F">
+            <g id="gif">
+                <path d="M13.02525,17.325 L4.29975,17.325 C1.9215,17.325 0,15.4035 0,13.02525 L0,4.29975 C0,1.9215 1.9215,0 4.29975,0 L13.02525,0 C15.4035,0 17.34075,1.93725 17.34075,4.3155 L17.34075,13.041 C17.325,15.4035 15.4035,17.325 13.02525,17.325 Z M4.29975,0.6615 C2.2995,0.6615 0.6615,2.2995 0.6615,4.29975 L0.6615,13.02525 C0.6615,15.04125 2.2995,16.6635 4.29975,16.6635 L13.02525,16.6635 C15.0255,16.6635 16.6635,15.0255 16.6635,13.02525 L16.6635,4.29975 C16.6635,2.2995 15.04125,0.6615 13.02525,0.6615 L4.29975,0.6615 Z" id="Shape" stroke="#4D4D4F" stroke-width="0.7" fill-rule="nonzero"></path>
+                <text id="GIF" font-family="Lato-Black, Lato Black" font-size="8.5" font-weight="700">
+                    <tspan x="2.24675" y="12">GIF</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
