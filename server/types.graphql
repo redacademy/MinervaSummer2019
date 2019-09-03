@@ -1,23 +1,45 @@
-# The following types define the data model of the example service
-# based on which the GraphQL API is generated
-
 type User @model {
   id: ID! @isUnique
-  name: String
-  dateOfBirth: DateTime
+  name: String @isUnique
+  email: String! @isUnique
+  password: String! 
+  bio: String!
+  school: String! @isUnique
+  location: String! @isUnique
+  interest: [Interest!]! @relation(name: "UserInterest")
+  posts: [Post!]! @relation(name: "UserPosts")
+  connectedWith: [User!]! @relation(name: "UserConnected")
+  favposts: [Post!]! @relation(name: "UserFavPosts")
+  likes: [Post!]! @relation(name: "Likes")
+  comments: [Comments!]! @relation(name: "UserComments")
 
-  # Uncomment below - you can declare relations between models like this
+}
 
-  # posts: [Post!]! @relation(name: "UserPosts")
+type Interest @model {
+  id: ID! @isUnique
+  title: String
+  type: String
+  users: [User!]! @relation(name: "UserInterest")
+}
+
+type Post @model {
+  id: ID! @isUnique
+  title: String!
+  createdAt: DateTime! 
+  content: String
+  comments: [Comments!]! @relation(name: "PostComments")
+  author: User! @relation(name: "UserPosts")
+  likes: [User!]! @relation(name: "Likes")
+  favedBy: [User!]! @relation(name: "UserFavPosts")
+}
+
+type Comments @model {
+  id: ID! @isUnique
+  content: String
+  createdAt: DateTime!
+  post: [Post!]! @relation(name: "PostComments")
+  author: User! @relation(name: "UserComments")
 }
 
 
-# Uncomment the model below as well
 
-# type Post @model {
-#   id: ID! @isUnique
-#   title: String!
-#
-#   # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
-#   author: User! @relation(name: "UserPosts")
-# }
