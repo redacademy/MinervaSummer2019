@@ -8,7 +8,7 @@ type User @model {
   location: String! @isUnique
   interest: [Interest!]! @relation(name: "UserInterest")
   posts: [Post!]! @relation(name: "UserPosts")
-  userConnection: [User!]! @relation(name: "UserConnected")
+  userConnection: [User!]! @relation(name: "UserConnection")
   favposts: [Post!]! @relation(name: "UserFavPosts")
   likes: [Post!]! @relation(name: "PostLikes")
   comments: [Comments!]! @relation(name: "UserComments")
