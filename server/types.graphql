@@ -6,10 +6,9 @@ type User @model {
   bio: String!
   school: String! @isUnique
   location: String! @isUnique
-  interest: [Interest!]! @relation(name: "UserInterest")
+  interests: [Interest!]! @relation(name: "UserInterests")
   posts: [Post!]! @relation(name: "UserPosts")
-  userConnection: [User!]! @relation(name: "UserConnections")
-  favposts: [Post!]! @relation(name: "UserFavPosts")
+  userConnections: [User!]! @relation(name: "UserConnections")
   likes: [Post!]! @relation(name: "PostLikes")
   comments: [Comments!]! @relation(name: "UserComments")
 
@@ -19,7 +18,7 @@ type Interest @model {
   id: ID! @isUnique
   title: String
   type: String
-  users: [User!]! @relation(name: "UserInterest")
+  user: [User!]! @relation(name: "UserInterests")
 }
 
 type Post @model {
@@ -30,7 +29,6 @@ type Post @model {
   comments: [Comments!]! @relation(name: "PostComments")
   author: User! @relation(name: "UserPosts")
   likes: [User!]! @relation(name: "PostLikes")
-  favedBy: [User!]! @relation(name: "UserFavPosts")
 }
 
 type Comments @model {
