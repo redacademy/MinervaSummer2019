@@ -1,8 +1,14 @@
 import RootStackNavigation from './navigation/RootStackNavigation';
 import React from 'react';
+import {ApolloProvider} from 'react-apollo';
+import client from './config/api';
 
 const App = () => {
-  return <RootStackNavigation></RootStackNavigation>;
+  return (
+    <ApolloProvider client={client}>
+      <RootStackNavigation />
+    </ApolloProvider>
+  );
 };
 
 export default App;
