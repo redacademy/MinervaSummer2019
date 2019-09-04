@@ -15,11 +15,7 @@ class AuthLoadingScreen extends React.Component {
   };
 
   render() {
-    return (
-      <View>
-        <CircularLoader />
-      </View>
-    );
+    return <CircularLoader />;
   }
 }
 
