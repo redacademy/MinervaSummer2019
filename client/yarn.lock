@@ -10,6 +10,17 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
+"@apollo/react-components@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@apollo/react-components/-/react-components-3.0.1.tgz#f6fdd9fdb9863c0e8094a33f2525e7770fcf14ee"
+  integrity sha512-IQwcwv+ItW/QHUeO2zQH+CJGnqepPwwShD9H6+v1ptLvixggodr7S4KalNKXgRUVJsoPBFiVgpTMoJe3h4+Eyg==
+  dependencies:
+    "@apollo/react-common" "^3.0.1"
+    "@apollo/react-hooks" "^3.0.1"
+    prop-types "^15.7.2"
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
 "@apollo/react-hooks@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@apollo/react-hooks/-/react-hooks-3.0.1.tgz#83869beddcbb06cba05d50ccf05097191d245a9c"
@@ -5415,6 +5426,11 @@ react-native-gesture-handler@^1.4.1:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.4"
     prop-types "^15.7.2"
+
+react-native-linear-gradient@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
+  integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
 
 react-native-reanimated@^1.2.0:
   version "1.2.0"

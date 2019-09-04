@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 30,
   },
+  errorMessage: {
+    color: theme.palette.red,
+  },
 });
 
 export default styles;

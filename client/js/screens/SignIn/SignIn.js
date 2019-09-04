@@ -22,7 +22,7 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errors: undefined,
+      errors: null,
     };
   }
   storeToken = async userToken => {
@@ -34,6 +34,7 @@ class SignIn extends Component {
   };
 
   onSubmit = async (authenticateUser, values) => {
+    this.setState({errors: null});
     try {
       const authenticateToken = await authenticateUser({
         variables: {
@@ -45,7 +46,7 @@ class SignIn extends Component {
       this.props.navigation.navigate('AuthLoading');
       //update viewer context provider and query user data
     } catch (e) {
-      console.log(e);
+      this.setState({errors: true});
     }
   };
 
@@ -92,6 +93,11 @@ class SignIn extends Component {
                       />
                     )}
                   />
+                  {this.state.errors ? (
+                    <Text style={styles.errorMessage}>
+                      Invalid email/password combination
+                    </Text>
+                  ) : null}
                   <GradientButton
                     onPress={() => handleSubmit()}
                     text="Sign In"></GradientButton>
