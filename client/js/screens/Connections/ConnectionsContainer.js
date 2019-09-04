@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Text} from 'react-native';
+import Connections from './Connections';
 
 export default class ConnectionsContainer extends Component {
   render() {
-    return <Text>Connections</Text>;
+    return <Connections />;
   }
 }
