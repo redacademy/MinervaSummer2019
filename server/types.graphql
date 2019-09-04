@@ -1,11 +1,11 @@
 type User @model {
   id: ID! @isUnique
-  name: String @isUnique
+  name: String 
   email: String! @isUnique
   password: String! 
   bio: String!
-  school: String! @isUnique
-  location: String! @isUnique
+  school: String! 
+  location: String! 
   interests: [Interest!]! @relation(name: "UserInterests")
   posts: [Post!]! @relation(name: "UserPosts")
   userConnections: [User!]! @relation(name: "UserConnections")
