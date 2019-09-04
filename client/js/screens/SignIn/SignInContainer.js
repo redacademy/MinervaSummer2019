@@ -5,6 +5,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SignIn from './SignIn';
 
 export default class SignInContainer extends Component {
+  static navigationOptions = {
+    title: 'Sign In Details',
+  };
   storeData = async () => {
     try {
       await AsyncStorage.setItem('userToken', 'stored value');
