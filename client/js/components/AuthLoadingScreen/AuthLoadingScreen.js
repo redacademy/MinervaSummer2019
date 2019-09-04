@@ -1,6 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, StatusBar, View} from 'react-native';
-
+import CircularLoader from '../CircularLoader';
 import AsyncStorage from '@react-native-community/async-storage';
 
 class AuthLoadingScreen extends React.Component {
@@ -17,8 +17,7 @@ class AuthLoadingScreen extends React.Component {
   render() {
     return (
       <View>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
+        <CircularLoader />
       </View>
     );
   }
