@@ -16,7 +16,8 @@ class SignUpProvider extends Component {
       interests: [],
     };
   }
-  addAccountDetails = (firstName, lastName, email, password) => {
+  addAccountDetails = values => {
+    const {firstName, lastName, password, email} = values;
     this.setState({firstName, lastName, email, password});
   };
 
@@ -44,7 +45,7 @@ class SignUpProvider extends Component {
           addInterests: this.addInterests,
           addLookingFor: this.addLookingFor,
           addLocationDetails: this.addLocationDetails,
-          addBasicDetails: this.addBasicDetails,
+          addAccountDetails: this.addAccountDetails,
         }}>
         {this.props.children}
       </SignUpContext.Provider>
