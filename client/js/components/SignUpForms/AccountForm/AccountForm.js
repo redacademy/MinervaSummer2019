@@ -28,7 +28,6 @@ class AccountForm extends React.Component {
       <Form
         onSubmit={values => {
           this.submitForm(values);
-          console.log(this.props.signUpContext);
         }}
         render={({handleSubmit, pristine}) => (
           <View>

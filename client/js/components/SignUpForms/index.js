@@ -4,3 +4,5 @@ import AccountForm from './AccountForm';
 import LocationForm from './LocationForm';
 
 export {AccountForm};
+export {LocationForm};
+export {LookingForForm};

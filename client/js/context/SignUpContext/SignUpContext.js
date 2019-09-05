@@ -21,8 +21,9 @@ class SignUpProvider extends Component {
     this.setState({firstName, lastName, email, password});
   };
 
-  addLocationDetails = (location, school) => {
-    this.setState({location, school});
+  addLocationDetails = values => {
+    const {location, school} = values;
+    this.setState({location: location, school: school});
   };
 
   addLookingFor = lookingFor => {
