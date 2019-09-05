@@ -1,24 +1,27 @@
 type User @model {
   id: ID! @isUnique
-  name: String 
+  firstName: String! 
+  lastName: String!
   email: String! @isUnique
   password: String! 
   bio: String!
-  school: String! 
-  location: String! 
-  interests: [Interest!]! @relation(name: "UserInterests")
-  posts: [Post!]! @relation(name: "UserPosts")
+  school: String 
+  location: String 
+  interests: [Interest]! @relation(name: "UserInterests")
+  posts: [Post]! @relation(name: "UserPosts")
   userConnections: [User!]! @relation(name: "UserConnections")
-  likes: [Post!]! @relation(name: "PostLikes")
-  comments: [Comments!]! @relation(name: "UserComments")
-
+  likes: [Post]! @relation(name: "PostLikes")
+  comments: [Comments]! @relation(name: "UserComments")
+  photo: File! @relation(name: "UserPhoto")
+  lookingFor: String!
+  waysToMeet: [WaysToMeet]! @relation(name: "UsersToMeet")
 }
 
 type Interest @model {
   id: ID! @isUnique
   title: String
   type: String
-  user: [User!]! @relation(name: "UserInterests")
+  user: [User]! @relation(name: "UserInterests")
 }
 
 type Post @model {
@@ -26,9 +29,9 @@ type Post @model {
   title: String!
   createdAt: DateTime! 
   content: String
-  comments: [Comments!]! @relation(name: "PostComments")
+  comments: [Comments]! @relation(name: "PostComments")
   author: User! @relation(name: "UserPosts")
-  likes: [User!]! @relation(name: "PostLikes")
+  likes: [User]! @relation(name: "PostLikes")
   types: String
 }
 
@@ -36,11 +39,25 @@ type Comments @model {
   id: ID! @isUnique
   content: String
   createdAt: DateTime!
-  post: [Post!]! @relation(name: "PostComments")
+  post: Post! @relation(name: "PostComments")
   author: User! @relation(name: "UserComments")
 }
 
+type File @model {
+  id: ID! @isUnique
+  name: String!
+  contentType: String!
+  createdAt: DateTime!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime!
+  url: String! @isUnique
+  user: User! @relation(name: "UserPhoto")
+}
 
-
+type WaysToMeet @model {
+  id: ID! @isUnique @relation(name: "UsersToMeet")
+  title: String! 
+}
 
 
