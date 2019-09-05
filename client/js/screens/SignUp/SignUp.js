@@ -1,11 +1,11 @@
 import React from 'react';
 import SignUpContext from '../../context/SignUpContext';
-import {ProfileForm} from '../../components/SignUpForms';
+import {ProfessionalInterestsForm} from '../../components/SignUpForms';
 
 const SignUp = () => {
   return (
     <SignUpContext.Consumer>
-      {context => <ProfileForm signUpContext={context} />}
+      {context => <ProfessionalInterestsForm signUpContext={context} />}
     </SignUpContext.Consumer>
   );
 };

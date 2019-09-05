@@ -3,6 +3,8 @@ const theme = {
     green: '#0DB14B',
     blue: '#00A3B4',
     lightGrey: '#CFCFCF',
+    mediumGrey: '#979797',
+    darkGrey: '#4D4D4F',
     red: '#D86060',
   },
 };

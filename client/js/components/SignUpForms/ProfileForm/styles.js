@@ -31,6 +31,20 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: theme.palette.red,
   },
+  imageButtonsWrapper: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  bioInput: {
+    minHeight: 200,
+    padding: 15,
+    borderColor: theme.palette.lightGrey,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 10,
+  },
 });
 
 export default styles;

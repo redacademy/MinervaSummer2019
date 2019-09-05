@@ -1,8 +1,10 @@
 import React from 'react';
 import {Form, Field} from 'react-final-form';
-import {Text, View, TouchableOpacity, TextInput, Keyboard} from 'react-native';
+import {Text, View, TouchableOpacity, TextInput, Platform} from 'react-native';
 import GradientButton from '../../GradientButton';
 import styles from './styles';
+import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -13,6 +15,45 @@ class ProfileForm extends React.Component {
     const {addLocationDetails} = this.props.signUpContext;
     addLocationDetails(values);
   }
+  pickImage = () => {
+    const options = {
+      title: 'Select Profile Picture',
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+    ImagePicker.launchImageLibrary(options, async response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        let uri = response.uri;
+        this.setState({imageUri: response.uri});
+        if (Platform.OS === 'ios') uri.replace('file://', '');
+
+        // RNFetchBlob.fetch(
+        //   'POST',
+        //   `https://api.graph.cool/file/v1/$ck046a89w0kut01791rwn3vw9`,
+        //   {},
+        //   [
+        //     {
+        //       name: 'data',
+        //       filename: 'image',
+        //       data: RNFetchBlob.wrap(uri),
+        //     },
+        //   ],
+        // )
+        //   .then(res => {
+        //     let status = res.info().status;
+        //     console.log(status);
+        //   })
+        //   .catch(e => {
+        //     console.log(e);
+        //   });
+      }
+    });
+  };
   render() {
     return (
       <Form
@@ -26,14 +67,15 @@ class ProfileForm extends React.Component {
               Please upload a recent picture of yourself so other women can see
               who you are. You can change your photo at any time.
             </Text>
-            <GradientButton
-              onPress={() => console.log('Take new')}
-              text="Take New"
-            />
-            <GradientButton
-              onPress={() => console.log('Upload')}
-              text="Upload"
-            />
+            {this.state.imageUri ? (
+              <Image
+                style={{width: 50, height: 50}}
+                source={{uri: this.state.imageUri}}
+              />
+            ) : null}
+            <View style={styles.imageButtonsWrapper}>
+              <GradientButton onPress={() => this.pickImage()} text="Upload" />
+            </View>
             <Text style={styles.heading}>About Me</Text>
             <Text style={styles.subHeading}>
               Tell us a little bit about yourself so people can get to know you!
@@ -45,12 +87,12 @@ class ProfileForm extends React.Component {
               required={true}
               render={({input, meta}) => (
                 <TextInput
+                  style={styles.bioInput}
                   type={'text'}
                   multiline={true}
                   numberOfLines={6}
                   keyboardType={'default'}
                   placeholder={'Type here ...'}
-                  style={styles.textInputs}
                   autoCorrect={false}
                   autoCapitalize={'none'}
                   {...input}

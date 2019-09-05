@@ -1,3 +1,3 @@
-import PersonalInterestsForm from './PersonalInterestsForm';
+import PersonalInterestsContainer from './PersonalInterestsFormContainer';
 
-export default PersonalInterestsForm;
+export default PersonalInterestsContainer;
