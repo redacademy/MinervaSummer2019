@@ -19,6 +19,10 @@ const Welcome = ({navigation}) => {
         text="Sign In"
         onPress={() => navigation.navigate('SignIn')}
       />
+      <GradientButton
+        text="Profile"
+        onPress={() => navigation.navigate('Profile')}
+      />
     </View>
   );
 };
