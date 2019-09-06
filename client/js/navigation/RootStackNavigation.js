@@ -10,12 +10,10 @@ import LocationFormScreen from '../screens/LocationForm';
 import LookingForFormScreen from '../screens/LookingForForm';
 import ProfileFormScreen from '../screens/ProfileForm';
 import PersonalInterestsFormScreen from '../screens/PersonalInterestsForm';
-import PersonalInterestsFormScreen from '../screens/PersonalInterestsForm';
 import ProfessionalInterestsFormScreen from '../screens/ProfessionalInterestsForm';
 
 const AuthStack = createStackNavigator({
   Welcome: WelcomeScreen,
-  SignUp: SignUpScreen,
   SignIn: SignInScreen,
 });
 

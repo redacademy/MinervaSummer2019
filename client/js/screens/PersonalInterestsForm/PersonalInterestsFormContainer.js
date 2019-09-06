@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import {Query} from '@apollo/react-components';
 import {gql} from 'apollo-boost';
-import CircularLoader from '../../CircularLoader';
+import CircularLoader from '../../components/CircularLoader';
 import PersonalInterestsForm from './PersonalInterestsForm';
 import SignUpContext from '../../../context/SignUpContext';
 

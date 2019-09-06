@@ -9,7 +9,7 @@ import {
   Platform,
   Image,
 } from 'react-native';
-import GradientButton from '../../GradientButton';
+import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 import ImagePicker from 'react-native-image-picker';
 import {withNavigation} from 'react-navigation';

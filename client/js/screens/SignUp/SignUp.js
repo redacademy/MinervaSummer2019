@@ -1,13 +1,8 @@
 import React from 'react';
-import SignUpContext from '../../context/SignUpContext';
-import {ProfileForm} from '../../components/SignUpForms';
+import {Text} from 'react-native';
 
 const SignUp = () => {
-  return (
-    <SignUpContext.Consumer>
-      {context => <ProfileForm signUpContext={context} />}
-    </SignUpContext.Consumer>
-  );
+  return <Text>SignUp</Text>;
 };
 
 export default SignUp;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Field} from 'react-final-form';
 import {Text, View, TouchableOpacity, TextInput, Keyboard} from 'react-native';
-import GradientButton from '../../GradientButton';
+import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
 

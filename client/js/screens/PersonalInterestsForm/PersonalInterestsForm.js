@@ -1,8 +1,9 @@
 import React from 'react';
 import {Text, View, ScrollView} from 'react-native';
-import GradientButton from '../../GradientButton';
+import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 import SelectableChips from 'react-native-chip/SelectableChips';
+import {withNavigation} from 'react-navigation';
 
 class PersonalInterestsForm extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class PersonalInterestsForm extends React.Component {
       .filter(interest => interestTitles.includes(interest.title))
       .map(interest => interest.id);
     addPersonalInterests(interestIds);
+    this.props.navigation.navigate('ProfessionalInterests');
   }
 
   render() {
@@ -75,4 +77,4 @@ class PersonalInterestsForm extends React.Component {
   }
 }
 
-export default PersonalInterestsForm;
+export default withNavigation(PersonalInterestsForm);
