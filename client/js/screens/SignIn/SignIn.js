@@ -8,6 +8,7 @@ import {withNavigation} from 'react-navigation';
 import PropTypes from 'prop-types';
 import {Form, Field} from 'react-final-form';
 import GradientButton from '../../components/GradientButton';
+import {storeToken} from '../../config/models';
 
 const AUTHENTICATE_USER_MUTATION = gql`
   mutation authenticateUser($email: String!, $password: String!) {
@@ -25,13 +26,6 @@ class SignIn extends Component {
       errors: null,
     };
   }
-  storeToken = async userToken => {
-    try {
-      await AsyncStorage.setItem('userToken', userToken);
-    } catch (e) {
-      throw Error(e);
-    }
-  };
 
   onSubmit = async (authenticateUser, values) => {
     this.setState({errors: null});
@@ -42,7 +36,7 @@ class SignIn extends Component {
           password: values.password,
         },
       });
-      await this.storeToken(authenticateToken.data.authenticateUser);
+      await storeToken(authenticateToken.data.authenticateUser);
       this.props.navigation.navigate('AuthLoading');
       //update viewer context provider and query user data
     } catch (e) {

@@ -7,6 +7,7 @@ import {withNavigation} from 'react-navigation';
 import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import AsyncStorage from '@react-native-community/async-storage';
+import {storeToken} from '../../config/models';
 
 const AUTHENTICATE_USER_MUTATION = gql`
   mutation authenticateUser($email: String!, $password: String!) {
@@ -87,7 +88,7 @@ class ProfessionalInterestsForm extends React.Component {
         },
       });
       console.log(authenticateToken);
-      await this.storeToken(authenticateToken.data.authenticateUser);
+      await storeToken(authenticateToken.data.authenticateUser);
       this.props.navigation.navigate('AuthLoading');
     } catch (e) {
       console.log(e);
