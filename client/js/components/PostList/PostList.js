@@ -5,7 +5,7 @@ import Ionics from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import {formatDateString} from '../../lib/helper';
 
-const PostGrid = ({post}) => {
+const PostList = ({post}) => {
   const newDate = formatDateString(post.createdAt);
   return (
     <View style={styles.container}>
@@ -49,4 +49,4 @@ const PostGrid = ({post}) => {
   );
 };
 
-export default PostGrid;
+export default PostList;

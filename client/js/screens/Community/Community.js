@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import PostGrid from '../../components/PostGrid';
+import PostList from '../../components/PostList';
 
 const Community = ({post}) => {
   return (
     <View>
-      <PostGrid post={post} />
+      <PostList post={post} />
     </View>
   );
 };
