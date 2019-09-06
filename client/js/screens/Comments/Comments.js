@@ -1,9 +1,11 @@
 import React from 'react';
 import {View} from 'react-native';
-import SingleComment from '../../components/SingleComment';
+import CommentList from '../../components/CommentList';
 
-const Comments = ({comment}) => {
-  return <SingleComment comment={comment} />;
+const Comments = ({comments}) => {
+  return comments.map(comment => (
+    <CommentList comment={comment} key={comment.id} />
+  ));
 };
 
 export default Comments;
