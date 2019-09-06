@@ -1,24 +1,35 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
 
 const Welcome = ({navigation}) => {
   return (
-    <View>
-      <Text>Welcome to MinervaConnect</Text>
-      <Text>
-        This is an App for Minerva Community to connect with like minded women.
-      </Text>
-      <GradientButton
-        text="Get Started"
-        onPress={() => navigation.navigate('SignUp')}
+    <View style={styles.root}>
+      <Image
+        style={styles.logo}
+        source={require('../../assets/PNG/minerva_logos/minerva_leaf.png')}
       />
-      <GradientButton
-        text="Sign In"
-        onPress={() => navigation.navigate('SignIn')}
-      />
+      <View style={styles.textWrapper}>
+        <Text style={styles.heading}>Welcome to MinervaConnect</Text>
+        <Text style={styles.subHeading}>
+          This is an App for Minerva Community to connect with like minded
+          women.
+        </Text>
+      </View>
+      <View style={styles.buttonWrapper}>
+        <GradientButton
+          text="Get Started"
+          buttonStyle={styles.button}
+          onPress={() => navigation.navigate('Account')}
+        />
+        <GradientButton
+          variant="outlined"
+          text="Sign In"
+          onPress={() => navigation.navigate('SignIn')}
+        />
+      </View>
     </View>
   );
 };
