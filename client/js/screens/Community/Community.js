@@ -1,8 +1,13 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
+import PostGrid from '../../components/PostGrid';
 
-const Community = () => {
-  return <Text>Community</Text>;
+const Community = ({post}) => {
+  return (
+    <View>
+      <PostGrid post={post} />
+    </View>
+  );
 };
 
 export default Community;
