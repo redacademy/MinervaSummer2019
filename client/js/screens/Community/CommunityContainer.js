@@ -4,7 +4,6 @@ import Community from './Community';
 import {gql} from 'apollo-boost';
 import {Query} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
-// import console = require('console');
 
 export const GET_ALL_POSTS = gql`
   query {
@@ -16,6 +15,8 @@ export const GET_ALL_POSTS = gql`
           url
         }
       }
+      type
+      id
       createdAt
       title
       content
@@ -30,14 +31,16 @@ export const GET_ALL_POSTS = gql`
 `;
 
 export default class CommunityContainer extends Component {
+  static navigationOptions = {
+    title: 'Community',
+  };
   render() {
     return (
       <Query query={GET_ALL_POSTS}>
         {({loading, error, data}) => {
-          console.log(data);
           if (loading) return <CircularLoader />;
           if (error) return <Text>Error!</Text>;
-          return data.allPosts.map(post => <Community post={post} />);
+          return <Community posts={data.allPosts} />;
         }}
       </Query>
     );
