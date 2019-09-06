@@ -17,23 +17,23 @@ const styles = StyleSheet.create({
   },
   inputLabels: {
     color: theme.palette.blue,
-    marginTop: 30,
+    marginTop: '5%',
   },
   textInputs: {
-    padding: 15,
+    padding: '5%',
     borderColor: theme.palette.lightGrey,
     borderWidth: 1,
     borderRadius: 5,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: '5%',
+    marginBottom: '5%',
   },
   skip: {
     textAlign: 'center',
     color: theme.palette.blue,
   },
   signIn: {
-    marginTop: 30,
-    marginBottom: 30,
+    marginTop: '10%',
+    marginBottom: '10%',
   },
   errorMessage: {
     color: theme.palette.red,

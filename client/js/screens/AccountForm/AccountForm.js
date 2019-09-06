@@ -34,10 +34,9 @@ class AccountForm extends React.Component {
   }
 
   submitForm(values) {
-    console.log(this.state);
     const {addAccountDetails} = this.props.signUpContext;
     this.validate(values);
-    console.log(this.state);
+
     if (this.state.errors.length === 0) {
       addAccountDetails(values);
       this.props.navigation.navigate('Location');

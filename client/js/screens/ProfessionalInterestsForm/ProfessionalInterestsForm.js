@@ -50,9 +50,6 @@ const CREATE_USER_MUTATION = gql`
 `;
 
 class ProfessionalInterestsForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   storeToken = async userToken => {
     try {
       await AsyncStorage.setItem('userToken', userToken);
@@ -69,7 +66,7 @@ class ProfessionalInterestsForm extends React.Component {
   }
   async submitForm(authenticateUser, createUser) {
     const context = this.props.signUpContext.formValues;
-    console.log(context);
+
     let newUserObject = {
       ...context,
       interestsIds: context.professionalInterests.concat(
@@ -87,13 +84,12 @@ class ProfessionalInterestsForm extends React.Component {
           password: password,
         },
       });
-      console.log(authenticateToken);
+
       await storeToken(authenticateToken.data.authenticateUser);
       this.props.navigation.navigate('AuthLoading');
     } catch (e) {
       console.log(e);
     }
-    // this.props.navigation.navigate('Auth');
   }
 
   render() {
