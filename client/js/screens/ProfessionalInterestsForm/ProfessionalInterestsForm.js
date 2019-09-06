@@ -123,10 +123,16 @@ class ProfessionalInterestsForm extends React.Component {
           {authenticateUser => (
             <Mutation mutation={CREATE_USER_MUTATION}>
               {createUser => (
-                <GradientButton
-                  onPress={() => this.submitForm(authenticateUser, createUser)}
-                  text="Continue"
-                />
+                <View style={styles.buttonWrapper}>
+                  <GradientButton
+                    style={styles.button}
+                    width="80%"
+                    onPress={() =>
+                      this.submitForm(authenticateUser, createUser)
+                    }
+                    text="Continue"
+                  />
+                </View>
               )}
             </Mutation>
           )}

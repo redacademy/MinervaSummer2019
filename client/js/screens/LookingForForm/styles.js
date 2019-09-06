@@ -4,7 +4,6 @@ import theme from '../../config/theme';
 const styles = StyleSheet.create({
   root: {
     alignContent: 'center',
-    height: '100%',
     width: '100%',
     padding: '10%',
     paddingTop: '5%',

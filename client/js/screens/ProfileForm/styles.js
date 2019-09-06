@@ -4,8 +4,9 @@ import theme from '../../config/theme';
 const styles = StyleSheet.create({
   root: {
     alignContent: 'center',
-    height: '100%',
-    width: '100%',
+    // flex: 1,
+    // height: '100%',
+    // width: '100%',
     paddingLeft: '10%',
     paddingRight: '10%',
   },
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
   skip: {
     textAlign: 'center',
     color: theme.palette.blue,
+    marginBottom: '15%',
   },
   signIn: {
     marginTop: 30,
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   bioInput: {
-    minHeight: 150,
+    height: 150,
     padding: 15,
     borderColor: theme.palette.lightGrey,
     borderWidth: 1,
@@ -66,7 +68,6 @@ const styles = StyleSheet.create({
   profilePicture: {
     borderRadius: 100,
     width: 200,
-    height: 200,
     marginRight: 'auto',
     marginLeft: 'auto',
     marginTop: '10%',
@@ -75,7 +76,8 @@ const styles = StyleSheet.create({
   toMeetWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: '10%',
+    height: 60,
+    marginBottom: '5%',
     alignItems: 'center',
   },
   toMeetActive: {

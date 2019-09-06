@@ -4,6 +4,7 @@ import theme from '../../config/theme';
 const styles = StyleSheet.create({
   root: {
     alignContent: 'center',
+    justifyContent: 'space-between',
     height: '100%',
     width: '100%',
     padding: '10%',
@@ -43,6 +44,9 @@ const styles = StyleSheet.create({
   },
   nameFormWrapper: {
     width: '47%',
+  },
+  buttonWrapper: {
+    marginBottom: '5%',
   },
 });
 

@@ -62,123 +62,129 @@ class ProfileForm extends React.Component {
   }
   render() {
     return (
-      <Form
-        validate={values => this.validate(values)}
-        onSubmit={values => {
-          this.submitForm(values);
-        }}
-        render={({handleSubmit, pristine}) => (
-          <ScrollView style={styles.root}>
-            <Text style={styles.stepText}>Step 4 of 6</Text>
+      <View style={{flex: 1}}>
+        <Form
+          validate={values => this.validate(values)}
+          onSubmit={values => {
+            this.submitForm(values);
+          }}
+          render={({handleSubmit, pristine}) => (
+            <ScrollView contentContainerStyle={styles.root}>
+              <Text style={styles.stepText}>Step 4 of 6</Text>
 
-            <Text style={styles.heading}>Profile Picture</Text>
-            <Text style={styles.subHeading}>
-              Please upload a recent picture of yourself so other women can see
-              who you are. You can change your photo at any time.
-            </Text>
-            <Image
-              style={styles.profilePicture}
-              source={
-                this.state.imageUri
-                  ? {uri: this.state.imageUri}
-                  : require('../../assets/PNG/additional_illustrations/profile.png')
-              }
-            />
-            <View style={styles.imageButtonsWrapper}>
-              <GradientButton
-                onPress={() => this.pickImage()}
-                text="Take New"
-                variant="outlined"
+              <Text style={styles.heading}>Profile Picture</Text>
+              <Text style={styles.subHeading}>
+                Please upload a recent picture of yourself so other women can
+                see who you are. You can change your photo at any time.
+              </Text>
+              <Image
+                style={styles.profilePicture}
+                source={
+                  this.state.imageUri
+                    ? {uri: this.state.imageUri}
+                    : require('../../assets/PNG/additional_illustrations/profile.png')
+                }
               />
-              <GradientButton onPress={() => this.pickImage()} text="Upload" />
-            </View>
-            <Text style={styles.heading}>About Me</Text>
-            <Text style={styles.subHeading}>
-              Tell us a little bit about yourself so people can get to know you!
-              Write about what you love, your favourite food, your career, or
-              whatever comes to mind.
-            </Text>
-            <Field
-              name="bio"
-              required={true}
-              render={({input, meta}) => (
-                <View>
-                  <TextInput
-                    style={styles.bioInput}
-                    type={'text'}
-                    multiline={true}
-                    numberOfLines={6}
-                    keyboardType={'default'}
-                    placeholder={'Type here ...'}
-                    autoCorrect={false}
-                    autoCapitalize={'none'}
-                    {...input}
-                  />
-                  {meta.error && meta.touched && (
-                    <Text style={styles.errorMessage}>{meta.error}</Text>
-                  )}
-                </View>
-              )}
-            />
-            <Text style={styles.heading}>Favourite Ways to Meet</Text>
-            <Text style={styles.subHeading}>
-              Choose your favourite or preferred ways to meet with others so we
-              can connect you with other like minded women.
-            </Text>
-            <View style={styles.toMeetWrapper}>
-              <TouchableOpacity onPress={() => this.selectWayToMeet('coffee')}>
-                <Text
-                  style={
-                    this.state.coffee
-                      ? styles.toMeetActive
-                      : styles.toMeetInactive
-                  }>
-                  Coffee
-                </Text>
-              </TouchableOpacity>
+              <View style={styles.imageButtonsWrapper}>
+                <GradientButton
+                  onPress={() => this.pickImage()}
+                  text="Take New"
+                  variant="outlined"
+                />
+                <GradientButton
+                  onPress={() => this.pickImage()}
+                  text="Upload"
+                />
+              </View>
+              <Text style={styles.heading}>About Me</Text>
+              <Text style={styles.subHeading}>
+                Tell us a little bit about yourself so people can get to know
+                you! Write about what you love, your favourite food, your
+                career, or whatever comes to mind.
+              </Text>
+              <Field
+                name="bio"
+                required={true}
+                render={({input, meta}) => (
+                  <View>
+                    <TextInput
+                      style={styles.bioInput}
+                      type={'text'}
+                      multiline={true}
+                      numberOfLines={6}
+                      keyboardType={'default'}
+                      placeholder={'Type here ...'}
+                      autoCorrect={false}
+                      autoCapitalize={'none'}
+                      {...input}
+                    />
+                    {meta.error && meta.touched && (
+                      <Text style={styles.errorMessage}>{meta.error}</Text>
+                    )}
+                  </View>
+                )}
+              />
+              <Text style={styles.heading}>Favourite Ways to Meet</Text>
+              <Text style={styles.subHeading}>
+                Choose your favourite or preferred ways to meet with others so
+                we can connect you with other like minded women.
+              </Text>
+              <View style={styles.toMeetWrapper}>
+                <TouchableOpacity
+                  onPress={() => this.selectWayToMeet('coffee')}>
+                  <Text
+                    style={
+                      this.state.coffee
+                        ? styles.toMeetActive
+                        : styles.toMeetInactive
+                    }>
+                    Coffee
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.selectWayToMeet('afterSchool')}>
+                  <Text
+                    style={
+                      this.state.afterSchool
+                        ? styles.toMeetActive
+                        : styles.toMeetInactive
+                    }>
+                    After School
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.selectWayToMeet('lunch')}>
+                  <Text
+                    style={
+                      this.state.lunch
+                        ? styles.toMeetActive
+                        : styles.toMeetInactive
+                    }>
+                    Lunch
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.selectWayToMeet('aWalk')}>
+                  <Text
+                    style={
+                      this.state.aWalk
+                        ? styles.toMeetActive
+                        : styles.toMeetInactive
+                    }>
+                    A Walk
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <GradientButton onPress={() => handleSubmit()} text="Continue" />
               <TouchableOpacity
-                onPress={() => this.selectWayToMeet('afterSchool')}>
-                <Text
-                  style={
-                    this.state.afterSchool
-                      ? styles.toMeetActive
-                      : styles.toMeetInactive
-                  }>
-                  After School
-                </Text>
+                style={styles.inputLabels}
+                onPress={() => {
+                  this.props.navigation.navigate('PersonalInterests');
+                }}>
+                <Text style={styles.skip}>Skip</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.selectWayToMeet('lunch')}>
-                <Text
-                  style={
-                    this.state.lunch
-                      ? styles.toMeetActive
-                      : styles.toMeetInactive
-                  }>
-                  Lunch
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.selectWayToMeet('aWalk')}>
-                <Text
-                  style={
-                    this.state.aWalk
-                      ? styles.toMeetActive
-                      : styles.toMeetInactive
-                  }>
-                  A Walk
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <GradientButton onPress={() => handleSubmit()} text="Continue" />
-            <TouchableOpacity
-              style={styles.inputLabels}
-              onPress={() => {
-                this.props.navigation.navigate('PersonalInterests');
-              }}>
-              <Text style={styles.skip}>Skip</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        )}
-      />
+            </ScrollView>
+          )}
+        />
+      </View>
     );
   }
 }

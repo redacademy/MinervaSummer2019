@@ -5,15 +5,9 @@ import {TouchableOpacity, Text} from 'react-native';
 import styles from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 
-const GradientButton = ({text, onPress, variant, buttonStyle, textStyle}) => {
+const GradientButton = ({text, onPress, variant, width}) => {
   return (
-    <TouchableOpacity
-      opacity={0.8}
-      style={
-        (variant === 'outlined' ? styles.buttonOutlined : styles.button,
-        buttonStyle)
-      }
-      onPress={onPress}>
+    <TouchableOpacity opacity={0.8} style={{width: width}} onPress={onPress}>
       <LinearGradient
         colors={[theme.palette.green, theme.palette.blue]}
         start={{x: 0.0, y: 1.0}}

@@ -69,8 +69,14 @@ class PersonalInterestsForm extends React.Component {
             valueStyleSelected={styles.chipTextSelected}
           />
         </View>
-
-        <GradientButton onPress={() => this.submitForm()} text="Continue" />
+        <View style={styles.buttonWrapper}>
+          <GradientButton
+            style={styles.button}
+            width="80%"
+            onPress={() => this.submitForm()}
+            text="Continue"
+          />
+        </View>
       </ScrollView>
     );
   }

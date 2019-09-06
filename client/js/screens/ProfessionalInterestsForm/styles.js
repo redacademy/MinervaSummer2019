@@ -6,12 +6,12 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     height: '100%',
     width: '100%',
-    paddingTop: '5%',
-    paddingBottom: '20%',
+    overflow: 'visible',
+    marginBottom: '15%',
   },
   stepText: {
     textAlign: 'center',
-    marginBottom: '5%',
+    margin: '2%',
     color: theme.palette.mediumGrey,
   },
   chip: {
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   chipsWrapper: {
-    padding: '5%',
+    paddingBottom: '10%',
+    paddingHorizontal: '10%',
     borderTopColor: theme.palette.lightGrey,
     borderTopWidth: 1,
   },
@@ -41,12 +42,22 @@ const styles = StyleSheet.create({
   },
   heading: {
     color: theme.palette.blue,
-    margin: '5%',
+    marginHorizontal: '10%',
+    marginBottom: '1%',
+    marginTop: '5%',
     fontSize: 24,
   },
   subHeading: {
-    margin: '5%',
+    margin: '10%',
+    marginTop: '0%',
     color: theme.palette.mediumGrey,
+  },
+  divider: {
+    borderTopColor: theme.palette.lightGrey,
+    borderTopWidth: 1,
+  },
+  buttonWrapper: {
+    marginLeft: '10%',
   },
 });
 

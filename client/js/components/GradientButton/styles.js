@@ -6,11 +6,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: 'hidden',
     display: 'flex',
+    flex: 1,
   },
   buttonOutlined: {
     borderRadius: 5,
     overflow: 'visible',
     display: 'flex',
+    flex: 1,
   },
   buttonText: {
     color: 'white',

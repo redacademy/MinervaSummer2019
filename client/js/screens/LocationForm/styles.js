@@ -5,6 +5,7 @@ import {ThemeColors} from 'react-navigation';
 const styles = StyleSheet.create({
   root: {
     alignContent: 'center',
+    justifyContent: 'space-between',
     height: '100%',
     width: '100%',
     padding: '10%',
@@ -40,8 +41,14 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: theme.palette.mediumGrey,
-    marginTop: '5%',
-    marginBottom: '5%',
+    paddingHorizontal: '5%',
+  },
+  infoWrapper: {
+    width: '100%',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    paddingHorizontal: '3%',
   },
 });
 

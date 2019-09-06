@@ -51,77 +51,61 @@ class AccountForm extends React.Component {
         }}
         render={({handleSubmit, pristine}) => (
           <View style={styles.root}>
-            <Text style={styles.stepText}>Step 1 of 6</Text>
-            <View style={styles.nameWrapper}>
-              <View style={styles.nameFormWrapper}>
-                <Text style={styles.inputLabels}>First Name</Text>
-                <Field
-                  name="firstName"
-                  required={true}
-                  render={({input, meta}) => (
-                    <View>
-                      <TextInput
-                        type={'text'}
-                        keyboardType={'default'}
-                        placeholder={'First Name'}
-                        style={styles.textInputs}
-                        autoCorrect={false}
-                        autoCapitalize={'none'}
-                        {...input}
-                      />
-                      {meta.error && meta.touched && (
-                        <Text style={styles.errorMessage}>{meta.error}</Text>
-                      )}
-                    </View>
-                  )}
-                />
+            <View style={styles.top}>
+              <Text style={styles.stepText}>Step 1 of 6</Text>
+              <View style={styles.nameWrapper}>
+                <View style={styles.nameFormWrapper}>
+                  <Text style={styles.inputLabels}>First Name</Text>
+                  <Field
+                    name="firstName"
+                    required={true}
+                    render={({input, meta}) => (
+                      <View>
+                        <TextInput
+                          type={'text'}
+                          keyboardType={'default'}
+                          placeholder={'First Name'}
+                          style={styles.textInputs}
+                          autoCorrect={false}
+                          autoCapitalize={'none'}
+                          {...input}
+                        />
+                        {meta.error && meta.touched && (
+                          <Text style={styles.errorMessage}>{meta.error}</Text>
+                        )}
+                      </View>
+                    )}
+                  />
+                </View>
+                <View style={styles.nameFormWrapper}>
+                  <Text style={styles.inputLabels}>Last Name</Text>
+                  <Field
+                    name="lastName"
+                    required={true}
+                    render={({input, meta}) => (
+                      <View>
+                        <TextInput
+                          type={'text'}
+                          keyboardType={'default'}
+                          placeholder={'Last Name'}
+                          style={styles.textInputs}
+                          autoCorrect={false}
+                          autoCapitalize={'none'}
+                          {...input}
+                        />
+                        {meta.error && meta.touched && (
+                          <Text style={styles.errorMessage}>{meta.error}</Text>
+                        )}
+                      </View>
+                    )}
+                  />
+                </View>
               </View>
-              <View style={styles.nameFormWrapper}>
-                <Text style={styles.inputLabels}>Last Name</Text>
-                <Field
-                  name="lastName"
-                  required={true}
-                  render={({input, meta}) => (
-                    <View>
-                      <TextInput
-                        type={'text'}
-                        keyboardType={'default'}
-                        placeholder={'Last Name'}
-                        style={styles.textInputs}
-                        autoCorrect={false}
-                        autoCapitalize={'none'}
-                        {...input}
-                      />
-                      {meta.error && meta.touched && (
-                        <Text style={styles.errorMessage}>{meta.error}</Text>
-                      )}
-                    </View>
-                  )}
-                />
-              </View>
-            </View>
-            <Text style={styles.inputLabels}>Email Adress</Text>
-            <Field
-              name="email"
-              required={true}
-              render={({input, meta}) => (
-                <TextInput
-                  type={'email'}
-                  keyboardType={'email-address'}
-                  placeholder={'Enter email adress'}
-                  style={styles.textInputs}
-                  autoCorrect={false}
-                  autoCapitalize={'none'}
-                  {...input}
-                />
-              )}
-            />
-            <Text style={styles.inputLabels}>Comfirm Email Adress</Text>
-            <Field
-              name="comfirmEmail"
-              required={true}
-              render={({input, meta}) => (
-                <View>
+              <Text style={styles.inputLabels}>Email Adress</Text>
+              <Field
+                name="email"
+                required={true}
+                render={({input, meta}) => (
                   <TextInput
                     type={'email'}
                     keyboardType={'email-address'}
@@ -131,36 +115,53 @@ class AccountForm extends React.Component {
                     autoCapitalize={'none'}
                     {...input}
                   />
-                  {meta.error && meta.touched && (
-                    <Text style={styles.errorMessage}>{meta.error}</Text>
-                  )}
-                </View>
-              )}
-            />
-            <Text style={styles.inputLabels}>Password</Text>
-            <Field
-              name="password"
-              required={true}
-              render={({input, meta}) => (
-                <View>
-                  <TextInput
-                    type={'password'}
-                    keyboardType={'default'}
-                    placeholder={'Enter password'}
-                    style={styles.textInputs}
-                    autoCorrect={false}
-                    secureTextEntry={true}
-                    {...input}
-                  />
-                  {meta.error && meta.touched && (
-                    <Text style={styles.errorMessage}>{meta.error}</Text>
-                  )}
-                </View>
-              )}
-            />
-            <GradientButton
-              onPress={() => handleSubmit()}
-              text="Continue"></GradientButton>
+                )}
+              />
+              <Text style={styles.inputLabels}>Comfirm Email Adress</Text>
+              <Field
+                name="comfirmEmail"
+                required={true}
+                render={({input, meta}) => (
+                  <View>
+                    <TextInput
+                      type={'email'}
+                      keyboardType={'email-address'}
+                      placeholder={'Enter email adress'}
+                      style={styles.textInputs}
+                      autoCorrect={false}
+                      autoCapitalize={'none'}
+                      {...input}
+                    />
+                    {meta.error && meta.touched && (
+                      <Text style={styles.errorMessage}>{meta.error}</Text>
+                    )}
+                  </View>
+                )}
+              />
+              <Text style={styles.inputLabels}>Password</Text>
+              <Field
+                name="password"
+                required={true}
+                render={({input, meta}) => (
+                  <View>
+                    <TextInput
+                      type={'password'}
+                      keyboardType={'default'}
+                      placeholder={'Enter password'}
+                      style={styles.textInputs}
+                      autoCorrect={false}
+                      secureTextEntry={true}
+                      {...input}
+                    />
+                    {meta.error && meta.touched && (
+                      <Text style={styles.errorMessage}>{meta.error}</Text>
+                    )}
+                  </View>
+                )}
+              />
+            </View>
+
+            <GradientButton onPress={() => handleSubmit()} text="Continue" />
           </View>
         )}
       />
