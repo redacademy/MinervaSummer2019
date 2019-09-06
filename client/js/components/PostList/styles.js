@@ -2,36 +2,40 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // paddingTop: 200,
-    // justifyContent: 'center',
-    // borderWidth: 1,
+  postWrapper: {
+    paddingHorizontal: 10,
   },
+
   authorWrapper: {
     flexDirection: 'row',
+    paddingTop: 20,
   },
-  head: {
-    height: 60,
-    width: 60,
+
+  image: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+  },
+
+  nameWrapper: {
+    paddingLeft: 10,
+    justifyContent: 'space-between',
   },
 
   responseWrapper: {
     flexDirection: 'row',
+    paddingVertical: 10,
+  },
+
+  response: {
+    paddingHorizontal: 10,
   },
 
   content: {
-    paddingVertical: 20,
+    paddingVertical: 35,
   },
-  // likesWrapper: {
-  //   flexDirection: 'row',
-  // },
 
-  // commentsWrapper: {
-  //   flexDirection: 'row',
-  // },
-
-  touch: {
+  touchOp: {
     borderTopWidth: 1,
     borderBottomWidth: 1,
     flexDirection: 'row',
