@@ -37,6 +37,7 @@ class UserProfile extends Component {
         <View style={styles.root}>
           <Image
             style={styles.profileImage}
+            resizeMode={'contain'}
             source={{
               uri: 'https://facebook.github.io/react-native/img/tiny_logo.png',
             }}
@@ -114,4 +115,6 @@ class UserProfile extends Component {
   }
 }
 
-export default withNavigation(UserProfile);
+// export default withNavigation(UserProfile);
+
+export default UserProfile;

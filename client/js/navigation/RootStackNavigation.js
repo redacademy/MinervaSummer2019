@@ -8,7 +8,6 @@ import WelcomeScreen from '../screens/Welcome';
 const AuthStack = createStackNavigator({
   Welcome: WelcomeScreen,
   SignIn: SignInScreen,
-  // Profile: ProfileScreen,
 });
 
 export default createAppContainer(

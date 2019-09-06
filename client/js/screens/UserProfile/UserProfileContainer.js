@@ -8,14 +8,7 @@ export default class UserProfileContainer extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
-  //   storeData = async () => {
-  //     try {
-  //       await AsyncStorage.getItem('userToken', 'stored value');
-  //     } catch (e) {
-  //       // saving error
-  //     }
-  //   };
   render() {
-    return <UserProfile />;
+    return <UserProfile navigation={this.props.navigation} />;
   }
 }

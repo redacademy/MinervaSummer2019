@@ -6,6 +6,12 @@ const theme = {
     red: '#D86060',
     darkGrey: '#34495e',
   },
+  font: {
+    header: 25,
+    subHeader: 20,
+    subtitle: 15,
+    paragraph: 10,
+  },
 };
 
 export default theme;

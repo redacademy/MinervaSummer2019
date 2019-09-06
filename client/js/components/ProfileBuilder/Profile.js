@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 class ProfileBuilder extends React.Component {
   componentDidMount() {
-    console.log(this.props);
     this.hasUserLoggedIn();
   }
 
