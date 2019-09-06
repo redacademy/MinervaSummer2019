@@ -22,7 +22,8 @@ class LocationForm extends React.Component {
           this.submitForm(values);
         }}
         render={({handleSubmit, pristine}) => (
-          <View>
+          <View style={styles.root}>
+            <Text style={styles.stepText}>Step 2 of 6</Text>
             <Text style={styles.inputLabels}>Location (Optional)</Text>
             <Field
               name="location"
@@ -55,12 +56,16 @@ class LocationForm extends React.Component {
                 />
               )}
             />
-            <Text>
+            <Text style={styles.infoText}>
               This information is used to connect you with people near you.
               MinervaConnect will never use this information for anything else
             </Text>
             <GradientButton onPress={() => handleSubmit()} text="Continue" />
-            <TouchableOpacity style={styles.inputLabels}>
+            <TouchableOpacity
+              style={styles.inputLabels}
+              onPress={() => {
+                this.props.navigation.navigate('LookingFor');
+              }}>
               <Text style={styles.skip}>Skip</Text>
             </TouchableOpacity>
           </View>

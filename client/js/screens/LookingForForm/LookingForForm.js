@@ -22,7 +22,9 @@ class LocationForm extends React.Component {
   }
   render() {
     return (
-      <View>
+      <View style={styles.root}>
+        <Text style={styles.stepText}>Step 3 of 6</Text>
+
         <Text style={styles.heading}>I am looking to...</Text>
         <Text style={styles.subHeading}>
           (please select one option that fits you best)

@@ -1,13 +1,18 @@
 import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
+import {ThemeColors} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
-    justifyContent: 'space-evenly',
     alignContent: 'center',
     height: '100%',
     width: '100%',
-    padding: 30,
+    padding: '10%',
+    paddingTop: '5%',
+  },
+  stepText: {
+    textAlign: 'center',
+    marginBottom: '5%',
   },
   inputLabels: {
     color: theme.palette.blue,
@@ -23,6 +28,7 @@ const styles = StyleSheet.create({
   },
   skip: {
     textAlign: 'center',
+    color: theme.palette.blue,
   },
   signIn: {
     marginTop: 30,
@@ -30,6 +36,9 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: theme.palette.red,
+  },
+  infoText: {
+    color: theme.palette.mediumGrey,
   },
 });
 

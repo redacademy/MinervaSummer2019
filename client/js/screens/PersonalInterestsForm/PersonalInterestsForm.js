@@ -36,15 +36,14 @@ class PersonalInterestsForm extends React.Component {
       interest => interest.type === 'Social',
     );
     return (
-      <ScrollView>
+      <ScrollView style={styles.root}>
+        <Text style={styles.stepText}>Step 5 of 6</Text>
         <Text style={styles.heading}>Personal Interests</Text>
         <Text style={styles.subHeading}>
           By selecting your personal interests we can connect you with other
-          women who have similar interest.
-        </Text>
-        <Text style={styles.subHeading}>
-          Please select some of our personal interests below. You can add or
-          edit new ones t anytime on your profile page.
+          women who have similar interest. /n Please select some of our personal
+          interests below. You can add or edit new ones t anytime on your
+          profile page.
         </Text>
         <View style={styles.chipsWrapper}>
           <Text style={styles.chipsHeading}>Personal Interests</Text>

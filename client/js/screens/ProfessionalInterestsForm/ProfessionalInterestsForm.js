@@ -19,7 +19,7 @@ class ProfessionalInterestsForm extends React.Component {
       .filter(interest => interestTitles.includes(interest.title))
       .map(interest => interest.id);
     addProfessionalInterests(interestIds);
-    this.props.navigation.navigate('SignUp');
+    this.props.navigation.navigate('SignUpLoadingScreen');
   }
 
   render() {
@@ -28,15 +28,14 @@ class ProfessionalInterestsForm extends React.Component {
       interest => interest.type === 'Professional',
     );
     return (
-      <ScrollView>
+      <ScrollView style={styles.root}>
+        <Text style={styles.stepText}>Step 6 of 6</Text>
         <Text style={styles.heading}>Professional Interests</Text>
         <Text style={styles.subHeading}>
           By selecting your professional interests we can connect you with other
-          women who have similar interest.
-        </Text>
-        <Text style={styles.subHeading}>
-          Please select some of our professional interests below. You can add or
-          edit new ones t anytime on your profile page.
+          women who have similar interest. /n Please select some of our
+          professional interests below. You can add or edit new ones t anytime
+          on your profile page.
         </Text>
         <View style={styles.chipsWrapper}>
           <Text style={styles.chipsHeading}>Professional Interests</Text>

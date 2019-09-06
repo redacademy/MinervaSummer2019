@@ -3,11 +3,15 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   root: {
-    justifyContent: 'space-evenly',
     alignContent: 'center',
     height: '100%',
     width: '100%',
-    padding: 30,
+    padding: '10%',
+    paddingTop: '5%',
+  },
+  stepText: {
+    textAlign: 'center',
+    marginBottom: '5%',
   },
   inputLabels: {
     color: theme.palette.blue,
@@ -31,6 +35,13 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: theme.palette.red,
+  },
+  nameWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  nameFormWrapper: {
+    width: '47%',
   },
 });
 

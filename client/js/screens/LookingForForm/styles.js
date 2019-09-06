@@ -3,11 +3,15 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   root: {
-    justifyContent: 'space-evenly',
     alignContent: 'center',
     height: '100%',
     width: '100%',
-    padding: 30,
+    padding: '10%',
+    paddingTop: '5%',
+  },
+  stepText: {
+    textAlign: 'center',
+    marginBottom: '5%',
   },
   inputLabels: {
     color: theme.palette.blue,
@@ -15,7 +19,7 @@ const styles = StyleSheet.create({
   },
   notSelected: {
     padding: 15,
-    borderColor: theme.palette.lightGrey,
+    borderColor: theme.palette.darkGrey,
     borderWidth: 1,
     borderRadius: 5,
     marginTop: 10,
@@ -24,7 +28,7 @@ const styles = StyleSheet.create({
   selected: {
     padding: 15,
     backgroundColor: theme.palette.blue,
-    borderColor: 'white',
+    borderColor: theme.palette.blue,
     borderWidth: 1,
     color: 'white',
     borderRadius: 5,
@@ -43,9 +47,11 @@ const styles = StyleSheet.create({
   },
   heading: {
     color: theme.palette.blue,
+    textAlign: 'center',
+    fontSize: 24,
   },
   subHeading: {
-    color: theme.palette.lightGrey,
+    color: theme.palette.mediumGrey,
   },
 });
 

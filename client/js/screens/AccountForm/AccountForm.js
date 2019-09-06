@@ -30,46 +30,52 @@ class AccountForm extends React.Component {
     }
   }
   render() {
-    console.log(this.props.signUpContext);
     return (
       <Form
         onSubmit={values => {
           this.submitForm(values);
         }}
         render={({handleSubmit, pristine}) => (
-          <View>
-            <Text style={styles.inputLabels}>First Name</Text>
-            <Field
-              name="firstName"
-              required={true}
-              render={({input, meta}) => (
-                <TextInput
-                  type={'text'}
-                  keyboardType={'default'}
-                  placeholder={'First Name'}
-                  style={styles.textInputs}
-                  autoCorrect={false}
-                  autoCapitalize={'none'}
-                  {...input}
+          <View style={styles.root}>
+            <Text style={styles.stepText}>Step 1 of 6</Text>
+            <View style={styles.nameWrapper}>
+              <View style={styles.nameFormWrapper}>
+                <Text style={styles.inputLabels}>First Name</Text>
+                <Field
+                  name="firstName"
+                  required={true}
+                  render={({input, meta}) => (
+                    <TextInput
+                      type={'text'}
+                      keyboardType={'default'}
+                      placeholder={'First Name'}
+                      style={styles.textInputs}
+                      autoCorrect={false}
+                      autoCapitalize={'none'}
+                      {...input}
+                    />
+                  )}
                 />
-              )}
-            />
-            <Text style={styles.inputLabels}>Last Name</Text>
-            <Field
-              name="lastName"
-              required={true}
-              render={({input, meta}) => (
-                <TextInput
-                  type={'text'}
-                  keyboardType={'default'}
-                  placeholder={'Last Name'}
-                  style={styles.textInputs}
-                  autoCorrect={false}
-                  autoCapitalize={'none'}
-                  {...input}
+              </View>
+              <View style={styles.nameFormWrapper}>
+                <Text style={styles.inputLabels}>Last Name</Text>
+                <Field
+                  name="lastName"
+                  required={true}
+                  render={({input, meta}) => (
+                    <TextInput
+                      type={'text'}
+                      keyboardType={'default'}
+                      placeholder={'Last Name'}
+                      style={styles.textInputs}
+                      autoCorrect={false}
+                      autoCapitalize={'none'}
+                      {...input}
+                    />
+                  )}
                 />
-              )}
-            />
+              </View>
+            </View>
             <Text style={styles.inputLabels}>Email Adress</Text>
             <Field
               name="email"

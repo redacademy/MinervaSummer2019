@@ -60,6 +60,8 @@ class ProfileForm extends React.Component {
         }}
         render={({handleSubmit, pristine}) => (
           <ScrollView style={styles.root}>
+            <Text style={styles.stepText}>Step 4 of 6</Text>
+
             <Text style={styles.heading}>Profile Picture</Text>
             <Text style={styles.subHeading}>
               Please upload a recent picture of yourself so other women can see
@@ -148,7 +150,11 @@ class ProfileForm extends React.Component {
               </TouchableOpacity>
             </View>
             <GradientButton onPress={() => handleSubmit()} text="Continue" />
-            <TouchableOpacity style={styles.inputLabels}>
+            <TouchableOpacity
+              style={styles.inputLabels}
+              onPress={() => {
+                this.props.navigation.navigate('PersonalInterests');
+              }}>
               <Text style={styles.skip}>Skip</Text>
             </TouchableOpacity>
           </ScrollView>

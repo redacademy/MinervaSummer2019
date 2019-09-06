@@ -2,6 +2,16 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
+  root: {
+    alignContent: 'center',
+    height: '100%',
+    width: '100%',
+    paddingTop: '5%',
+  },
+  stepText: {
+    textAlign: 'center',
+    marginBottom: '5%',
+  },
   chip: {
     borderColor: theme.palette.darkGrey,
     borderWidth: 1,
@@ -26,6 +36,15 @@ const styles = StyleSheet.create({
   chipsHeading: {
     textAlign: 'center',
     margin: '5%',
+  },
+  heading: {
+    color: theme.palette.blue,
+    margin: '5%',
+    fontSize: 24,
+  },
+  subHeading: {
+    margin: '5%',
+    color: theme.palette.mediumGrey,
   },
 });
 
