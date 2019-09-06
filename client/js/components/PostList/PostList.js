@@ -41,12 +41,12 @@ const PostList = ({post}) => {
       <TouchableOpacity style={styles.touchOp}>
         <View style={styles.likeBtn}>
           <Ionics name={'ios-thumb-up'} />
-          <Text>Like</Text>
+          <Text style={styles.response}>Like</Text>
         </View>
 
         <View style={styles.commentBtn}>
           <Ionics name={'ios-thumb-up'} />
-          <Text>Comment</Text>
+          <Text style={styles.response}>Comment</Text>
         </View>
       </TouchableOpacity>
     </View>
