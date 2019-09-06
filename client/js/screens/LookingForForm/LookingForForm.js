@@ -10,12 +10,18 @@ class LocationForm extends React.Component {
     super(props);
     this.state = {
       selected: null,
+      error: false,
     };
   }
   submitForm() {
-    const {addLookingFor} = this.props.signUpContext;
-    addLookingFor(this.state.selected);
-    this.props.navigation.navigate('ProfileForm');
+    this.setState({error: false});
+    if (this.state.selected !== null) {
+      const {addLookingFor} = this.props.signUpContext;
+      addLookingFor(this.state.selected);
+      this.props.navigation.navigate('ProfileForm');
+    } else {
+      this.setState({error: true});
+    }
   }
   selectOption(selected) {
     this.setState({selected});
@@ -49,7 +55,9 @@ class LocationForm extends React.Component {
         {this.createSelectChip('Decide Later', 'Undecided')}
         {this.createSelectChip('Be a mentor', 'Mentor')}
         {this.createSelectChip('Be a mentee', 'Mentee')}
-
+        {this.state.error ? (
+          <Text style={styles.errorMessage}>*please select one option</Text>
+        ) : null}
         <GradientButton onPress={() => this.submitForm()} text="Continue" />
       </View>
     );

@@ -11,7 +11,7 @@ class SignUpProvider extends Component {
       location: '',
       school: '',
       lookingFor: null,
-      waysToMeet: ['coffee'],
+      waysToMeet: [],
       bio: 'No bio yet',
       personalInterests: [],
       professionalInterests: [],

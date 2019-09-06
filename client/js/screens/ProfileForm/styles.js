@@ -6,12 +6,13 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     height: '100%',
     width: '100%',
-    padding: '10%',
-    paddingTop: '5%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
   },
   stepText: {
     textAlign: 'center',
     color: theme.palette.mediumGrey,
+    marginTop: '5%',
   },
   heading: {
     fontSize: 20,
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 'auto',
     width: '80%',
+
     justifyContent: 'space-around',
   },
   bioInput: {
@@ -73,7 +75,8 @@ const styles = StyleSheet.create({
   toMeetWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: '5%',
+    height: '10%',
+    alignItems: 'center',
   },
   toMeetActive: {
     color: theme.palette.darkGrey,

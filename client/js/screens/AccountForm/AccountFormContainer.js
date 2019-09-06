@@ -9,10 +9,7 @@ class AccountFormContainer extends React.Component {
   render() {
     return (
       <SignUpContext.Consumer>
-        {context => {
-          console.log(context);
-          return <AccountForm signUpContext={context} />;
-        }}
+        {context => <AccountForm signUpContext={context} />}
       </SignUpContext.Consumer>
     );
   }

@@ -52,9 +52,18 @@ class ProfileForm extends React.Component {
       }
     });
   };
+  validate(values) {
+    const errors = {};
+
+    if (!values.bio) {
+      errors.bio = '*please tell us a little bit about yourself';
+    }
+    return errors;
+  }
   render() {
     return (
       <Form
+        validate={values => this.validate(values)}
         onSubmit={values => {
           this.submitForm(values);
         }}
@@ -93,17 +102,22 @@ class ProfileForm extends React.Component {
               name="bio"
               required={true}
               render={({input, meta}) => (
-                <TextInput
-                  style={styles.bioInput}
-                  type={'text'}
-                  multiline={true}
-                  numberOfLines={6}
-                  keyboardType={'default'}
-                  placeholder={'Type here ...'}
-                  autoCorrect={false}
-                  autoCapitalize={'none'}
-                  {...input}
-                />
+                <View>
+                  <TextInput
+                    style={styles.bioInput}
+                    type={'text'}
+                    multiline={true}
+                    numberOfLines={6}
+                    keyboardType={'default'}
+                    placeholder={'Type here ...'}
+                    autoCorrect={false}
+                    autoCapitalize={'none'}
+                    {...input}
+                  />
+                  {meta.error && meta.touched && (
+                    <Text style={styles.errorMessage}>{meta.error}</Text>
+                  )}
+                </View>
               )}
             />
             <Text style={styles.heading}>Favourite Ways to Meet</Text>
