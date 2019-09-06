@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   },
   stepText: {
     textAlign: 'center',
+    color: theme.palette.mediumGrey,
   },
   heading: {
     fontSize: 20,

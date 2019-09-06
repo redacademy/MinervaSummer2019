@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     display: 'flex',
   },
+  buttonOutlined: {
+    borderRadius: 5,
+    overflow: 'visible',
+    display: 'flex',
+  },
   buttonText: {
     color: 'white',
     fontSize: 18,
@@ -21,6 +26,21 @@ const styles = StyleSheet.create({
     height: '100%',
     padding: 0,
     margin: 0,
+    borderRadius: 5,
+  },
+  buttonTextOutlined: {
+    backgroundColor: 'white',
+    color: theme.palette.blue,
+    fontSize: 18,
+    textAlign: 'center',
+    padding: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderRadius: 5,
+    marginTop: 1,
+    marginLeft: 1,
+    marginBottom: 1,
+    marginRight: 1,
   },
 });
 

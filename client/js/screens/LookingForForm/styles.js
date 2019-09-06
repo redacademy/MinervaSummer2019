@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   stepText: {
     textAlign: 'center',
     marginBottom: '5%',
+    color: theme.palette.mediumGrey,
   },
   inputLabels: {
     color: theme.palette.blue,

@@ -4,22 +4,95 @@ import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 import SelectableChips from 'react-native-chip/SelectableChips';
 import {withNavigation} from 'react-navigation';
+import {gql} from 'apollo-boost';
+import {Mutation} from '@apollo/react-components';
+import AsyncStorage from '@react-native-community/async-storage';
+
+const AUTHENTICATE_USER_MUTATION = gql`
+  mutation authenticateUser($email: String!, $password: String!) {
+    authenticateUser(email: $email, password: $password) {
+      id
+      token
+    }
+  }
+`;
+
+const CREATE_USER_MUTATION = gql`
+  mutation createUser(
+    $bio: String!
+    $email: String!
+    $firstName: String!
+    $lastName: String!
+    $location: String
+    $lookingFor: String!
+    $password: String!
+    $school: String
+    $waysToMeet: [String!]
+    $interestsIds: [ID!]
+  ) {
+    createUser(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      bio: $bio
+      location: $location
+      school: $school
+      password: $password
+      interestsIds: $interestsIds
+      lookingFor: $lookingFor
+      waysToMeet: $waysToMeet
+    ) {
+      email
+      password
+    }
+  }
+`;
 
 class ProfessionalInterestsForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      professionalInterests: [],
-    };
   }
-  submitForm() {
+  storeToken = async userToken => {
+    try {
+      await AsyncStorage.setItem('userToken', userToken);
+    } catch (e) {
+      throw Error(e);
+    }
+  };
+  addChips(interestTitles) {
     const {addProfessionalInterests} = this.props.signUpContext;
-    const interestTitles = [...this.state.professionalInterests];
     const interestIds = this.props.allInterests
       .filter(interest => interestTitles.includes(interest.title))
       .map(interest => interest.id);
     addProfessionalInterests(interestIds);
-    this.props.navigation.navigate('SignUpLoadingScreen');
+  }
+  async submitForm(authenticateUser, createUser) {
+    const context = this.props.signUpContext.formValues;
+    console.log(context);
+    let newUserObject = {
+      ...context,
+      interestsIds: context.professionalInterests.concat(
+        context.personalInterests,
+      ),
+    };
+    delete newUserObject.personalInterests;
+    delete newUserObject.professionalInterests;
+    try {
+      const newUser = await createUser({variables: newUserObject});
+      const {email, password} = newUser.data.createUser;
+      const authenticateToken = await authenticateUser({
+        variables: {
+          email: email,
+          password: password,
+        },
+      });
+      console.log(authenticateToken);
+      await this.storeToken(authenticateToken.data.authenticateUser);
+      this.props.navigation.navigate('AuthLoading');
+    } catch (e) {
+      console.log(e);
+    }
+    // this.props.navigation.navigate('Auth');
   }
 
   render() {
@@ -41,9 +114,7 @@ class ProfessionalInterestsForm extends React.Component {
           <Text style={styles.chipsHeading}>Professional Interests</Text>
           <SelectableChips
             initialChips={professionalInterests.map(interest => interest.title)}
-            onChangeChips={chips =>
-              this.setState({professionalInterests: chips})
-            }
+            onChangeChips={chips => this.addChips(chips)}
             alertRequired={false}
             chipStyle={styles.chip}
             valueStyle={styles.chipText}
@@ -51,8 +122,18 @@ class ProfessionalInterestsForm extends React.Component {
             valueStyleSelected={styles.chipTextSelected}
           />
         </View>
-
-        <GradientButton onPress={() => this.submitForm()} text="Continue" />
+        <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
+          {authenticateUser => (
+            <Mutation mutation={CREATE_USER_MUTATION}>
+              {createUser => (
+                <GradientButton
+                  onPress={() => this.submitForm(authenticateUser, createUser)}
+                  text="Continue"
+                />
+              )}
+            </Mutation>
+          )}
+        </Mutation>
       </ScrollView>
     );
   }

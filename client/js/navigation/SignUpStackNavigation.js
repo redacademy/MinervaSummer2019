@@ -4,7 +4,6 @@ import LookingForFormScreen from '../screens/LookingForForm';
 import ProfileFormScreen from '../screens/ProfileForm';
 import PersonalInterestsFormScreen from '../screens/PersonalInterestsForm';
 import ProfessionalInterestsFormScreen from '../screens/ProfessionalInterestsForm';
-import SignUpLoadingScreen from '../components/SignUpLoadingScreen';
 import {createStackNavigator} from 'react-navigation-stack';
 
 const SignUpStack = createStackNavigator({
@@ -14,7 +13,6 @@ const SignUpStack = createStackNavigator({
   ProfileForm: ProfileFormScreen,
   PersonalInterests: PersonalInterestsFormScreen,
   ProfessionalInterests: ProfessionalInterestsFormScreen,
-  SignUpLoadingScreen: SignUpLoadingScreen,
 });
 
 export default SignUpStack;

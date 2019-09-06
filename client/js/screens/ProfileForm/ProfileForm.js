@@ -79,6 +79,7 @@ class ProfileForm extends React.Component {
               <GradientButton
                 onPress={() => this.pickImage()}
                 text="Take New"
+                variant="outlined"
               />
               <GradientButton onPress={() => this.pickImage()} text="Upload" />
             </View>

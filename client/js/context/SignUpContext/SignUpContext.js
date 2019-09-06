@@ -8,11 +8,11 @@ class SignUpProvider extends Component {
       firstName: null,
       lastName: null,
       email: null,
-      location: null,
-      school: null,
+      location: '',
+      school: '',
       lookingFor: null,
-      waysToMeet: [],
-      bio: null,
+      waysToMeet: ['coffee'],
+      bio: 'No bio yet',
       personalInterests: [],
       professionalInterests: [],
     };
@@ -47,7 +47,7 @@ class SignUpProvider extends Component {
     return (
       <SignUpContext.Provider
         value={{
-          ...this.state,
+          formValues: this.state,
           addProfileDetails: this.addProfileDetails,
           addPersonalInterests: this.addPersonalInterests,
           addProfessionalInterests: this.addProfessionalInterests,

@@ -6,11 +6,13 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     height: '100%',
     width: '100%',
-    paddingTop: '5%',
+    padding: '5%',
+    overflow: 'visible',
   },
   stepText: {
     textAlign: 'center',
     marginBottom: '5%',
+    color: theme.palette.mediumGrey,
   },
   chip: {
     borderColor: theme.palette.darkGrey,
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   chipsWrapper: {
-    padding: '5%',
+    paddingBottom: '10%',
     borderTopColor: theme.palette.lightGrey,
     borderTopWidth: 1,
   },
@@ -45,6 +47,10 @@ const styles = StyleSheet.create({
   subHeading: {
     margin: '5%',
     color: theme.palette.mediumGrey,
+  },
+  divider: {
+    borderTopColor: theme.palette.lightGrey,
+    borderTopWidth: 1,
   },
 });
 

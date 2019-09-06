@@ -20,12 +20,12 @@ const Welcome = ({navigation}) => {
       </View>
       <View style={styles.buttonWrapper}>
         <GradientButton
-          style={styles.button}
           text="Get Started"
+          buttonStyle={styles.button}
           onPress={() => navigation.navigate('Account')}
         />
         <GradientButton
-          style={styles.button}
+          variant="outlined"
           text="Sign In"
           onPress={() => navigation.navigate('SignIn')}
         />
