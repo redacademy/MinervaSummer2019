@@ -3,6 +3,7 @@ import {Form, Field} from 'react-final-form';
 import {Text, View, TouchableOpacity, TextInput, Keyboard} from 'react-native';
 import GradientButton from '../../GradientButton';
 import styles from './styles';
+import {withNavigation} from 'react-navigation';
 
 class AccountForm extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class AccountForm extends React.Component {
     } else {
       addAccountDetails(values);
     }
+    this.props.navigation.navigate('Location');
   }
   render() {
     return (
@@ -126,4 +128,4 @@ class AccountForm extends React.Component {
   }
 }
 
-export default AccountForm;
+export default withNavigation(AccountForm);

@@ -3,11 +3,10 @@ import theme from '../../../config/theme';
 
 const styles = StyleSheet.create({
   root: {
-    justifyContent: 'space-evenly',
     alignContent: 'center',
     height: '100%',
     width: '100%',
-    padding: 30,
+    padding: '10%',
   },
   inputLabels: {
     color: theme.palette.blue,
@@ -44,6 +43,27 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
     marginBottom: 10,
+  },
+  profilePicture: {
+    borderRadius: 100,
+    width: 200,
+    height: 200,
+    backgroundColor: theme.palette.blue,
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    marginTop: '10%',
+    marginBottom: '10%',
+  },
+  toMeetWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  toMeetActive: {
+    color: theme.palette.darkGrey,
+  },
+  toMeetInactive: {
+    color: theme.palette.lightGrey,
   },
 });
 

@@ -1,26 +1,44 @@
 import React from 'react';
 import {Form, Field} from 'react-final-form';
-import {Text, View, TouchableOpacity, TextInput, Platform} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  TextInput,
+  Platform,
+  Image,
+} from 'react-native';
 import GradientButton from '../../GradientButton';
 import styles from './styles';
 import ImagePicker from 'react-native-image-picker';
-import RNFetchBlob from 'rn-fetch-blob';
+import {withNavigation} from 'react-navigation';
 
 class ProfileForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      coffee: false,
+      lunch: false,
+      afterSchool: false,
+      aWalk: false,
+    };
   }
   submitForm(values) {
-    const {addLocationDetails} = this.props.signUpContext;
-    addLocationDetails(values);
+    const {addProfileDetails} = this.props.signUpContext;
+    const waysToMeet = Object.keys(this.state);
+    const selectedWaysToMeet = waysToMeet.filter(
+      wayToMeet => this.state[wayToMeet] === true,
+    );
+    addProfileDetails({...values, waysToMeet: selectedWaysToMeet});
+    this.props.navigation.navigate('PersonalInterests');
+  }
+  selectWayToMeet(target) {
+    this.setState({[target]: !this.state[target]});
   }
   pickImage = () => {
     const options = {
       title: 'Select Profile Picture',
-      storageOptions: {
-        skipBackup: true,
-      },
     };
     ImagePicker.launchImageLibrary(options, async response => {
       if (response.didCancel) {
@@ -31,26 +49,6 @@ class ProfileForm extends React.Component {
         let uri = response.uri;
         this.setState({imageUri: response.uri});
         if (Platform.OS === 'ios') uri.replace('file://', '');
-
-        // RNFetchBlob.fetch(
-        //   'POST',
-        //   `https://api.graph.cool/file/v1/$ck046a89w0kut01791rwn3vw9`,
-        //   {},
-        //   [
-        //     {
-        //       name: 'data',
-        //       filename: 'image',
-        //       data: RNFetchBlob.wrap(uri),
-        //     },
-        //   ],
-        // )
-        //   .then(res => {
-        //     let status = res.info().status;
-        //     console.log(status);
-        //   })
-        //   .catch(e => {
-        //     console.log(e);
-        //   });
       }
     });
   };
@@ -61,19 +59,21 @@ class ProfileForm extends React.Component {
           this.submitForm(values);
         }}
         render={({handleSubmit, pristine}) => (
-          <View>
+          <ScrollView style={styles.root}>
             <Text style={styles.heading}>Profile Picture</Text>
             <Text style={styles.subHeading}>
               Please upload a recent picture of yourself so other women can see
               who you are. You can change your photo at any time.
             </Text>
-            {this.state.imageUri ? (
-              <Image
-                style={{width: 50, height: 50}}
-                source={{uri: this.state.imageUri}}
-              />
-            ) : null}
+            <Image
+              style={styles.profilePicture}
+              source={this.state.imageUri ? {uri: this.state.imageUri} : null}
+            />
             <View style={styles.imageButtonsWrapper}>
+              <GradientButton
+                onPress={() => this.pickImage()}
+                text="Take New"
+              />
               <GradientButton onPress={() => this.pickImage()} text="Upload" />
             </View>
             <Text style={styles.heading}>About Me</Text>
@@ -104,15 +104,58 @@ class ProfileForm extends React.Component {
               Choose your favourite or preferred ways to meet with others so we
               can connect you with other like minded women.
             </Text>
+            <View style={styles.toMeetWrapper}>
+              <TouchableOpacity onPress={() => this.selectWayToMeet('coffee')}>
+                <Text
+                  style={
+                    this.state.coffee
+                      ? styles.toMeetActive
+                      : styles.toMeetInactive
+                  }>
+                  Coffee
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => this.selectWayToMeet('afterSchool')}>
+                <Text
+                  style={
+                    this.state.afterSchool
+                      ? styles.toMeetActive
+                      : styles.toMeetInactive
+                  }>
+                  After School
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.selectWayToMeet('lunch')}>
+                <Text
+                  style={
+                    this.state.lunch
+                      ? styles.toMeetActive
+                      : styles.toMeetInactive
+                  }>
+                  Lunch
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.selectWayToMeet('aWalk')}>
+                <Text
+                  style={
+                    this.state.aWalk
+                      ? styles.toMeetActive
+                      : styles.toMeetInactive
+                  }>
+                  A Walk
+                </Text>
+              </TouchableOpacity>
+            </View>
             <GradientButton onPress={() => handleSubmit()} text="Continue" />
             <TouchableOpacity style={styles.inputLabels}>
               <Text style={styles.skip}>Skip</Text>
             </TouchableOpacity>
-          </View>
+          </ScrollView>
         )}
       />
     );
   }
 }
 
-export default ProfileForm;
+export default withNavigation(ProfileForm);

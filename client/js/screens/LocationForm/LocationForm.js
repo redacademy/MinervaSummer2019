@@ -3,6 +3,7 @@ import {Form, Field} from 'react-final-form';
 import {Text, View, TouchableOpacity, TextInput, Keyboard} from 'react-native';
 import GradientButton from '../../GradientButton';
 import styles from './styles';
+import {withNavigation} from 'react-navigation';
 
 class LocationForm extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class LocationForm extends React.Component {
   submitForm(values) {
     const {addLocationDetails} = this.props.signUpContext;
     addLocationDetails(values);
+    this.props.navigation.navigate('LookingFor');
   }
   render() {
     return (
@@ -68,4 +70,4 @@ class LocationForm extends React.Component {
   }
 }
 
-export default LocationForm;
+export default withNavigation(LocationForm);

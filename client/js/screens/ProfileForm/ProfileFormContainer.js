@@ -1,8 +1,8 @@
 import React from 'react';
 import SignUpContext from '../../context/SignUpContext';
-import {ProfileForm} from '../../components/SignUpForms';
+import ProfileForm from './ProfileForm';
 
-const SignUp = () => {
+const ProfileFormContainer = () => {
   return (
     <SignUpContext.Consumer>
       {context => <ProfileForm signUpContext={context} />}
@@ -10,4 +10,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default ProfileFormContainer;

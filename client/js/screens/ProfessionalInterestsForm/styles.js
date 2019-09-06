@@ -27,6 +27,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: '5%',
   },
+  heading: {
+    fontSize: 20,
+  },
 });
 
 export default styles;

@@ -11,8 +11,8 @@ class SignUpProvider extends Component {
       location: null,
       school: null,
       lookingFor: null,
-      howToMeet: null,
-      aboutMe: null,
+      waysToMeet: [],
+      bio: null,
       personalInterests: [],
       professionalInterests: [],
     };
@@ -31,8 +31,9 @@ class SignUpProvider extends Component {
     this.setState({lookingFor});
   };
 
-  addPersonalDetails = (howToMeet, aboutMe) => {
-    this.setState({howToMeet, aboutMe});
+  addProfileDetails = values => {
+    const {bio, waysToMeet} = values;
+    this.setState({bio, waysToMeet});
   };
 
   addPersonalInterests = interests => {
@@ -47,7 +48,7 @@ class SignUpProvider extends Component {
       <SignUpContext.Provider
         value={{
           ...this.state,
-          addPersonalDetails: this.addPersonalDetails,
+          addProfileDetails: this.addProfileDetails,
           addPersonalInterests: this.addPersonalInterests,
           addProfessionalInterests: this.addProfessionalInterests,
           addLookingFor: this.addLookingFor,
