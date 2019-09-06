@@ -1,3 +1,3 @@
-import LookingForForm from './LookingForForm';
+import LookingForFormContainer from './LookingForFormContainer';
 
-export default LookingForForm;
+export default LookingForFormContainer;

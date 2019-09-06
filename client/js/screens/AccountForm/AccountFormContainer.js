@@ -5,7 +5,10 @@ import AccountForm from './AccountForm';
 const AccountFormContainer = () => {
   return (
     <SignUpContext.Consumer>
-      {context => <AccountForm signUpContext={context} />}
+      {context => {
+        console.log(context);
+        return <AccountForm signUpContext={context} />;
+      }}
     </SignUpContext.Consumer>
   );
 };

@@ -1,3 +1,3 @@
-import LocationForm from './LocationForm';
+import LocationFormContainer from './LocationFormContainer';
 
-export default LocationForm;
+export default LocationFormContainer;

@@ -10,11 +10,15 @@ class AccountForm extends React.Component {
     super(props);
     this.state = {
       emailsDifferent: null,
+      firstNameError: null,
+      lastNameError: null,
+      passwordError: null,
     };
   }
   areEmailsDifferent(email, comfirmEmail) {
     return email !== comfirmEmail;
   }
+
   submitForm(values) {
     this.setState({emailsDifferent: false});
     const {addAccountDetails} = this.props.signUpContext;
@@ -22,10 +26,11 @@ class AccountForm extends React.Component {
       this.setState({emailsDifferent: true});
     } else {
       addAccountDetails(values);
+      this.props.navigation.navigate('Location');
     }
-    this.props.navigation.navigate('Location');
   }
   render() {
+    console.log(this.props.signUpContext);
     return (
       <Form
         onSubmit={values => {

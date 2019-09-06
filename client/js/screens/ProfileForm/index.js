@@ -1,3 +1,3 @@
-import ProfileForm from './ProfileForm';
+import ProfileFormContainer from './ProfileFormContainer';
 
-export default ProfileForm;
+export default ProfileFormContainer;
