@@ -35,6 +35,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
+  textNotSelected: {
+    color: theme.palette.mediumGrey,
+    textAlign: 'center',
+  },
+  textSelected: {
+    color: 'white',
+    textAlign: 'center',
+  },
   skip: {
     textAlign: 'center',
   },

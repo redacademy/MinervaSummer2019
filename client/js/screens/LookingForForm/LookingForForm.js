@@ -20,6 +20,23 @@ class LocationForm extends React.Component {
   selectOption(selected) {
     this.setState({selected});
   }
+  createSelectChip = (message, value) => (
+    <TouchableOpacity
+      activeOpacity={0.6}
+      style={
+        this.state.selected === value ? styles.selected : styles.notSelected
+      }
+      onPress={() => this.selectOption(value)}>
+      <Text
+        style={
+          this.state.selected === value
+            ? styles.textSelected
+            : styles.textNotSelected
+        }>
+        {message}
+      </Text>
+    </TouchableOpacity>
+  );
   render() {
     return (
       <View style={styles.root}>
@@ -29,36 +46,10 @@ class LocationForm extends React.Component {
         <Text style={styles.subHeading}>
           (please select one option that fits you best)
         </Text>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={
-            this.state.selected === 'mentor'
-              ? styles.selected
-              : styles.notSelected
-          }
-          onPress={() => this.selectOption('mentor')}>
-          <Text>Be a mentor</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={
-            this.state.selected === 'mentee'
-              ? styles.selected
-              : styles.notSelected
-          }
-          onPress={() => this.selectOption('mentee')}>
-          <Text>Be a mentee</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={
-            this.state.selected === 'undecided'
-              ? styles.selected
-              : styles.notSelected
-          }
-          onPress={() => this.selectOption('undecided')}>
-          <Text>Decide later</Text>
-        </TouchableOpacity>
+        {this.createSelectChip('Decide Later', 'Undecided')}
+        {this.createSelectChip('Be a mentor', 'Mentor')}
+        {this.createSelectChip('Be a mentee', 'Mentee')}
+
         <GradientButton onPress={() => this.submitForm()} text="Continue" />
       </View>
     );
