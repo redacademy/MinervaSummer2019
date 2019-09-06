@@ -69,7 +69,11 @@ class ProfileForm extends React.Component {
             </Text>
             <Image
               style={styles.profilePicture}
-              source={this.state.imageUri ? {uri: this.state.imageUri} : null}
+              source={
+                this.state.imageUri
+                  ? {uri: this.state.imageUri}
+                  : require('../../assets/PNG/additional_illustrations/profile.png')
+              }
             />
             <View style={styles.imageButtonsWrapper}>
               <GradientButton

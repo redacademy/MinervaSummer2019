@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     width: 200,
     height: 200,
-    backgroundColor: theme.palette.blue,
     marginRight: 'auto',
     marginLeft: 'auto',
     marginTop: '10%',
