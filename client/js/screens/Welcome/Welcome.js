@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
@@ -7,6 +7,10 @@ import {withNavigation} from 'react-navigation';
 const Welcome = ({navigation}) => {
   return (
     <View style={styles.root}>
+      <Image
+        style={styles.logo}
+        source={require('../../assets/PNG/minerva_logos/minerva_leaf.png')}
+      />
       <View style={styles.textWrapper}>
         <Text style={styles.heading}>Welcome to MinervaConnect</Text>
         <Text style={styles.subHeading}>

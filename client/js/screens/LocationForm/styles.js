@@ -39,6 +39,8 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: theme.palette.mediumGrey,
+    marginTop: '5%',
+    marginBottom: '5%',
   },
 });
 

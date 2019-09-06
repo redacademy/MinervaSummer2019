@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
   },
   subHeading: {
     color: theme.palette.mediumGrey,
+    marginTop: '5%',
+    marginBottom: '5%',
   },
 });
 

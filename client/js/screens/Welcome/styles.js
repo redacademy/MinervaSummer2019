@@ -27,6 +27,11 @@ const styles = StyleSheet.create({
     height: '20%',
     width: '100%',
   },
+  logo: {
+    width: '70%',
+    height: '35%',
+    resizeMode: 'contain',
+  },
 });
 
 export default styles;
