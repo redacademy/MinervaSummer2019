@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   globe: {
+    flex: 1,
     textAlignVertical: 'center',
     textAlign: 'center',
     paddingVertical: '2%',
@@ -73,6 +74,10 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     paddingHorizontal: '6%',
     borderRadius: 15,
+  },
+  removeIcon: {
+    color: theme.palette.red,
+    fontSize: 25,
   },
 });
 

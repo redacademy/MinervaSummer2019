@@ -12,10 +12,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import styles from './styles';
-import {withNavigation} from 'react-navigation';
 import PropTypes from 'prop-types';
 import GradientButton from '../../components/GradientButton';
 import Ionics from 'react-native-vector-icons/Ionicons';
+
+let removeIcon = <Ionics name={`ios-close-circle`} style={styles.removeIcon} />;
 
 class UserProfile extends Component {
   constructor(props) {
@@ -65,7 +66,6 @@ class UserProfile extends Component {
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Favorite Ways to Meet</Text>
-              {/* TODO loop icons */}
               <View style={styles.sectionContent}>
                 <View style={styles.icon}>
                   <Ionics name={`ios-cafe`} size={25} />
@@ -75,6 +75,12 @@ class UserProfile extends Component {
                   <Ionics name={`ios-school`} size={25} />
                   <Text>After School</Text>
                 </View>
+                {this.state.profileEditable && (
+                  <View style={styles.icon}>
+                    <Ionics name={`ios-heart`} size={25} />
+                    <Text>aditional</Text>
+                  </View>
+                )}
                 <View style={styles.icon}>
                   <Ionics name={`ios-walk`} size={25} />
                   <Text>Walk</Text>
@@ -83,16 +89,17 @@ class UserProfile extends Component {
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Personal Interests</Text>
-              {/* TODO loop globes */}
               <View style={styles.sectionContent}>
-                <Text style={styles.globe}>Sports</Text>
+                <Text style={styles.globe}>
+                  Sports{this.state.profileEditable && removeIcon}
+                </Text>
+
                 <Text style={styles.globe}>Dance</Text>
                 <Text style={styles.globe}>ETC</Text>
               </View>
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Social Interests</Text>
-              {/* TODO loop globes */}
               <View style={styles.sectionContent}>
                 <Text style={styles.globe}>Sports</Text>
                 <Text style={styles.globe}>Dance</Text>
@@ -101,7 +108,6 @@ class UserProfile extends Component {
             </View>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Profesional Intereset</Text>
-              {/* TODO loop globes */}
               <View style={styles.sectionContent}>
                 <Text style={styles.globe}>Sports</Text>
                 <Text style={styles.globe}>Dance</Text>
@@ -114,7 +120,5 @@ class UserProfile extends Component {
     );
   }
 }
-
-// export default withNavigation(UserProfile);
 
 export default UserProfile;
