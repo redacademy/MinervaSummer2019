@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
   errorMessage: {
     color: theme.palette.red,
   },
+  buttonWrapper: {
+    width: '80%',
+  },
 });
 
 export default styles;
