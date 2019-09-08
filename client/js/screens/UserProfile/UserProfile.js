@@ -7,6 +7,7 @@ import {
   Keyboard,
   Image,
   ScrollView,
+  Picker,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {gql} from 'apollo-boost';
@@ -15,106 +16,225 @@ import styles from './styles';
 import PropTypes from 'prop-types';
 import GradientButton from '../../components/GradientButton';
 import Ionics from 'react-native-vector-icons/Ionicons';
-
-let removeIcon = <Ionics name={`ios-close-circle`} style={styles.removeIcon} />;
+import InterestButton from './helpers/InterestButton';
+import FaveWays from './helpers/FaveWays';
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       profileEditable: false,
+      profileInfo: {
+        name: 'Jenny Lee',
+        status: 'mentor',
+        location: 'Vancouver, Bc',
+        school: 'Burnaby:Hihg School',
+        pic: '../../assets/PNG/extras/Jenna.png',
+        bio:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Crasvitae porta magna. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae porta magna.Lorem ipsum dolor sit amet. ',
+      },
+      WaysToMeet: [
+        {name: 'Coffe', icon: 'ios-cafe', visible: true},
+        {name: 'After School', icon: 'ios-school', visible: true},
+        {name: 'Lunch', icon: 'ios-pizza', visible: false},
+        {name: 'A Walk', icon: 'ios-walk', visible: true},
+      ],
+      interest: {
+        Personal: [
+          {name: 'Sports', visible: true},
+          {name: 'Dance', visible: true},
+          {name: 'Read', visible: true},
+          {name: 'Walk', visible: true},
+          {name: 'Read', visible: true},
+          {name: 'Walk', visible: true},
+        ],
+        Social: [
+          {name: 'Sports', visible: true},
+          {name: 'Dance', visible: false},
+          {name: 'Read', visible: false},
+          {name: 'Walk', visible: true},
+          {name: 'Read', visible: true},
+          {name: 'Walk', visible: true},
+        ],
+        Profesional: [
+          {name: 'Sports', visible: true},
+          {name: 'Dance', visible: true},
+          {name: 'Read', visible: true},
+          {name: 'Walk', visible: true},
+          {name: 'Read', visible: true},
+          {name: 'Walk', visible: true},
+        ],
+      },
     };
   }
 
-  editProfile() {
+  editProfile(save = false) {
     this.setState({
       profileEditable: !this.state.profileEditable,
     });
+    if (save) {
+      this.runQuery();
+    }
+  }
+
+  updateProfile(section, key, newValue) {
+    this.setState(prevState => ({
+      [section]: {...prevState[section], [key]: newValue},
+    }));
+  }
+
+  updateWaysToMeet(index) {
+    let newWays = this.state.WaysToMeet;
+    newWays[index] = {...newWays[index], visible: !newWays[index].visible};
+    this.setState(prevState => ({
+      WaysToMeet: newWays,
+    }));
+  }
+
+  updateInterest(key, index, subInterest) {
+    let newInterest = this.state.interest[subInterest];
+    newInterest[index] = {
+      name: [key],
+      visible: !newInterest[index].visible,
+    };
+
+    this.setState(prevState => ({
+      interest: {
+        ...prevState.interest,
+        [subInterest]: newInterest,
+      },
+    }));
+  }
+  TI = (name, style, multiline = false, lines = 1) => {
+    let styleTI = {
+      ...styles[style],
+      borderColor: 'grey',
+      borderWidth: 0.5,
+      borderStyle: 'solid',
+      padding: '3%',
+    };
+    let maxLength = lines === 1 ? 20 : 300;
+    return (
+      <TextInput
+        style={styleTI}
+        placeholder={name}
+        multiline={multiline}
+        numberOfLines={lines}
+        maxLength={maxLength}
+        onBlur={Keyboard.dismiss}
+        value={this.state.profileInfo[name]}
+        onChangeText={input =>
+          this.updateProfile('profileInfo', name, input)
+        }></TextInput>
+    );
+  };
+
+  runQuery() {
+    return this.state;
   }
 
   render() {
+    let waysToMeetSelected = this.state.WaysToMeet.filter(way =>
+      this.state.profileEditable ? true : way.visible,
+    );
+    let listOfInterest = Object.keys(this.state.interest);
+
     return (
       <ScrollView>
         <View style={styles.root}>
-          <Image
-            style={styles.profileImage}
-            resizeMode={'contain'}
-            source={{
-              uri: 'https://facebook.github.io/react-native/img/tiny_logo.png',
-            }}
-          />
-          <Text style={styles.name}>Jenny Lee</Text>
-          <GradientButton
-            onPress={() => this.editProfile()}
-            text="Edit Profile"></GradientButton>
-          <Text style={styles.status}>Status:Looking for a Mentor</Text>
-          <Text style={styles.locationStatus}>
-            <Ionics name={`ios-today`} size={25} /> Vancouver, Bc
-          </Text>
-          <Text style={styles.locationStatus}>
-            <Ionics name={`ios-book`} size={25} /> Burnaby High School
-          </Text>
-          <View style={styles.interest}>
+          <View style={styles.metaProfile}>
+            <Image
+              style={styles.profileImage}
+              resizeMode={'cover'}
+              source={require('../../assets/PNG/extras/Jenna.png')}
+            />
+            {this.state.profileEditable ? (
+              this.TI('name', 'name')
+            ) : (
+              <Text style={styles.name}>{this.state.profileInfo.name}</Text>
+            )}
+            {!this.state.profileEditable && (
+              <GradientButton
+                onPress={() => this.editProfile()}
+                text="Edit Profile"
+              />
+            )}
+
+            <Text style={styles.status}>
+              Status: {this.state.profileInfo.status}
+            </Text>
+
+            {this.state.profileEditable ? (
+              this.TI('location', 'locationStatus')
+            ) : (
+              <Text style={styles.locationStatus}>
+                <Ionics name={`ios-today`} size={25} />
+                {this.state.profileInfo.location}
+              </Text>
+            )}
+
+            {this.state.profileEditable ? (
+              this.TI('school', 'locationStatus')
+            ) : (
+              <Text style={styles.locationStatus}>
+                <Ionics name={`ios-book`} size={25} />
+                {this.state.profileInfo.school}
+              </Text>
+            )}
+
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>About Me</Text>
-              <Text style={styles.sectionContent}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-                vitae porta magna. Lorem ipsum dolor sit amet. Lorem ipsum dolor
-                sit amet, consectetur adipiscing elit. Cras vitae porta magna.
-                Lorem ipsum dolor sit amet.
-              </Text>
+              {this.state.profileEditable ? (
+                this.TI('bio', 'sectionContent', true, 5)
+              ) : (
+                <Text style={styles.sectionContent}>
+                  {this.state.profileInfo.bio}
+                </Text>
+              )}
             </View>
+          </View>
+          <View style={styles.interest}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Favorite Ways to Meet</Text>
               <View style={styles.sectionContent}>
-                <View style={styles.icon}>
-                  <Ionics name={`ios-cafe`} size={25} />
-                  <Text>Coffe</Text>
+                {waysToMeetSelected.map((item, index) => (
+                  <FaveWays
+                    key={item.name + index}
+                    item={item}
+                    index={index}
+                    updateWaysToMeet={this.updateWaysToMeet.bind(
+                      this,
+                    )}></FaveWays>
+                ))}
+              </View>
+            </View>
+            {listOfInterest.map(section => (
+              <View style={styles.section} key={section}>
+                <Text style={styles.sectionTitle}>{section} Interests</Text>
+                <View style={styles.sectionContent}>
+                  {this.state.interest[section].map((group, index) => (
+                    <InterestButton
+                      key={group.name + index}
+                      info={group}
+                      interest={section}
+                      index={index}
+                      show={this.state.profileEditable}
+                      updateInterest={this.updateInterest.bind(
+                        this,
+                      )}></InterestButton>
+                  ))}
                 </View>
-                <View style={styles.icon}>
-                  <Ionics name={`ios-school`} size={25} />
-                  <Text>After School</Text>
-                </View>
-                {this.state.profileEditable && (
-                  <View style={styles.icon}>
-                    <Ionics name={`ios-heart`} size={25} />
-                    <Text>aditional</Text>
-                  </View>
-                )}
-                <View style={styles.icon}>
-                  <Ionics name={`ios-walk`} size={25} />
-                  <Text>Walk</Text>
-                </View>
               </View>
-            </View>
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Personal Interests</Text>
-              <View style={styles.sectionContent}>
-                <Text style={styles.globe}>
-                  Sports{this.state.profileEditable && removeIcon}
-                </Text>
-
-                <Text style={styles.globe}>Dance</Text>
-                <Text style={styles.globe}>ETC</Text>
-              </View>
-            </View>
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Social Interests</Text>
-              <View style={styles.sectionContent}>
-                <Text style={styles.globe}>Sports</Text>
-                <Text style={styles.globe}>Dance</Text>
-                <Text style={styles.globe}>ETC</Text>
-              </View>
-            </View>
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Profesional Intereset</Text>
-              <View style={styles.sectionContent}>
-                <Text style={styles.globe}>Sports</Text>
-                <Text style={styles.globe}>Dance</Text>
-                <Text style={styles.globe}>ETC</Text>
-              </View>
-            </View>
+            ))}
           </View>
+
+          {this.state.profileEditable && (
+            <GradientButton
+              onPress={() => this.editProfile(true)}
+              text="Save Changes"
+              style={styles.interest}
+            />
+          )}
         </View>
       </ScrollView>
     );

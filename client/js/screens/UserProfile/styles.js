@@ -2,13 +2,22 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
+  TextInput: {
+    borderStyle: 'dashed',
+  },
+
   root: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '100%',
+    height: 'auto',
     width: '100%',
     padding: '5%',
+  },
+  metaProfile: {
+    flex: 1,
+    marginVertical: '5%',
+    alignItems: 'center',
   },
   profileImage: {
     flex: 1,
@@ -21,7 +30,7 @@ const styles = StyleSheet.create({
     fontSize: theme.font.subHeader,
     letterSpacing: 0.3,
     lineHeight: 25,
-    paddingVertical: '5%',
+    marginVertical: '5%',
   },
   status: {
     fontSize: theme.font.subtitle,
@@ -29,17 +38,29 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingVertical: '5%',
   },
+  editableStatus: {
+    fontSize: theme.font.subtitle,
+    color: theme.palette.blue,
+    fontWeight: 'bold',
+    marginVertical: '1%',
+    height: 20,
+    width: 100,
+  },
   locationStatus: {
     fontSize: theme.font.paragraph,
     color: theme.palette.darkGrey,
+    marginVertical: '2%',
   },
+
   interest: {
     flex: 1,
-    paddingVertical: '5%',
+    marginVertical: '5%',
+    height: 'auto',
   },
   section: {
     flex: 1,
-    paddingVertical: '5%',
+    marginVertical: '5%',
+    height: 'auto',
   },
   sectionTitle: {
     flex: 1,
@@ -49,12 +70,13 @@ const styles = StyleSheet.create({
   },
   sectionContent: {
     flex: 1,
-    flexWrap: 'nowrap',
+    flexWrap: 'wrap',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     marginVertical: '2%',
     textAlign: 'center',
+    height: 'auto',
   },
   icon: {
     flex: 1,
@@ -63,21 +85,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   globe: {
-    flex: 1,
     textAlignVertical: 'center',
     textAlign: 'center',
-    paddingVertical: '2%',
-    minHeight: '50%',
+    marginVertical: '2%',
+    marginHorizontal: '1%',
     fontSize: theme.font.subtitle,
     backgroundColor: theme.palette.blue,
     color: 'white',
     fontWeight: '900',
-    paddingHorizontal: '6%',
-    borderRadius: 15,
+    paddingHorizontal: '5%',
+    paddingTop: '2%',
+    paddingBottom: '20%',
+    borderRadius: 10,
   },
   removeIcon: {
     color: theme.palette.red,
     fontSize: 25,
+  },
+  saveButton: {
+    flex: 1,
+    marginVertical: '1%',
+    height: 'auto',
   },
 });
 
