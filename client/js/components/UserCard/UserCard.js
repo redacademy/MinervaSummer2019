@@ -18,22 +18,30 @@ const UserCard = ({user, navigation}) => {
             {`${user.firstName} ${user.lastName}`}
           </Text>
           {user.location ? (
-            <Text style={styles.locationSchool}>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              }}>
               <MaterialCommunityIcons
                 name={'home-city-outline'}
-                style={styles.locationSchool}
+                style={[styles.locationSchool, {marginTop: '2%'}]}
               />
-              {`  ${user.location}`}
-            </Text>
+              <Text style={styles.locationSchool}>{`${user.location}`}</Text>
+            </View>
           ) : null}
           {user.school ? (
-            <Text style={styles.locationSchool}>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+              }}>
               <MaterialCommunityIcons
                 name={'book-open-page-variant'}
-                style={styles.locationSchool}
+                style={[styles.locationSchool, {marginTop: '1%'}]}
               />
-              {`  ${user.school}`}
-            </Text>
+              <Text style={styles.locationSchool}>{`${user.school}`}</Text>
+            </View>
           ) : null}
         </View>
       </View>
