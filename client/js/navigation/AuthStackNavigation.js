@@ -5,7 +5,6 @@ import ProfileFormScreen from '../screens/ProfileForm';
 import PersonalInterestsFormScreen from '../screens/PersonalInterestsForm';
 import ProfessionalInterestsFormScreen from '../screens/ProfessionalInterestsForm';
 import {createStackNavigator} from 'react-navigation-stack';
-import AuthLoadingScreen from '../components/AuthLoadingScreen';
 import WelcomeScreen from '../screens/Welcome';
 import SignInScreen from '../screens/SignIn';
 
