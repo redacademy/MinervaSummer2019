@@ -7,3 +7,12 @@ export const storeToken = async userToken => {
     throw Error(e);
   }
 };
+
+export const getToken = async () => {
+  try {
+    const userToken = await AsyncStorage.getItem('userToken');
+    return JSON.parse(userToken);
+  } catch (e) {
+    throw Error(e);
+  }
+};
