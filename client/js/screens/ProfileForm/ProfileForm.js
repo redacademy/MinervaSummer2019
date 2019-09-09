@@ -47,7 +47,7 @@ class ProfileForm extends React.Component {
         console.log('ImagePicker Error: ', response.error);
       } else {
         let uri = response.uri;
-        this.setState({imageUri: response.uri});
+        this.setState({imageUri: uri});
         if (Platform.OS === 'ios') uri.replace('file://', '');
       }
     });
@@ -131,7 +131,17 @@ class ProfileForm extends React.Component {
               </Text>
               <View style={styles.toMeetWrapper}>
                 <TouchableOpacity
-                  onPress={() => this.selectWayToMeet('coffee')}>
+                  onPress={() => this.selectWayToMeet('coffee')}
+                  style={styles.toMeetButton}>
+                  <Image
+                    resizeMode={'center'}
+                    style={styles.toMeetImage}
+                    source={
+                      this.state.coffee
+                        ? require('../../assets/PNG/ways_to_meet/coffee_active.png')
+                        : require('../../assets/PNG/ways_to_meet/coffee_inactive.png')
+                    }
+                  />
                   <Text
                     style={
                       this.state.coffee
@@ -142,7 +152,17 @@ class ProfileForm extends React.Component {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => this.selectWayToMeet('afterSchool')}>
+                  onPress={() => this.selectWayToMeet('afterSchool')}
+                  style={styles.toMeetButton}>
+                  <Image
+                    resizeMode={'center'}
+                    style={styles.toMeetImage}
+                    source={
+                      this.state.afterSchool
+                        ? require('../../assets/PNG/ways_to_meet/after_school_active.png')
+                        : require('../../assets/PNG/ways_to_meet/after_school_inactive.png')
+                    }
+                  />
                   <Text
                     style={
                       this.state.afterSchool
@@ -152,7 +172,18 @@ class ProfileForm extends React.Component {
                     After School
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.selectWayToMeet('lunch')}>
+                <TouchableOpacity
+                  style={styles.toMeetButton}
+                  onPress={() => this.selectWayToMeet('lunch')}>
+                  <Image
+                    resizeMode={'center'}
+                    style={styles.toMeetImage}
+                    source={
+                      this.state.lunch
+                        ? require('../../assets/PNG/ways_to_meet/lunch_active.png')
+                        : require('../../assets/PNG/ways_to_meet/lunch_inactive.png')
+                    }
+                  />
                   <Text
                     style={
                       this.state.lunch
@@ -162,7 +193,18 @@ class ProfileForm extends React.Component {
                     Lunch
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.selectWayToMeet('aWalk')}>
+                <TouchableOpacity
+                  style={styles.toMeetButton}
+                  onPress={() => this.selectWayToMeet('aWalk')}>
+                  <Image
+                    resizeMode={'center'}
+                    style={styles.toMeetImage}
+                    source={
+                      this.state.aWalk
+                        ? require('../../assets/PNG/ways_to_meet/walk_active.png')
+                        : require('../../assets/PNG/ways_to_meet/walk_inactive.png')
+                    }
+                  />
                   <Text
                     style={
                       this.state.aWalk

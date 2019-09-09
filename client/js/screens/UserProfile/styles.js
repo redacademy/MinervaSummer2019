@@ -107,6 +107,10 @@ const styles = StyleSheet.create({
     marginVertical: '1%',
     height: 'auto',
   },
+  logout: {
+    color: theme.palette.red,
+    fontFamily: theme.fonts.regular,
+  },
 });
 
 export default styles;

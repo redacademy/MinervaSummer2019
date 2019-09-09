@@ -120,22 +120,27 @@ class ProfessionalInterestsForm extends React.Component {
           />
         </View>
         <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
-          {authenticateUser => (
-            <Mutation mutation={CREATE_USER_MUTATION}>
-              {createUser => (
-                <View style={styles.buttonWrapper}>
-                  <GradientButton
-                    style={styles.button}
-                    width="80%"
-                    onPress={() =>
-                      this.submitForm(authenticateUser, createUser)
-                    }
-                    text="Continue"
-                  />
-                </View>
-              )}
-            </Mutation>
-          )}
+          {(authenticateUser, {loading}) => {
+            if (loading) {
+              return <CircularLoader />;
+            }
+            return (
+              <Mutation mutation={CREATE_USER_MUTATION}>
+                {createUser => (
+                  <View style={styles.buttonWrapper}>
+                    <GradientButton
+                      style={styles.button}
+                      width="80%"
+                      onPress={() =>
+                        this.submitForm(authenticateUser, createUser)
+                      }
+                      text="Continue"
+                    />
+                  </View>
+                )}
+              </Mutation>
+            );
+          }}
         </Mutation>
       </ScrollView>
     );
