@@ -74,7 +74,7 @@ class PostList extends Component {
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Comments');
+                navigation.navigate('Comments', {comments: post.comments});
               }}
               activeOpacity={0.6}
               style={styles.goToComment}>
