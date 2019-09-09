@@ -5,8 +5,13 @@ import ProfileFormScreen from '../screens/ProfileForm';
 import PersonalInterestsFormScreen from '../screens/PersonalInterestsForm';
 import ProfessionalInterestsFormScreen from '../screens/ProfessionalInterestsForm';
 import {createStackNavigator} from 'react-navigation-stack';
+import AuthLoadingScreen from '../components/AuthLoadingScreen';
+import WelcomeScreen from '../screens/Welcome';
+import SignInScreen from '../screens/SignIn';
 
-const SignUpStack = createStackNavigator({
+const AuthStack = createStackNavigator({
+  Welcome: WelcomeScreen,
+  SignIn: SignInScreen,
   Account: AccountFormScreen,
   Location: LocationFormScreen,
   LookingFor: LookingForFormScreen,
@@ -15,4 +20,4 @@ const SignUpStack = createStackNavigator({
   ProfessionalInterests: ProfessionalInterestsFormScreen,
 });
 
-export default SignUpStack;
+export default AuthStack;
