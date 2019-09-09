@@ -1,0 +1,3 @@
+import ProfessionalInterestsFormContainer from './ProfessionalInterestsFormContainer';
+
+export default ProfessionalInterestsFormContainer;

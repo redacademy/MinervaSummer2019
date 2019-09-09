@@ -8,6 +8,7 @@ import {withNavigation} from 'react-navigation';
 import PropTypes from 'prop-types';
 import {Form, Field} from 'react-final-form';
 import GradientButton from '../../components/GradientButton';
+import {storeToken} from '../../config/models';
 
 const AUTHENTICATE_USER_MUTATION = gql`
   mutation authenticateUser($email: String!, $password: String!) {
@@ -25,13 +26,6 @@ class SignIn extends Component {
       errors: null,
     };
   }
-  storeToken = async userToken => {
-    try {
-      await AsyncStorage.setItem('userToken', userToken);
-    } catch (e) {
-      throw Error(e);
-    }
-  };
 
   onSubmit = async (authenticateUser, values) => {
     this.setState({errors: null});
@@ -42,39 +36,55 @@ class SignIn extends Component {
           password: values.password,
         },
       });
-      await this.storeToken(authenticateToken.data.authenticateUser);
+      await storeToken(JSON.stringify(authenticateToken.data.authenticateUser));
       this.props.navigation.navigate('AuthLoading');
       //update viewer context provider and query user data
     } catch (e) {
       this.setState({errors: true});
     }
   };
+  validate(values) {
+    const errors = {};
+    if (!values.email) {
+      errors.email = '*please enter youre email';
+    }
+    if (!values.password) {
+      errors.password = '*please enter your password';
+    }
+    return errors;
+  }
 
   render() {
     return (
-      <View style={styles.root}>
-        <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
-          {authenticateUser => (
-            <Form
-              onSubmit={values => {
-                this.onSubmit(authenticateUser, values);
-              }}
-              render={({handleSubmit, pristine}) => (
-                <View>
+      <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
+        {authenticateUser => (
+          <Form
+            validate={values => this.validate(values)}
+            onSubmit={values => {
+              this.onSubmit(authenticateUser, values);
+            }}
+            render={({handleSubmit, pristine}) => (
+              <View style={styles.root}>
+                <View style={styles.topInputs}>
                   <Text style={styles.inputLabels}>Email Adress</Text>
                   <Field
                     name="email"
                     required={true}
                     render={({input, meta}) => (
-                      <TextInput
-                        type={'email'}
-                        keyboardType={'email-address'}
-                        placeholder={'Enter email adress'}
-                        style={styles.textInputs}
-                        autoCorrect={false}
-                        autoCapitalize={'none'}
-                        {...input}
-                      />
+                      <View>
+                        <TextInput
+                          type={'email'}
+                          keyboardType={'email-address'}
+                          placeholder={'Enter email adress'}
+                          style={styles.textInputs}
+                          autoCorrect={false}
+                          autoCapitalize={'none'}
+                          {...input}
+                        />
+                        {meta.error && meta.touched && (
+                          <Text style={styles.errorMessage}>{meta.error}</Text>
+                        )}
+                      </View>
                     )}
                   />
                   <Text style={styles.inputLabels}>Password</Text>
@@ -82,37 +92,46 @@ class SignIn extends Component {
                     name="password"
                     required={true}
                     render={({input, meta}) => (
-                      <TextInput
-                        type={'password'}
-                        keyboardType={'default'}
-                        placeholder={'Enter password'}
-                        style={styles.textInputs}
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        {...input}
-                      />
+                      <View>
+                        <TextInput
+                          type={'password'}
+                          keyboardType={'default'}
+                          placeholder={'Enter password'}
+                          style={styles.textInputs}
+                          autoCorrect={false}
+                          secureTextEntry={true}
+                          {...input}
+                        />
+                        {meta.error && meta.touched && (
+                          <Text style={styles.errorMessage}>{meta.error}</Text>
+                        )}
+                      </View>
                     )}
                   />
-                  {this.state.errors ? (
-                    <Text style={styles.errorMessage}>
-                      Invalid email/password combination
-                    </Text>
-                  ) : null}
+                </View>
+                {this.state.errors ? (
+                  <Text style={styles.errorMessage}>
+                    Invalid email/password combination
+                  </Text>
+                ) : null}
+                <View styel={styles.bottomButtons}>
                   <GradientButton
                     onPress={() => handleSubmit()}
                     text="Sign In"></GradientButton>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.navigation.navigate('SignUp');
+                    }}>
+                    <Text style={styles.signUp}>
+                      Dont have an account? Sign up
+                    </Text>
+                  </TouchableOpacity>
                 </View>
-              )}
-            />
-          )}
-        </Mutation>
-        <TouchableOpacity
-          onPress={() => {
-            this.props.navigation.navigate('SignUp');
-          }}>
-          <Text style={styles.signUp}>Dont have an account? Sign up</Text>
-        </TouchableOpacity>
-      </View>
+              </View>
+            )}
+          />
+        )}
+      </Mutation>
     );
   }
 }
