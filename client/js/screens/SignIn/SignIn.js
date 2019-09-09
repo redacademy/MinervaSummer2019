@@ -39,7 +39,6 @@ class SignIn extends Component {
       });
       await storeToken(authenticateToken.data.authenticateUser);
       this.props.navigation.navigate('AuthLoading');
-      //update viewer context provider and query user data
     } catch (e) {
       this.setState({errors: true});
     }

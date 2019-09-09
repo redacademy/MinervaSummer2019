@@ -16,7 +16,9 @@ class UserProfileContainer extends Component {
           try {
             removeToken();
             navigation.navigate('AuthLoading');
-          } catch (e) {}
+          } catch (e) {
+            throw Error(e);
+          }
         }}>
         <Text style={styles.logout}>Sign Out</Text>
       </TouchableOpacity>

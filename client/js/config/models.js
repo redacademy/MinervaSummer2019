@@ -19,7 +19,6 @@ export const getToken = async () => {
 export const removeToken = async () => {
   try {
     await AsyncStorage.removeItem('userToken');
-    console.log('hmmm');
   } catch (e) {
     throw Error(e);
   }
