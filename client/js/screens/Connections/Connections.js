@@ -1,8 +1,18 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Tex, ScrollView} from 'react-native';
+import UserCard from '../../components/UserCard';
 
-const Connections = () => {
-  return <Text>Connections</Text>;
-};
+class Connections extends React.Component {
+  render() {
+    const {allUsers} = this.props;
+    return (
+      <ScrollView>
+        {allUsers.map(user => (
+          <UserCard user={user} key={user.id}></UserCard>
+        ))}
+      </ScrollView>
+    );
+  }
+}
 
 export default Connections;

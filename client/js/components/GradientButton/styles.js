@@ -16,11 +16,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
     padding: 20,
     paddingTop: 15,
     paddingBottom: 15,
+    fontFamily: theme.fonts.heavy,
   },
   gradient: {
     position: 'absolute',
