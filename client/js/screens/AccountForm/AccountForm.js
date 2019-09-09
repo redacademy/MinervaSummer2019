@@ -165,6 +165,12 @@ class AccountForm extends React.Component {
             </View>
 
             <GradientButton onPress={() => handleSubmit()} text="Continue" />
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('SignIn');
+              }}>
+              <Text style={styles.signIn}>Sign into an existing account</Text>
+            </TouchableOpacity>
           </View>
         )}
       />

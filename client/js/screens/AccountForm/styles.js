@@ -51,6 +51,11 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     marginBottom: '5%',
   },
+  signIn: {
+    fontFamily: theme.fonts.heavy,
+    textAlign: 'center',
+    color: theme.palette.darkGrey,
+  },
 });
 
 export default styles;
