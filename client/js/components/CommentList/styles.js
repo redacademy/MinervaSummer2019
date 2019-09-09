@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     paddingVertical: '3%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   likes: {
