@@ -6,6 +6,13 @@ const theme = {
     mediumGrey: '#979797',
     darkGrey: '#4D4D4F',
     red: '#D86060',
+    darkGrey: '#34495e',
+  },
+  font: {
+    header: 25,
+    subHeader: 20,
+    subtitle: 15,
+    paragraph: 10,
   },
   fonts: {
     black: 'Lato-Black',
