@@ -3,18 +3,18 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    paddingTop: 200,
+    paddingHorizontal: '5%',
+    paddingVertical: '5%',
+    width: '100%',
   },
 
   commentWrapper: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 
   imageWrapper: {
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    paddingRight: 10,
+    flexDirection: 'row',
   },
 
   image: {
@@ -24,25 +24,24 @@ const styles = StyleSheet.create({
   },
 
   comment: {
-    width: 250,
+    width: '80%',
     backgroundColor: theme.palette.lightBlue,
-    backgroundColor: 'grey',
     borderRadius: 10,
   },
 
   author: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: '5%',
+    paddingVertical: '3%',
   },
 
   content: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: '5%',
+    paddingVertical: '3%',
   },
 
-  botWrapper: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+  resWrapper: {
+    paddingHorizontal: '5%',
+    paddingVertical: '3%',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },

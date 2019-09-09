@@ -18,14 +18,15 @@ const CommentList = ({comment}) => {
           <Text style={styles.author}>
             {comment.author.firstName}
             <View style={{width: 2}} />
-            {comment.author.lastName}
+            {comment.author.lastName}:
           </Text>
           <Text style={styles.content}>{comment.content}</Text>
 
-          <View style={styles.botWrapper}>
+          <View style={styles.resWrapper}>
             <View style={styles.likes}>
               <Ionics name={'ios-thumbs-up'} />
-              <Text> likes</Text>
+              <View style={{width: 2}} />
+              <Text>{comment.likes.length} likes</Text>
             </View>
 
             <TouchableOpacity opacity={0.8}>

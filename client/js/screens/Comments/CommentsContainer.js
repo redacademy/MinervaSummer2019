@@ -20,6 +20,9 @@ const GET_COMMENTS = gql`
       post {
         title
       }
+      likes {
+        id
+      }
     }
   }
 `;
