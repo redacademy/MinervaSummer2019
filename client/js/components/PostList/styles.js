@@ -3,17 +3,19 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   postWrapper: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
 
   topWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '100%',
   },
 
   authorWrapper: {
     flexDirection: 'row',
-    paddingTop: 20,
+    width: '80%',
   },
 
   image: {
@@ -23,40 +25,30 @@ const styles = StyleSheet.create({
   },
 
   nameWrapper: {
-    paddingLeft: 10,
-    justifyContent: 'space-between',
+    paddingLeft: '5%',
+    justifyContent: 'space-around',
   },
 
   time: {
     color: theme.palette.darkGrey,
   },
 
-  postBtn: {
-    paddingTop: 20,
-  },
-
-  menuList: {
-    paddingLeft: 50,
+  content: {
+    paddingVertical: '5%',
   },
 
   responseWrapper: {
     flexDirection: 'row',
-    paddingVertical: 10,
-    flexDirection: 'row',
+    paddingVertical: '2%',
   },
 
   response: {
-    paddingHorizontal: 10,
+    paddingHorizontal: '2%',
     color: theme.palette.darkGrey,
   },
 
   goToComment: {
     flexDirection: 'row',
-    flexDirection: 'row',
-  },
-
-  content: {
-    paddingVertical: 35,
   },
 
   opWrapper: {
