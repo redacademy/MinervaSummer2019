@@ -52,12 +52,14 @@ class LocationForm extends React.Component {
         <Text style={styles.subHeading}>
           (please select one option that fits you best)
         </Text>
-        {this.createSelectChip('Decide Later', 'Undecided')}
-        {this.createSelectChip('Be a mentor', 'Mentor')}
-        {this.createSelectChip('Be a mentee', 'Mentee')}
-        {this.state.error ? (
-          <Text style={styles.errorMessage}>*please select one option</Text>
-        ) : null}
+        <View style={styles.selectWrapper}>
+          {this.createSelectChip('Decide Later', 'Undecided')}
+          {this.createSelectChip('Be a mentor', 'Mentor')}
+          {this.createSelectChip('Be a mentee', 'Mentee')}
+          {this.state.error ? (
+            <Text style={styles.errorMessage}>*please select one option</Text>
+          ) : null}
+        </View>
         <GradientButton onPress={() => this.submitForm()} text="Continue" />
       </View>
     );

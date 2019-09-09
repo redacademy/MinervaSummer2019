@@ -10,9 +10,6 @@ const CommunityStack = createStackNavigator({
   Community: {
     screen: CommunityScreen,
   },
-  Comments: {
-    screen: CommentsScreen,
-  },
 });
 const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});
 const ChatsStack = createStackNavigator({Chats: ChatsScreen});
