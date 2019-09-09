@@ -15,6 +15,7 @@ type User @model {
   photo: File @relation(name: "UserPhoto")
   lookingFor: String!
   waysToMeet: [String!]!
+  commentLikes: [Comment!]! @relation(name: "CommentLikes")
 }
 
 type Interest @model {
@@ -41,6 +42,7 @@ type Comment @model {
   createdAt: DateTime!
   post: Post! @relation(name: "PostComments")
   author: User! @relation(name: "UserComments")
+  likes: [User!]! @relation(name: "CommentLikes")
 }
 
 type File @model {

@@ -20,11 +20,19 @@ export const GET_ALL_POSTS = gql`
       createdAt
       title
       content
-      comments {
-        id
-      }
       likes {
         id
+      }
+      comments {
+        id
+        author {
+          firstName
+          lastName
+        }
+        content
+        likes {
+          id
+        }
       }
     }
   }
