@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     color: theme.palette.darkGrey,
     marginBottom: '5%',
     fontFamily: theme.fonts.heavy,
+    textTransform: 'capitalize',
   },
   buttonWrapper: {
     width: '90%',

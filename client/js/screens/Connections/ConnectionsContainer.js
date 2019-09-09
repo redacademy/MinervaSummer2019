@@ -3,6 +3,7 @@ import Connections from './Connections';
 import {Query} from '@apollo/react-components';
 import {gql} from 'apollo-boost';
 import CircularLoader from '../../components/CircularLoader';
+import {Text} from 'react-native';
 
 const ALL_USERS_QUERY = gql`
   {
@@ -13,6 +14,9 @@ const ALL_USERS_QUERY = gql`
       lastName
       location
       school
+      interests {
+        id
+      }
     }
   }
 `;
