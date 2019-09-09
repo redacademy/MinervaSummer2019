@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   buttonTextOutlined: {
     backgroundColor: 'white',
     color: theme.palette.blue,
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
     padding: 20,
     paddingTop: 15,
