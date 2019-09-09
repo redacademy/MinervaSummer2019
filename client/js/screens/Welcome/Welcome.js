@@ -11,6 +11,7 @@ const Welcome = ({navigation}) => {
         style={styles.logo}
         source={require('../../assets/PNG/minerva_logos/minerva_leaf.png')}
       />
+
       <View style={styles.textWrapper}>
         <Text style={styles.heading}>Welcome to MinervaConnect</Text>
         <Text style={styles.subHeading}>
@@ -30,6 +31,7 @@ const Welcome = ({navigation}) => {
           onPress={() => navigation.navigate('SignIn')}
         />
       </View>
+
     </View>
   );
 };
