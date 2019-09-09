@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     marginLeft: 1,
     marginBottom: 1,
     marginRight: 1,
+    fontFamily: theme.fonts.heavy,
   },
 });
 

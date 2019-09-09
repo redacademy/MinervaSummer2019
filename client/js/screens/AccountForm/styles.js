@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   inputLabels: {
     color: theme.palette.blue,
     marginTop: '5%',
+    fontFamily: theme.fonts.heavy,
   },
   textInputs: {
     padding: '5%',
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: '5%',
     marginBottom: '5%',
+    fontFamily: theme.fonts.regular,
   },
   signUp: {
     textDecorationLine: 'underline',
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: theme.palette.red,
+    fontFamily: theme.fonts.regular,
   },
   nameWrapper: {
     flexDirection: 'row',

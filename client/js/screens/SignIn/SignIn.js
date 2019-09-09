@@ -36,7 +36,7 @@ class SignIn extends Component {
           password: values.password,
         },
       });
-      await storeToken(JSON.stringify(authenticateToken.data.authenticateUser));
+      await storeToken(authenticateToken.data.authenticateUser);
       this.props.navigation.navigate('AuthLoading');
       //update viewer context provider and query user data
     } catch (e) {
@@ -46,7 +46,7 @@ class SignIn extends Component {
   validate(values) {
     const errors = {};
     if (!values.email) {
-      errors.email = '*please enter youre email';
+      errors.email = '*please enter your email address';
     }
     if (!values.password) {
       errors.password = '*please enter your password';
@@ -66,7 +66,7 @@ class SignIn extends Component {
             render={({handleSubmit, pristine}) => (
               <View style={styles.root}>
                 <View style={styles.topInputs}>
-                  <Text style={styles.inputLabels}>Email Adress</Text>
+                  <Text style={styles.inputLabels}>Email Address</Text>
                   <Field
                     name="email"
                     required={true}
@@ -75,7 +75,7 @@ class SignIn extends Component {
                         <TextInput
                           type={'email'}
                           keyboardType={'email-address'}
-                          placeholder={'Enter email adress'}
+                          placeholder={'Enter email address'}
                           style={styles.textInputs}
                           autoCorrect={false}
                           autoCapitalize={'none'}
