@@ -47,10 +47,8 @@ class ProfileForm extends React.Component {
         console.log('ImagePicker Error: ', response.error);
       } else {
         let uri = response.uri;
-        if (Platform.OS === 'ios') uri.replace('file://', '');
         this.setState({imageUri: uri});
-        console.log(uri);
-        console.log(this.state);
+        if (Platform.OS === 'ios') uri.replace('file://', '');
       }
     });
   };

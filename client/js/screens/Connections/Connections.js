@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
 import UserCard from '../../components/UserCard';
 import styles from './styles';
 import AsyncStorage from '@react-native-community/async-storage';
 import {getToken} from '../../config/models';
 import CircularLoader from '../../components/CircularLoader';
+import GradientButton from '../../components/GradientButton';
 
 class Connections extends React.Component {
   constructor(props) {
@@ -30,11 +31,34 @@ class Connections extends React.Component {
   };
   displayConnected = () => {
     const {allUsers} = this.props;
-    return allUsers.map(user => (
-      <UserCard user={user} key={user.id}></UserCard>
-    ));
+    const connectedUsers = [];
+    if ((connectedUsers.length = [0])) {
+      return this.displayNoConnections();
+    }
   };
-
+  displayNoConnections = () => {
+    return (
+      <View style={styles.noConnectionsWrapper}>
+        <Image
+          style={styles.profilePicture}
+          source={require('../../assets/PNG/additional_illustrations/connections.png')}
+        />
+        <Text style={styles.noConnectionsHeading}>
+          You don't have any connections yet!
+        </Text>
+        <Text style={styles.noConnectionsSubHeading}>
+          Go ahead and say hello! Find new connections in the suggested tab.
+        </Text>
+        <View>
+          <GradientButton
+            text={'View Suggested'}
+            onPress={() => {
+              this.toggleForm();
+            }}></GradientButton>
+        </View>
+      </View>
+    );
+  };
   displaySuggestions = () => {
     const {allUsers} = this.props;
     return allUsers.map(user => (
@@ -81,7 +105,7 @@ class Connections extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-        {this.state.formToggle && this.state.viewerId
+        {!this.state.formToggle && this.state.viewerId
           ? this.displaySuggestions()
           : this.displayConnected()}
       </ScrollView>
