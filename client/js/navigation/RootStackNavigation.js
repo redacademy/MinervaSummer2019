@@ -6,11 +6,14 @@ import {createStackNavigator} from 'react-navigation-stack';
 import WelcomeScreen from '../screens/Welcome';
 import SignInScreen from '../screens/SignIn';
 
-const AuthStack = createStackNavigator({
-  Welcome: WelcomeScreen,
-  SignIn: SignInScreen,
-  SignUp: SignUpStack,
-});
+const AuthStack = createStackNavigator(
+  {
+    Welcome: WelcomeScreen,
+    SignIn: SignInScreen,
+    SignUp: SignUpStack,
+  },
+  {headerMode: 'none'},
+);
 
 export default createAppContainer(
   createSwitchNavigator(

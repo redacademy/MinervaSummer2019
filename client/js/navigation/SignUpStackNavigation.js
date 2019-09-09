@@ -6,16 +6,13 @@ import PersonalInterestsFormScreen from '../screens/PersonalInterestsForm';
 import ProfessionalInterestsFormScreen from '../screens/ProfessionalInterestsForm';
 import {createStackNavigator} from 'react-navigation-stack';
 
-const SignUpStack = createStackNavigator(
-  {
-    Account: AccountFormScreen,
-    Location: LocationFormScreen,
-    LookingFor: LookingForFormScreen,
-    ProfileForm: ProfileFormScreen,
-    PersonalInterests: PersonalInterestsFormScreen,
-    ProfessionalInterests: ProfessionalInterestsFormScreen,
-  },
-  {headerMode: 'none'},
-);
+const SignUpStack = createStackNavigator({
+  Account: AccountFormScreen,
+  Location: LocationFormScreen,
+  LookingFor: LookingForFormScreen,
+  ProfileForm: ProfileFormScreen,
+  PersonalInterests: PersonalInterestsFormScreen,
+  ProfessionalInterests: ProfessionalInterestsFormScreen,
+});
 
 export default SignUpStack;
