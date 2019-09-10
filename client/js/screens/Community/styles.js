@@ -3,23 +3,31 @@ import theme from '../../config/theme';
 import {BorderlessButton} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
+  postWrapper: {
+    paddingVertical: '5%',
+    paddingHorizontal: '3%',
+    borderBottomWidth: 1,
+    borderColor: theme.palette.lightGrey,
+  },
+
   op: {
     borderWidth: 1,
     borderColor: theme.palette.lightGrey,
     height: 35,
     borderRadius: 50,
+    justifyContent: 'center',
   },
 
   postInput: {
-    justifyContent: 'center',
-    alignItems: 'center',
     marginLeft: '5%',
+    flexDirection: 'row',
+    alignContent: 'center',
   },
 
   header: {
     fontSize: 24,
     textAlign: 'center',
-    paddingVertical: '4%',
+    paddingVertical: '5%',
   },
 
   topicsWrapper: {
@@ -44,13 +52,6 @@ const styles = StyleSheet.create({
 
   topicTextSelected: {
     color: '#FFF',
-  },
-
-  lineB: {
-    width: '100%',
-    paddingTop: '4%',
-    borderBottomWidth: 1,
-    borderColor: theme.palette.lightGrey,
   },
 });
 

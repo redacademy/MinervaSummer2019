@@ -16,7 +16,7 @@ const CommentList = ({comment}) => {
       <View style={styles.comment}>
         <Text style={styles.author}>
           {comment.author.firstName}
-          <View style={style.lineB} />
+          <View style={styles.lineB} />
           {comment.author.lastName}:
         </Text>
         <Text style={styles.content}>{comment.content}</Text>
@@ -24,7 +24,7 @@ const CommentList = ({comment}) => {
         <View style={styles.resWrapper}>
           <View style={styles.likes}>
             <Ionics name={'ios-thumbs-up'} />
-            <View style={style.lineB} />
+            <View style={styles.lineB} />
             <Text>{comment.likes.length} likes</Text>
           </View>
 

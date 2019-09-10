@@ -5,6 +5,7 @@ import ConnectionsScreen from '../screens/Connections';
 import ChatsScreen from '../screens/AllChats';
 import CommentsScreen from '../screens/Comments';
 import ProfileScreen from '../screens/UserProfile';
+import CreatePostScreen from '../screens/CreatePost';
 
 const CommunityStack = createStackNavigator({
   Community: {
@@ -12,6 +13,9 @@ const CommunityStack = createStackNavigator({
   },
   Comments: {
     screen: CommentsScreen,
+  },
+  CreatePost: {
+    screen: CreatePostScreen,
   },
 });
 const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PostList from '../../components/PostList';
 import {ScrollView, TouchableOpacity, View, Text} from 'react-native';
 import SelectableChips from 'react-native-chip/SelectableChips';
+import Ionics from 'react-native-vector-icons/Ionicons';
+import {withNavigation} from 'react-navigation';
 import styles from './styles';
 
 class Community extends React.Component {
@@ -13,13 +15,21 @@ class Community extends React.Component {
   }
 
   render() {
-    const {posts} = this.props;
+    const {posts, navigation} = this.props;
 
     return (
       <ScrollView>
         <View style={styles.postWrapper}>
-          <TouchableOpacity opacity={0.8} style={styles.op}>
-            <Text style={styles.postInput}>Share your thoughts here...</Text>
+          <TouchableOpacity
+            opacity={0.8}
+            style={styles.op}
+            onPress={() => {
+              navigation.navigate('CreatePost');
+            }}>
+            <View style={styles.postInput}>
+              <Ionics name="ios-thought-bubble-outline" size={15} />
+              <Text> Share your thoughts here...</Text>
+            </View>
           </TouchableOpacity>
 
           <Text style={styles.header}>Topics</Text>
@@ -33,7 +43,6 @@ class Community extends React.Component {
               chipStyleSelected={styles.topicSelected}
               valueStyleSelected={styles.topicTextSelected}
             />
-            <View style={styles.lineB} />
           </View>
         </View>
 
@@ -45,4 +54,4 @@ class Community extends React.Component {
   }
 }
 
-export default Community;
+export default withNavigation(Community);
