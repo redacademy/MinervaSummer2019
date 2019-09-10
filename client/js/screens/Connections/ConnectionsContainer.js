@@ -4,6 +4,7 @@ import {Query} from '@apollo/react-components';
 import {gql} from 'apollo-boost';
 import CircularLoader from '../../components/CircularLoader';
 import {Text} from 'react-native';
+import {getToken} from '../../config/models';
 
 const ALL_USERS_QUERY = gql`
   {
