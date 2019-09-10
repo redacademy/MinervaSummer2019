@@ -36,13 +36,10 @@ class AuthLoadingScreen extends React.Component {
     if (!userToken) {
       this.props.navigation.navigate('Auth');
     } else {
-      console.log(userToken);
       const {data} = await client.query({
         query: USER_QUERY,
         variables: {id: userToken.id},
       });
-      console.log(data);
-      console.log({...data.User, token: userToken.token});
       await storeToken({...data.User, token: userToken.token});
       this.props.navigation.navigate('App');
     }

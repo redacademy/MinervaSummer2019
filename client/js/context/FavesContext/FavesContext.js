@@ -14,7 +14,7 @@ class FavesProvider extends Component {
     try {
       const userToken = await getToken();
       if (userToken) {
-        this.setState({viewer: userToken.id});
+        this.setState({viewer: userToken});
         this.updateFaves();
       }
     } catch (e) {

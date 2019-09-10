@@ -2,25 +2,14 @@ import React from 'react';
 import {Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
 import UserCard from '../../components/UserCard';
 import styles from './styles';
-import AsyncStorage from '@react-native-community/async-storage';
-import {getToken} from '../../config/models';
-import CircularLoader from '../../components/CircularLoader';
 import GradientButton from '../../components/GradientButton';
 
-displaySuggestions = (allUsers, viewerId) => {
-  return allUsers.map(user => <UserCard user={user} key={user.id}></UserCard>);
+displaySuggestions = suggestedUsers => {
+  return suggestedUsers.map(user => (
+    <UserCard user={user} key={user.id}></UserCard>
+  ));
 };
-selectInterests = viewer => {
-  const targetInterests = [];
-  const maxInterests = Math.min(3, viewer.interests.length);
-  while (targetInterests.length < maxInterests) {
-    let i = Math.round(Math.random() * viewer.interests.length);
-    if (!targetInterests.includes(viewer.interests[i])) {
-      targetInterests.push(viewer.interests[i]);
-    }
-  }
-  return targetInterests;
-};
+
 displayNoConnections = toggleForm => {
   return (
     <View style={styles.noConnectionsWrapper}>
@@ -45,14 +34,14 @@ displayNoConnections = toggleForm => {
   );
 };
 
-displayConnected = (toggleForm, allUsers) => {
+displayConnected = (toggleForm, suggestedUsers) => {
   const connectedUsers = [];
   if ((connectedUsers.length = [0])) {
     return displayNoConnections(toggleForm);
   }
 };
 
-const Connections = ({state, allUsers, toggleForm, viewer}) => {
+const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
   return (
     <ScrollView>
       <View style={styles.headingsWrapper}>
@@ -88,8 +77,8 @@ const Connections = ({state, allUsers, toggleForm, viewer}) => {
         </View>
       </View>
       {!state.formToggle
-        ? this.displaySuggestions(allUsers, viewer)
-        : this.displayConnected(toggleForm, allUsers)}
+        ? this.displaySuggestions(suggestedUsers, viewer)
+        : this.displayConnected(toggleForm, suggestedUsers)}
     </ScrollView>
   );
 };

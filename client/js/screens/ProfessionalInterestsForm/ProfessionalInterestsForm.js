@@ -9,7 +9,6 @@ import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import AsyncStorage from '@react-native-community/async-storage';
 import {storeToken} from '../../config/models';
-import CircularLoader from '../../components/CircularLoader';
 
 const AUTHENTICATE_USER_MUTATION = gql`
   mutation authenticateUser($email: String!, $password: String!) {
