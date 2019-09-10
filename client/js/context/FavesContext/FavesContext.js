@@ -23,7 +23,6 @@ class FavesProvider extends Component {
   };
   updateFaves = async () => {
     const faves = await getFaves(this.state.viewer);
-    console.log(faves);
     if (faves !== null) {
       this.setState({faves: faves});
     }

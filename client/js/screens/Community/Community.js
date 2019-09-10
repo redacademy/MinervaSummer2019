@@ -3,7 +3,6 @@ import PostList from '../../components/PostList';
 import {ScrollView} from 'react-native';
 
 const Community = ({posts, context}) => {
-  console.log(context);
   const {faves, addFave, removeFave, viewer} = context;
   return (
     <ScrollView>
