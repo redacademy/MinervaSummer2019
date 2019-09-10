@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
 const FavesContext = React.createContext();
-import {
-  getFaves,
-  getToken,
-  addFaveId,
-  removeFaveId,
-  deleteAllFaves,
-} from '../../config/models';
+import {getFaves, getToken, addFaveId, removeFaveId} from '../../config/models';
 
 class FavesProvider extends Component {
   constructor(props) {
@@ -58,7 +52,6 @@ class FavesProvider extends Component {
           ...this.state,
           addFave: this.addFave,
           removeFave: this.removeFave,
-          deleteAllFaves: deleteAllFaves,
         }}>
         {this.props.children}
       </FavesContext.Provider>

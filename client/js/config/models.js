@@ -54,10 +54,3 @@ export const removeFaveId = async (viewerId, postId) => {
     throw Error(e);
   }
 };
-export const deleteAllFaves = async viewerId => {
-  try {
-    await AsyncStorage.removeItem(viewerId);
-  } catch (error) {
-    return error;
-  }
-};
