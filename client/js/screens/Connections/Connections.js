@@ -11,7 +11,6 @@ displaySuggestions = (allUsers, viewerId) => {
   return allUsers.map(user => <UserCard user={user} key={user.id}></UserCard>);
 };
 selectInterests = viewer => {
-  const viewerInterests
   const targetInterests = [];
   const maxInterests = Math.min(3, viewer.interests.length);
   while (targetInterests.length < maxInterests) {

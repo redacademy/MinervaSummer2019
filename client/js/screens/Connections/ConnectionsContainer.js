@@ -49,7 +49,6 @@ export default class ConnectionsContainer extends Component {
     super(props);
     this.state = {
       formToggle: false,
-      viewerId: null,
     };
   }
   static navigationOptions = {
@@ -58,10 +57,10 @@ export default class ConnectionsContainer extends Component {
   toggleForm = () => {
     this.setState({formToggle: !this.state.formToggle});
   };
-  getViewerId = async () => {
+  getViewer = async () => {
     try {
       const userToken = await getToken();
-      this.setState({viewerId: userToken.id});
+      this.setState({viewer: userToken});
     } catch (e) {
       throw e;
     }
@@ -81,7 +80,7 @@ export default class ConnectionsContainer extends Component {
     ));
   };
   render() {
-    !this.state.viewerId ? this.getViewerId() : null;
+    !this.state.viewer ? this.getViewer() : null;
 
     return (
       <Query query={ALL_USERS_QUERY}>

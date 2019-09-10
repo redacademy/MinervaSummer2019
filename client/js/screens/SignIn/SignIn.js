@@ -20,6 +20,24 @@ const AUTHENTICATE_USER_MUTATION = gql`
   }
 `;
 
+const USER_QUERY = gql`
+  query User($email: String!) {
+    User(id: $email) {
+      firstName
+      lastName
+      location
+      school
+      bio
+      lookingFor
+      waysToMeet
+      interests {
+        title
+        id
+      }
+    }
+  }
+`;
+
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -37,10 +55,10 @@ class SignIn extends Component {
           password: values.password,
         },
       });
-      console.log(authenticateToken);
       await storeToken(authenticateToken.data.authenticateUser);
       this.props.navigation.navigate('AuthLoading');
     } catch (e) {
+      console.log(e);
       this.setState({errors: true});
     }
   };
@@ -60,7 +78,7 @@ class SignIn extends Component {
       <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
         {(authenticateUser, {loading}) => {
           if (loading) {
-            return <CircularLoader />;
+            return <CircularLoader></CircularLoader>;
           }
           return (
             <Form
