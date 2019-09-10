@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, TextInput, Keyboard} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import styles from './styles';

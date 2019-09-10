@@ -5,6 +5,7 @@ import Ionics from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
 import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 class PostList extends Component {
   setMenuRef = ref => {
@@ -20,7 +21,7 @@ class PostList extends Component {
   };
 
   render() {
-    const {post, navigation} = this.props;
+    const {post, navigation, faved, addFave, removeFave, viewer} = this.props;
     const newDate = formatDateString(post.createdAt);
     return (
       <View style={styles.container}>
@@ -43,6 +44,15 @@ class PostList extends Component {
             </View>
 
             <View style={styles.postBtn}>
+              {faved ? (
+                <TouchableOpacity onPress={() => removeFave(post.id)}>
+                  <AntDesign name={'star'} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={() => addFave(post.id)}>
+                  <AntDesign name={'staro'} />
+                </TouchableOpacity>
+              )}
               <Menu
                 ref={this.setMenuRef}
                 button={

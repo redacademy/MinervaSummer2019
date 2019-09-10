@@ -4,6 +4,7 @@ import Community from './Community';
 import {gql} from 'apollo-boost';
 import {Query} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
+import FavesContext from '../../context/FavesContext';
 
 export const GET_ALL_POSTS = gql`
   query {
@@ -36,13 +37,19 @@ export default class CommunityContainer extends Component {
   };
   render() {
     return (
-      <Query query={GET_ALL_POSTS}>
-        {({loading, error, data}) => {
-          if (loading) return <CircularLoader />;
-          if (error) return <Text>Error!</Text>;
-          return <Community posts={data.allPosts} />;
+      <FavesContext.Consumer>
+        {context => {
+          return (
+            <Query query={GET_ALL_POSTS}>
+              {({loading, error, data}) => {
+                if (loading) return <CircularLoader />;
+                if (error) return <Text>Error!</Text>;
+                return <Community context={context} posts={data.allPosts} />;
+              }}
+            </Query>
+          );
         }}
-      </Query>
+      </FavesContext.Consumer>
     );
   }
 }
