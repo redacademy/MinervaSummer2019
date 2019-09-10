@@ -27,7 +27,6 @@ const USER_QUERY = gql`
 `;
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {
-    // removeToken();
     this.hasUserLoggedIn();
   }
 
@@ -52,11 +51,7 @@ class AuthLoadingScreen extends React.Component {
 
   render() {
     this.hasUserLoggedIn;
-    return (
-      <View>
-        <CircularLoader />
-      </View>
-    );
+    return <CircularLoader />;
   }
 }
 

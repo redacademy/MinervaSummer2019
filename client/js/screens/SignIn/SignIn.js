@@ -57,7 +57,6 @@ class SignIn extends Component {
       await storeToken(authenticateToken.data.authenticateUser);
       this.props.navigation.navigate('AuthLoading');
     } catch (e) {
-      console.log(e);
       this.setState({errors: true});
     }
   };
