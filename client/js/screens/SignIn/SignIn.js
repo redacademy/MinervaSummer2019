@@ -19,6 +19,24 @@ const AUTHENTICATE_USER_MUTATION = gql`
   }
 `;
 
+const USER_QUERY = gql`
+  query User($email: String!) {
+    User(id: $email) {
+      firstName
+      lastName
+      location
+      school
+      bio
+      lookingFor
+      waysToMeet
+      interests {
+        title
+        id
+      }
+    }
+  }
+`;
+
 class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +76,7 @@ class SignIn extends Component {
       <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
         {(authenticateUser, {loading, error}) => {
           if (loading) {
-            return <CircularLoader />;
+            return <CircularLoader></CircularLoader>;
           }
           if (error) {
             return (

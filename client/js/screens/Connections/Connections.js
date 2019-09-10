@@ -2,13 +2,19 @@ import React from 'react';
 import {Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
 import UserCard from '../../components/UserCard';
 import styles from './styles';
-import AsyncStorage from '@react-native-community/async-storage';
-import {getToken} from '../../config/models';
-import CircularLoader from '../../components/CircularLoader';
 import GradientButton from '../../components/GradientButton';
 
-displaySuggestions = allUsers => {
-  return allUsers.map(user => <UserCard user={user} key={user.id}></UserCard>);
+displaySuggestions = suggestedUsers => {
+  if (suggestedUsers.length === 0) {
+    return (
+      <Text>
+        Were sorry, we could not find any suggestions for you at this time.
+      </Text>
+    );
+  }
+  return suggestedUsers.map(user => (
+    <UserCard user={user} key={user.id}></UserCard>
+  ));
 };
 
 displayNoConnections = toggleForm => {
@@ -35,14 +41,14 @@ displayNoConnections = toggleForm => {
   );
 };
 
-displayConnected = (toggleForm, allUsers) => {
+displayConnected = (toggleForm, suggestedUsers) => {
   const connectedUsers = [];
   if ((connectedUsers.length = [0])) {
     return displayNoConnections(toggleForm);
   }
 };
 
-const Connections = ({state, allUsers, toggleForm}) => {
+const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
   return (
     <ScrollView>
       <View style={styles.headingsWrapper}>
@@ -78,8 +84,8 @@ const Connections = ({state, allUsers, toggleForm}) => {
         </View>
       </View>
       {!state.formToggle
-        ? this.displaySuggestions(allUsers)
-        : this.displayConnected(toggleForm, allUsers)}
+        ? this.displaySuggestions(suggestedUsers, viewer)
+        : this.displayConnected(toggleForm, suggestedUsers)}
     </ScrollView>
   );
 };

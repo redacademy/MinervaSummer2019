@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, ScrollView} from 'react-native';
 import GradientButton from '../../components/GradientButton';
+import CircularLoader from '../../components/CircularLoader';
 import styles from './styles';
 import SelectableChips from 'react-native-chip/SelectableChips';
 import {withNavigation} from 'react-navigation';
@@ -8,7 +9,6 @@ import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import AsyncStorage from '@react-native-community/async-storage';
 import {storeToken} from '../../config/models';
-import CircularLoader from '../../components/CircularLoader';
 
 const AUTHENTICATE_USER_MUTATION = gql`
   mutation authenticateUser($email: String!, $password: String!) {
