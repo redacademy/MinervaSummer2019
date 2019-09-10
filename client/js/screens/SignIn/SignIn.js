@@ -56,9 +56,21 @@ class SignIn extends Component {
   render() {
     return (
       <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
-        {(authenticateUser, {loading}) => {
+        {(authenticateUser, {loading, error}) => {
           if (loading) {
             return <CircularLoader />;
+          }
+          if (error) {
+            return (
+              <View>
+                <Text>Were sorry, we could not log you in right now</Text>
+                <GradientButton
+                  text="Back to Sign In"
+                  onPress={() => {
+                    this.props.navigation.navigate('SignIn');
+                  }}></GradientButton>
+              </View>
+            );
           }
           return (
             <Form
