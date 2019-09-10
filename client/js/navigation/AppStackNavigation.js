@@ -3,9 +3,14 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import CommunityScreen from '../screens/Community';
 import ConnectionsScreen from '../screens/Connections';
 import ChatsScreen from '../screens/AllChats';
+import CommentsScreen from '../screens/Comments';
 import ProfileScreen from '../screens/UserProfile';
 
-const CommunityStack = createStackNavigator({Community: CommunityScreen});
+const CommunityStack = createStackNavigator({
+  Community: {
+    screen: CommunityScreen,
+  },
+});
 const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});
 const ChatsStack = createStackNavigator({Chats: ChatsScreen});
 const ProfileStack = createStackNavigator({Profile: ProfileScreen});

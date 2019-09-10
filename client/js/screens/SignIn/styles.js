@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   inputLabels: {
     color: theme.palette.blue,
     marginTop: 30,
+    fontFamily: theme.fonts.heavy,
   },
   textInputs: {
     padding: 15,
@@ -20,10 +21,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
     marginBottom: 10,
+    fontFamily: theme.fonts.regular,
   },
   signUp: {
-    textDecorationLine: 'underline',
+    fontFamily: theme.fonts.heavy,
     textAlign: 'center',
+    color: theme.palette.darkGrey,
   },
   signIn: {
     marginTop: 30,
@@ -31,6 +34,10 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: theme.palette.red,
+    fontFamily: theme.fonts.regular,
+  },
+  buttonWrapper: {
+    width: '80%',
   },
 });
 
