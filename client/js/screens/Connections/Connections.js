@@ -5,6 +5,13 @@ import styles from './styles';
 import GradientButton from '../../components/GradientButton';
 
 displaySuggestions = suggestedUsers => {
+  if (suggestedUsers.length === 0) {
+    return (
+      <Text>
+        Were sorry, we could not find any suggestions for you at this time.
+      </Text>
+    );
+  }
   return suggestedUsers.map(user => (
     <UserCard user={user} key={user.id}></UserCard>
   ));
