@@ -4,6 +4,7 @@ import {Query} from '@apollo/react-components';
 import {gql} from 'apollo-boost';
 import CircularLoader from '../../components/CircularLoader';
 import {Text} from 'react-native';
+import {getToken} from '../../config/models';
 
 const ALL_USERS_QUERY = gql`
   {
@@ -17,6 +18,28 @@ const ALL_USERS_QUERY = gql`
       interests {
         id
       }
+    }
+  }
+`;
+
+const SUGGESTED_USERS_QUERY = gql`
+  query($interest1: ID!, $interest2: ID!, $interest3: ID!) {
+    allUsers(
+      filter: {
+        AND: [
+          {interests_some: {id: $interest1}}
+          {interests_some: {id: $interest2}}
+          {interests_some: {id: $interest3}}
+        ]
+      }
+      first: 5
+    ) {
+      firstName
+      bio
+      lastName
+      id
+      school
+      location
     }
   }
 `;
@@ -40,7 +63,7 @@ export default class ConnectionsContainer extends Component {
       const userToken = await getToken();
       this.setState({viewerId: userToken.id});
     } catch (e) {
-      console.log(e);
+      throw e;
     }
   };
   displayConnected = () => {
@@ -74,6 +97,7 @@ export default class ConnectionsContainer extends Component {
               toggleForm={this.toggleForm}
               state={this.state}
               allUsers={data.allUsers}
+              viewer={this.state.viewerId}
             />
           );
         }}

@@ -7,10 +7,21 @@ import {getToken} from '../../config/models';
 import CircularLoader from '../../components/CircularLoader';
 import GradientButton from '../../components/GradientButton';
 
-displaySuggestions = allUsers => {
+displaySuggestions = (allUsers, viewerId) => {
   return allUsers.map(user => <UserCard user={user} key={user.id}></UserCard>);
 };
-
+selectInterests = viewer => {
+  const viewerInterests
+  const targetInterests = [];
+  const maxInterests = Math.min(3, viewer.interests.length);
+  while (targetInterests.length < maxInterests) {
+    let i = Math.round(Math.random() * viewer.interests.length);
+    if (!targetInterests.includes(viewer.interests[i])) {
+      targetInterests.push(viewer.interests[i]);
+    }
+  }
+  return targetInterests;
+};
 displayNoConnections = toggleForm => {
   return (
     <View style={styles.noConnectionsWrapper}>
@@ -42,7 +53,7 @@ displayConnected = (toggleForm, allUsers) => {
   }
 };
 
-const Connections = ({state, allUsers, toggleForm}) => {
+const Connections = ({state, allUsers, toggleForm, viewer}) => {
   return (
     <ScrollView>
       <View style={styles.headingsWrapper}>
@@ -78,7 +89,7 @@ const Connections = ({state, allUsers, toggleForm}) => {
         </View>
       </View>
       {!state.formToggle
-        ? this.displaySuggestions(allUsers)
+        ? this.displaySuggestions(allUsers, viewer)
         : this.displayConnected(toggleForm, allUsers)}
     </ScrollView>
   );

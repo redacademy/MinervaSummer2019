@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, ScrollView} from 'react-native';
 import GradientButton from '../../components/GradientButton';
+import CircularLoader from '../../components/CircularLoader';
 import styles from './styles';
 import SelectableChips from 'react-native-chip/SelectableChips';
 import {withNavigation} from 'react-navigation';
