@@ -5,8 +5,15 @@ import Ionics from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
 import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
+import CreateComment from '../CreateComment';
 
 class PostList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayCommentInput: false,
+    };
+  }
   setMenuRef = ref => {
     this._menu = ref;
   };
@@ -17,6 +24,10 @@ class PostList extends Component {
 
   showMenu = () => {
     this._menu.show();
+  };
+
+  toggleCommentDisplay = () => {
+    this.setState({displayCommentInput: !this.state.displayCommentInput});
   };
 
   render() {
@@ -94,13 +105,25 @@ class PostList extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.touchOp}>
+          <TouchableOpacity
+            style={styles.touchOp}
+            onPress={() =>
+              this.setState({
+                displayCommentInput: !this.state.displayCommentInput,
+              })
+            }>
             <View style={styles.commentBtn}>
               <Ionics name={'ios-text'} size={15} />
               <Text style={styles.response}>Comment</Text>
             </View>
           </TouchableOpacity>
         </View>
+        {this.state.displayCommentInput && (
+          <CreateComment
+            postId={post.id}
+            toggleCommentDisplay={this.toggleCommentDisplay}
+          />
+        )}
       </View>
     );
   }
