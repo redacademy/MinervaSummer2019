@@ -96,7 +96,6 @@ export default class ConnectionsContainer extends Component {
                 if (error) {
                   return <Text>{error}</Text>;
                 }
-                console.log(data);
                 return (
                   <Connections
                     toggleForm={this.toggleForm}
