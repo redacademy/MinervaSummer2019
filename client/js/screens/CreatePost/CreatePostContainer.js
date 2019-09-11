@@ -5,7 +5,7 @@ export default class CreatePostContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectPostTpoic: [],
+      selectPostTpoic: '',
     };
   }
 
@@ -13,11 +13,22 @@ export default class CreatePostContainer extends React.Component {
     title: 'CreatePost',
   };
 
-  insertChips = chips => {
-    this.setState({selectPostTpoic: chips});
+  insertState = topic => {
+    this.setState({selectPostTpoic: topic});
+  };
+
+  getState = () => {
+    return this.state.selectPostTpoic;
   };
 
   render() {
-    return <CreatePost insertChips={insertChips} />;
+    return (
+      <CreatePost
+        insertChips={this.insertChips}
+        getState={this.getState}
+        insertState={this.insertState}
+        navigation={this.props.navigation}
+      />
+    );
   }
 }
