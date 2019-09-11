@@ -17,7 +17,6 @@ const CreateComment = ({postId, toggleCommentDisplay, viewer}) => {
 
   return (
     <View style={styles.container}>
-      {console.log(viewer)}
       <Image
         style={styles.image}
         source={require('../../assets/PNG/additional_illustrations/profile.png')}

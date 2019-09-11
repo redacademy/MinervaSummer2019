@@ -10,7 +10,7 @@ import {withNavigation} from 'react-navigation';
 
 export const GET_ALL_POSTS = gql`
   query {
-    allPosts(orderBy: createdAt_ASC) {
+    allPosts(orderBy: createdAt_DESC) {
       author {
         firstName
         lastName
@@ -21,7 +21,6 @@ export const GET_ALL_POSTS = gql`
       type
       id
       createdAt
-      title
       content
       likes {
         id
@@ -42,6 +41,13 @@ export const GET_ALL_POSTS = gql`
 `;
 
 class CommunityContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectPostTpoic: '',
+    };
+  }
+
   static navigationOptions = ({navigation}) => ({
     title: 'Community',
     headerRight: (
@@ -54,6 +60,14 @@ class CommunityContainer extends Component {
       </TouchableOpacity>
     ),
   });
+
+  insertState = topic => {
+    this.setState({selectPostTpoic: topic});
+  };
+
+  getState = () => {
+    return this.state.selectPostTpoic;
+  };
   render() {
     return (
       <FavesContext.Consumer>
@@ -63,8 +77,20 @@ class CommunityContainer extends Component {
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
                 if (error) return <Text>Error!</Text>;
-                if (data)
-                  return <Community context={context} posts={data.allPosts} />;
+                return (
+                  <Community
+                    context={context}
+                    posts={
+                      this.state.selectPostTpoic === ''
+                        ? data.allPosts
+                        : data.allPosts.filter(
+                            posts => posts.type === this.state.selectPostTpoic,
+                          )
+                    }
+                    insertState={this.insertState}
+                    getState={this.getState}
+                  />
+                );
               }}
             </Query>
           );
