@@ -5,14 +5,23 @@ import {TouchableOpacity, Text} from 'react-native';
 import styles from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 
-const GradientButton = ({text, onPress, variant, width}) => {
+const GradientButton = ({
+  text,
+  onPress,
+  variant,
+  width,
+  styleButton,
+  styleGradient,
+}) => {
+  let touchableStyle = {...styleButton, ...{width}};
+  let gradientStyle = {...styles.gradient, ...styleGradient};
   return (
-    <TouchableOpacity opacity={0.8} style={{width: width}} onPress={onPress}>
+    <TouchableOpacity opacity={0.8} style={touchableStyle} onPress={onPress}>
       <LinearGradient
         colors={[theme.palette.green, theme.palette.blue]}
         start={{x: 0.0, y: 1.0}}
         end={{x: 1.0, y: 0.0}}
-        style={styles.gradient}
+        style={gradientStyle}
       />
       <Text
         style={

@@ -49,7 +49,13 @@ const styles = StyleSheet.create({
   locationStatus: {
     fontSize: theme.font.paragraph,
     color: theme.palette.darkGrey,
-    marginVertical: '2%',
+    marginVertical: '1%',
+  },
+  locationMetrix: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: '1%',
   },
 
   interest: {
@@ -74,6 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    alignContent: 'center',
     marginVertical: '2%',
     textAlign: 'center',
     height: 'auto',
@@ -83,6 +90,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  locationIcon: {
+    height: 20,
+    width: 20,
+    marginRight: '2%',
   },
   globe: {
     textAlignVertical: 'center',

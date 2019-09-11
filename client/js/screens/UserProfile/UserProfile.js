@@ -24,6 +24,7 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       profileEditable: false,
+      ownProfile: false,
       profileInfo: {
         name: 'Jenny Lee',
         status: 'mentor',
@@ -34,10 +35,10 @@ class UserProfile extends Component {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Crasvitae porta magna. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae porta magna.Lorem ipsum dolor sit amet. ',
       },
       WaysToMeet: [
-        {name: 'Coffe', icon: 'ios-cafe', visible: true},
-        {name: 'After School', icon: 'ios-school', visible: true},
-        {name: 'Lunch', icon: 'ios-pizza', visible: false},
-        {name: 'A Walk', icon: 'ios-walk', visible: true},
+        {name: 'Coffee', icon: 'coffee', visible: true},
+        {name: 'After School', icon: 'after_school', visible: true},
+        {name: 'Lunch', icon: 'lunch', visible: false},
+        {name: 'A Walk', icon: 'walk', visible: true},
       ],
       interest: {
         Personal: [
@@ -129,6 +130,10 @@ class UserProfile extends Component {
     );
   };
 
+  toggleProfile() {
+    this.setState({ownProfile: !this.state.ownProfile});
+  }
+
   runQuery() {
     return this.state;
   }
@@ -154,33 +159,48 @@ class UserProfile extends Component {
               <Text style={styles.name}>{this.state.profileInfo.name}</Text>
             )}
             {!this.state.profileEditable && (
-              <GradientButton
-                onPress={() => this.editProfile()}
-                text="Edit Profile"
-              />
+              <View style={{alignSelf: 'center'}}>
+                <GradientButton
+                  onPress={() =>
+                    this.state.ownProfile ? this.editProfile() : ''
+                  }
+                  text={this.state.ownProfile ? 'Edit Profile' : 'Message'}
+                  width={'40%'}
+                  styleGradient={{width: '90%'}}
+                />
+              </View>
             )}
 
             <Text style={styles.status}>
               Status: {this.state.profileInfo.status}
             </Text>
 
-            {this.state.profileEditable ? (
-              this.TI('location', 'locationStatus')
-            ) : (
-              <Text style={styles.locationStatus}>
-                <Ionics name={`ios-today`} size={25} />
-                {this.state.profileInfo.location}
-              </Text>
-            )}
-
-            {this.state.profileEditable ? (
-              this.TI('school', 'locationStatus')
-            ) : (
-              <Text style={styles.locationStatus}>
-                <Ionics name={`ios-book`} size={25} />
-                {this.state.profileInfo.school}
-              </Text>
-            )}
+            <View style={styles.locationMetrix}>
+              <Image
+                style={styles.locationIcon}
+                resizeMode={'cover'}
+                source={require('../../assets/PNG/ways_to_meet/after_school_active.png')}></Image>
+              {this.state.profileEditable ? (
+                this.TI('location', 'locationStatus')
+              ) : (
+                <Text style={styles.locationStatus}>
+                  {this.state.profileInfo.location}
+                </Text>
+              )}
+            </View>
+            <View style={styles.locationMetrix}>
+              <Image
+                style={styles.locationIcon}
+                resizeMode={'cover'}
+                source={require('../../assets/PNG/ways_to_meet/after_school_active.png')}></Image>
+              {this.state.profileEditable ? (
+                this.TI('school', 'locationStatus')
+              ) : (
+                <Text style={styles.locationStatus}>
+                  {this.state.profileInfo.school}
+                </Text>
+              )}
+            </View>
 
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>About Me</Text>
@@ -201,6 +221,7 @@ class UserProfile extends Component {
                   <FaveWays
                     key={item.name + index}
                     item={item}
+                    show={this.state.profileEditable}
                     index={index}
                     updateWaysToMeet={this.updateWaysToMeet.bind(
                       this,
@@ -232,7 +253,7 @@ class UserProfile extends Component {
             <GradientButton
               onPress={() => this.editProfile(true)}
               text="Save Changes"
-              style={styles.interest}
+              width={'40%'}
             />
           )}
         </View>
