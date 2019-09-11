@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
   locationSchool: {
     fontSize: 14,
     color: theme.palette.darkGrey,
-    marginVertical: '3%',
+    alignItems: 'baseline',
+    marginRight: '5%',
     fontFamily: theme.fonts.regular,
   },
   userName: {

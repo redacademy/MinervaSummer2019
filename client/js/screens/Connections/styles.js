@@ -52,6 +52,30 @@ const styles = StyleSheet.create({
   headingsWrapper: {
     justifyContent: 'center',
   },
+  noConnectionsWrapper: {
+    alignItems: 'center',
+    paddingHorizontal: '10%',
+  },
+  noConnectionsImage: {
+    width: '50%',
+    height: '50%',
+    resizeMode: 'cover',
+    marginBottom: '10%',
+  },
+  noConnectionsHeading: {
+    fontFamily: theme.fonts.heavy,
+    color: theme.palette.darkGrey,
+    textAlign: 'center',
+    fontSize: 18,
+    marginBottom: '5%',
+  },
+  noConnectionsSubHeading: {
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.darkGrey,
+    textAlign: 'center',
+    fontSize: 16,
+    marginBottom: '10%',
+  },
 });
 
 export default styles;
