@@ -27,7 +27,7 @@ type Interest @model {
 
 type Post @model {
   id: ID! @isUnique
-  title: String!
+  title: String
   createdAt: DateTime! 
   content: String
   comments: [Comment!]! @relation(name: "PostComments")
