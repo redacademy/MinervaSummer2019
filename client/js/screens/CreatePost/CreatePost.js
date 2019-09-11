@@ -22,7 +22,6 @@ const CREATE_POST = gql`
       type
       id
       createdAt
-      title
       content
       likes {
         id

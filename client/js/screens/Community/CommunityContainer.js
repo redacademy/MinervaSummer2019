@@ -21,7 +21,6 @@ export const GET_ALL_POSTS = gql`
       type
       id
       createdAt
-      title
       content
       likes {
         id
