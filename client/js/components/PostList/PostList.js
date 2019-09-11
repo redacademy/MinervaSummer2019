@@ -175,6 +175,7 @@ class PostList extends Component {
           <CreateComment
             postId={post.id}
             toggleCommentDisplay={this.toggleCommentDisplay}
+            viewer={viewer}
           />
         )}
       </View>
