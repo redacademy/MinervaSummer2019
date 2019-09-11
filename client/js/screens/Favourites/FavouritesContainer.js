@@ -10,7 +10,7 @@ import {withNavigation} from 'react-navigation';
 
 export const GET_ALL_POSTS = gql`
   query {
-    allPosts(orderBy: createdAt_ASC) {
+    allPosts(orderBy: createdAt_DESC) {
       author {
         firstName
         lastName
@@ -50,7 +50,7 @@ class FavouritesContainer extends Component {
       <FavesContext.Consumer>
         {context => {
           return (
-            <Query query={GET_ALL_POSTS}>
+            <Query query={GET_ALL_POSTS} fetchPolicy="network-only">
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
                 if (error) return <Text>Error!</Text>;

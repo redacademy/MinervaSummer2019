@@ -100,7 +100,6 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
           </TouchableOpacity>
         </View>
       </View>
-      {console.log(posts)}
 
       {posts.map(post => (
         <PostList

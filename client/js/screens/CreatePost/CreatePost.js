@@ -7,13 +7,37 @@ import GradientButton from '../../components/GradientButton';
 import {Mutation} from '@apollo/react-components';
 import {gql} from 'apollo-boost';
 import styles from './styles';
+import {GET_ALL_POSTS} from '../Community/CommunityContainer';
 
 const CREATE_POST = gql`
   mutation createPost($authorId: ID, $content: String!, $type: String!) {
     createPost(authorId: $authorId, content: $content, type: $type) {
-      id
-      content
+      author {
+        firstName
+        lastName
+        photo {
+          url
+        }
+      }
       type
+      id
+      createdAt
+      title
+      content
+      likes {
+        id
+      }
+      comments {
+        id
+        author {
+          firstName
+          lastName
+        }
+        content
+        likes {
+          id
+        }
+      }
     }
   }
 `;
@@ -22,8 +46,15 @@ const CreatePost = ({getState, insertState, navigation, viewer}) => {
   const [text, onChangeText] = React.useState();
   return (
     <View style={{flex: 1}}>
-      {console.log(viewer)}
-      <Mutation mutation={CREATE_POST}>
+      <Mutation
+        mutation={CREATE_POST}
+        update={(cache, {data: {createPost}}) => {
+          const {allPosts} = cache.readQuery({query: GET_ALL_POSTS});
+          cache.writeQuery({
+            query: GET_ALL_POSTS,
+            data: {allPosts: [createPost].concat(allPosts)},
+          });
+        }}>
         {(createPost, {loading}) => (
           <View>
             <View style={styles.inputWrapper}>
