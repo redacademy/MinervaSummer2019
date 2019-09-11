@@ -12,11 +12,12 @@ const CREATE_COMMENT = gql`
   }
 `;
 
-const CreateComment = ({postId, toggleCommentDisplay}) => {
+const CreateComment = ({postId, toggleCommentDisplay, viewer}) => {
   const [text, onChangeText] = React.useState();
 
   return (
     <View style={styles.container}>
+      {console.log(viewer)}
       <Image
         style={styles.image}
         source={require('../../assets/PNG/additional_illustrations/profile.png')}
@@ -35,7 +36,7 @@ const CreateComment = ({postId, toggleCommentDisplay}) => {
               onPress={() => {
                 createComment({
                   variables: {
-                    authorId: 'ck07255yn0pyx01415da8y14o',
+                    authorId: viewer.id,
                     postId: postId,
                     content: text,
                   },
