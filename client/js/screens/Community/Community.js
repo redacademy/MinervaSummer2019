@@ -42,7 +42,7 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
                   ? styles.topicTextActive
                   : styles.topicTextInactive,
               ]}>
-              General
+              View All
             </Text>
           </TouchableOpacity>
 
