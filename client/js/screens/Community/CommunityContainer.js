@@ -10,7 +10,7 @@ import {withNavigation} from 'react-navigation';
 
 export const GET_ALL_POSTS = gql`
   query {
-    allPosts(orderBy: createdAt_ASC) {
+    allPosts(orderBy: createdAt_DESC) {
       author {
         firstName
         lastName
