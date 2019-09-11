@@ -7,7 +7,6 @@ import GradientButton from '../../components/GradientButton';
 import {Mutation} from '@apollo/react-components';
 import {gql} from 'apollo-boost';
 import styles from './styles';
-// import console = require('console');
 
 const CREATE_POST = gql`
   mutation createPost($authorId: ID, $content: String!, $type: String!) {

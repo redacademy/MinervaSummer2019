@@ -12,7 +12,7 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
       <View style={styles.postWrapper}>
         <TouchableOpacity
           opacity={0.8}
-          style={styles.op}
+          style={styles.touchOp}
           onPress={() => {
             navigation.navigate('CreatePost', {viewer});
           }}>
@@ -30,15 +30,13 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
           <TouchableOpacity
             style={[
               styles.topic,
-              getState() === 'View All'
-                ? styles.topicActive
-                : styles.topicInactive,
+              getState() === '' ? styles.topicActive : styles.topicInactive,
             ]}
-            onPress={() => insertState('View All')}>
+            onPress={() => insertState('')}>
             <Text
               style={[
                 styles.topicText,
-                getState() === 'View All'
+                getState() === ''
                   ? styles.topicTextActive
                   : styles.topicTextInactive,
               ]}>
@@ -102,6 +100,7 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
           </TouchableOpacity>
         </View>
       </View>
+      {console.log(posts)}
 
       {posts.map(post => (
         <PostList

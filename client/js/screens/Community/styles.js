@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderColor: theme.palette.lightGrey,
   },
 
-  op: {
+  touchOp: {
     borderWidth: 1,
     borderColor: theme.palette.lightGrey,
     height: 35,

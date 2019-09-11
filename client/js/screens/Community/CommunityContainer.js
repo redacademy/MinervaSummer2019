@@ -71,7 +71,13 @@ export default class CommunityContainer extends Component {
                 return (
                   <Community
                     context={context}
-                    posts={data.allPosts}
+                    posts={
+                      this.state.selectPostTpoic === ''
+                        ? data.allPosts
+                        : data.allPosts.filter(
+                            posts => posts.type === this.state.selectPostTpoic,
+                          )
+                    }
                     insertState={this.insertState}
                     getState={this.getState}
                   />
