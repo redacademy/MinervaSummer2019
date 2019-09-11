@@ -39,16 +39,38 @@ export const GET_ALL_POSTS = gql`
 `;
 
 export default class CommunityContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectPostTpoic: '',
+    };
+  }
+
   static navigationOptions = {
     title: 'Community',
   };
+
+  insertState = topic => {
+    this.setState({selectPostTpoic: topic});
+  };
+
+  getState = () => {
+    return this.state.selectPostTpoic;
+  };
+
   render() {
     return (
       <Query query={GET_ALL_POSTS}>
         {({loading, error, data}) => {
           if (loading) return <CircularLoader />;
           if (error) return <Text>Error!</Text>;
-          return <Community posts={data.allPosts} />;
+          return (
+            <Community
+              posts={data.allPosts}
+              insertState={this.insertState}
+              getState={this.getState}
+            />
+          );
         }}
       </Query>
     );

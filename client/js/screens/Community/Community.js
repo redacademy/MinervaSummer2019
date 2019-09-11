@@ -1,57 +1,112 @@
 import React, {Component} from 'react';
 import PostList from '../../components/PostList';
 import {ScrollView, TouchableOpacity, View, Text} from 'react-native';
-import SelectableChips from 'react-native-chip/SelectableChips';
-import Ionics from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {withNavigation} from 'react-navigation';
 import styles from './styles';
 
-class Community extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectPostTpoic: [],
-    };
-  }
-
-  render() {
-    const {posts, navigation} = this.props;
-
-    return (
-      <ScrollView>
-        <View style={styles.postWrapper}>
-          <TouchableOpacity
-            opacity={0.8}
-            style={styles.op}
-            onPress={() => {
-              navigation.navigate('CreatePost');
-            }}>
-            <View style={styles.postInput}>
-              <Ionics name="ios-thought-bubble-outline" size={15} />
+const Community = ({posts, navigation, insertState, getState}) => {
+  return (
+    <ScrollView>
+      <View style={styles.postWrapper}>
+        <TouchableOpacity
+          opacity={0.8}
+          style={styles.op}
+          onPress={() => {
+            navigation.navigate('CreatePost');
+          }}>
+          <View style={styles.postInput}>
+            <MaterialCommunityIcons name="thought-bubble-outline" size={25} />
+            <View style={styles.textBubble}>
               <Text> Share your thoughts here...</Text>
             </View>
+          </View>
+        </TouchableOpacity>
+
+        <Text style={styles.header}>Topics</Text>
+
+        <View style={styles.topicsWrapper}>
+          <TouchableOpacity
+            style={[
+              styles.topic,
+              getState() === 'View All'
+                ? styles.topicActive
+                : styles.topicInactive,
+            ]}
+            onPress={() => insertState('View All')}>
+            <Text
+              style={[
+                styles.topicText,
+                getState() === 'View All'
+                  ? styles.topicTextActive
+                  : styles.topicTextInactive,
+              ]}>
+              General
+            </Text>
           </TouchableOpacity>
 
-          <Text style={styles.header}>Topics</Text>
+          <TouchableOpacity
+            style={[
+              styles.topic,
+              getState() === 'General'
+                ? styles.topicActive
+                : styles.topicInactive,
+            ]}
+            onPress={() => insertState('General')}>
+            <Text
+              style={[
+                styles.topicText,
+                getState() === 'General'
+                  ? styles.topicTextActive
+                  : styles.topicTextInactive,
+              ]}>
+              General
+            </Text>
+          </TouchableOpacity>
 
-          <View style={styles.topicsWrapper}>
-            <SelectableChips
-              initialChips={['View All', 'General', 'Events', 'News']}
-              onChangeChips={chips => this.setState({selectPostTpoic: chips})}
-              chipStyle={styles.topic}
-              valueStyle={styles.topicText}
-              chipStyleSelected={styles.topicSelected}
-              valueStyleSelected={styles.topicTextSelected}
-            />
-          </View>
+          <TouchableOpacity
+            style={[
+              styles.topic,
+              getState() === 'Events'
+                ? styles.topicActive
+                : styles.topicInactive,
+            ]}
+            onPress={() => insertState('Events')}>
+            <Text
+              style={[
+                styles.topicText,
+                getState() === 'Events'
+                  ? styles.topicTextActive
+                  : styles.topicTextInactive,
+              ]}>
+              Events
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[
+              styles.topic,
+              getState() === 'News' ? styles.topicActive : styles.topicInactive,
+            ]}
+            onPress={() => insertState('News')}>
+            <Text
+              style={[
+                styles.topicText,
+                getState() === 'News'
+                  ? styles.topicTextActive
+                  : styles.topicTextInactive,
+              ]}>
+              News
+            </Text>
+          </TouchableOpacity>
         </View>
+      </View>
 
-        {posts.map(post => (
-          <PostList key={post.id} post={post} />
-        ))}
-      </ScrollView>
-    );
-  }
-}
+      {posts.map(post => (
+        <PostList key={post.id} post={post} />
+      ))}
+    </ScrollView>
+  );
+};
 
 export default withNavigation(Community);

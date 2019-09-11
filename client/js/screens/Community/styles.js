@@ -24,33 +24,51 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
 
+  textBubble: {
+    justifyContent: 'center',
+  },
+
   header: {
     fontSize: 24,
     textAlign: 'center',
-    paddingVertical: '5%',
+    marginVertical: '5%',
+    height: 50,
   },
 
   topicsWrapper: {
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
 
   topic: {
     height: 35,
+    width: 80,
+    borderWidth: 1,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  topicInactive: {
     borderColor: theme.palette.darkGrey,
   },
 
-  topicText: {
-    fontSize: 16,
-    color: theme.palette.darkGrey,
-  },
-
-  topicSelected: {
+  topicActive: {
     borderColor: theme.palette.blue,
     backgroundColor: theme.palette.blue,
   },
 
-  topicTextSelected: {
+  topicText: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+
+  topicTextInactive: {
+    color: theme.palette.darkGrey,
+  },
+
+  topicTextActive: {
     color: '#FFF',
   },
 });
