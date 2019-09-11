@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   subHeading: {
     color: theme.palette.mediumGrey,
-    marginBottom: '5%',
+    marginBottom: '10%',
   },
   inputLabels: {
     color: theme.palette.blue,
@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 'auto',
     width: '80%',
-
     justifyContent: 'space-around',
   },
   bioInput: {
@@ -76,15 +75,22 @@ const styles = StyleSheet.create({
   toMeetWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 60,
-    marginBottom: '5%',
     alignItems: 'center',
+    marginBottom: '5%',
   },
   toMeetActive: {
     color: theme.palette.darkGrey,
   },
   toMeetInactive: {
     color: theme.palette.lightGrey,
+  },
+  toMeetImage: {
+    marginTop: '15%',
+    height: 100,
+    width: 60,
+  },
+  toMeetButton: {
+    alignItems: 'center',
   },
 });
 

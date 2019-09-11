@@ -30,6 +30,9 @@ class AccountForm extends React.Component {
     if (!values.password) {
       errors.password = '*please enter a passsword';
     }
+    if (values.password && values.password.length < 8) {
+      errors.password = '*password must be at least 8 characters long';
+    }
     return errors;
   }
 
@@ -101,7 +104,7 @@ class AccountForm extends React.Component {
                   />
                 </View>
               </View>
-              <Text style={styles.inputLabels}>Email Adress</Text>
+              <Text style={styles.inputLabels}>Email Address</Text>
               <Field
                 name="email"
                 required={true}
@@ -109,7 +112,7 @@ class AccountForm extends React.Component {
                   <TextInput
                     type={'email'}
                     keyboardType={'email-address'}
-                    placeholder={'Enter email adress'}
+                    placeholder={'Enter email address'}
                     style={styles.textInputs}
                     autoCorrect={false}
                     autoCapitalize={'none'}
@@ -162,6 +165,12 @@ class AccountForm extends React.Component {
             </View>
 
             <GradientButton onPress={() => handleSubmit()} text="Continue" />
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('SignIn');
+              }}>
+              <Text style={styles.signIn}>Sign into an existing account</Text>
+            </TouchableOpacity>
           </View>
         )}
       />

@@ -5,7 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {withNavigation} from 'react-navigation';
 import styles from './styles';
 
-const Community = ({posts, navigation, insertState, getState}) => {
+const Community = ({posts, context, navigation, insertState, getState}) => {
+  const {faves, addFave, removeFave, viewer} = context;
   return (
     <ScrollView>
       <View style={styles.postWrapper}>
@@ -103,7 +104,14 @@ const Community = ({posts, navigation, insertState, getState}) => {
       </View>
 
       {posts.map(post => (
-        <PostList key={post.id} post={post} />
+        <PostList
+          key={post.id}
+          post={post}
+          viewer={viewer}
+          removeFave={removeFave}
+          addFave={addFave}
+          faved={faves && faves.includes(post.id)}
+        />
       ))}
     </ScrollView>
   );

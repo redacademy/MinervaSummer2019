@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
+import {ThemeColors} from 'react-navigation';
 
 const styles = StyleSheet.create({
   root: {
@@ -22,7 +23,6 @@ const styles = StyleSheet.create({
     borderColor: theme.palette.darkGrey,
     borderWidth: 1,
     borderRadius: 5,
-    marginTop: '5%',
     marginBottom: '5%',
   },
   selected: {
@@ -32,16 +32,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     color: 'white',
     borderRadius: 5,
-    marginTop: '5%',
     marginBottom: '5%',
   },
   textNotSelected: {
     color: theme.palette.mediumGrey,
     textAlign: 'center',
+    fontFamily: theme.fonts.regular,
   },
   textSelected: {
     color: 'white',
     textAlign: 'center',
+    fontFamily: theme.fonts.heavy,
   },
   skip: {
     textAlign: 'center',
@@ -53,11 +54,18 @@ const styles = StyleSheet.create({
     color: theme.palette.blue,
     textAlign: 'center',
     fontSize: 24,
+    fontFamily: theme.fonts.heavy,
+    marginTop: '5%',
   },
   subHeading: {
     color: theme.palette.mediumGrey,
     marginTop: '5%',
-    marginBottom: '5%',
+    marginBottom: '20%',
+    fontFamily: theme.fonts.regular,
+    textAlign: 'center',
+  },
+  selectWrapper: {
+    marginBottom: '50%',
   },
 });
 

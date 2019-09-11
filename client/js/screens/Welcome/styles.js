@@ -13,11 +13,15 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     marginBottom: '5%',
+    fontFamily: theme.fonts.bold,
+    color: theme.palette.darkGrey,
   },
   subHeading: {
     fontSize: 18,
     textAlign: 'center',
     color: theme.palette.mediumGrey,
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.darkGrey,
   },
   button: {
     width: '100%',

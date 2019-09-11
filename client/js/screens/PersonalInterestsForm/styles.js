@@ -59,6 +59,11 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     marginLeft: '10%',
   },
+  error: {
+    textAlign: 'center',
+    color: theme.palette.red,
+    fontFamily: theme.fonts.regular,
+  },
 });
 
 export default styles;

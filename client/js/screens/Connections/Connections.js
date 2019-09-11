@@ -1,92 +1,93 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
 import UserCard from '../../components/UserCard';
 import styles from './styles';
-import AsyncStorage from '@react-native-community/async-storage';
-import {getToken} from '../../config/models';
-import CircularLoader from '../../components/CircularLoader';
+import GradientButton from '../../components/GradientButton';
 
-class Connections extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formToggle: false,
-      viewerId: null,
-    };
-  }
-  componentDidMount = async () => {
-    this.setState({viewerId: this.getViewerId()});
-  };
-  toggleForm() {
-    this.setState({formToggle: !this.state.formToggle});
-  }
-  getViewerId = async () => {
-    try {
-      const userToken = await getToken();
-      this.setState({viewerId: userToken.id});
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  displayConnected = () => {
-    const {allUsers} = this.props;
-    return allUsers.map(user => (
-      <UserCard user={user} key={user.id}></UserCard>
-    ));
-  };
-
-  displaySuggestions = () => {
-    const {allUsers} = this.props;
-    return allUsers.map(user => (
-      <UserCard user={user} key={user.id}></UserCard>
-    ));
-  };
-  render() {
-    !this.state.viewerId ? this.getViewerId : null;
+displaySuggestions = suggestedUsers => {
+  if (suggestedUsers.length === 0) {
     return (
-      <ScrollView>
-        <View style={styles.headingsWrapper}>
-          <View style={styles.toggleButtonsWrapper}>
-            <TouchableOpacity
-              onPress={() => this.toggleForm()}
-              style={
-                !this.state.formToggle
-                  ? styles.toggleActive
-                  : styles.toggleInactive
-              }>
-              <Text
-                style={
-                  !this.state.formToggle
-                    ? styles.toggleTextActive
-                    : styles.toggleTextInactive
-                }>
-                Suggested
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.toggleForm()}
-              style={
-                this.state.formToggle
-                  ? styles.toggleActive
-                  : styles.toggleInactive
-              }>
-              <Text
-                style={
-                  this.state.formToggle
-                    ? styles.toggleTextActive
-                    : styles.toggleTextInactive
-                }>
-                Already Connected
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        {this.state.formToggle && this.state.viewerId
-          ? this.displaySuggestions()
-          : this.displayConnected()}
-      </ScrollView>
+      <Text>
+        Were sorry, we could not find any suggestions for you at this time.
+      </Text>
     );
   }
-}
+  return suggestedUsers.map(user => (
+    <UserCard user={user} key={user.id}></UserCard>
+  ));
+};
+
+displayNoConnections = toggleForm => {
+  return (
+    <View style={styles.noConnectionsWrapper}>
+      <Image
+        style={styles.profilePicture}
+        source={require('../../assets/PNG/additional_illustrations/connections.png')}
+      />
+      <Text style={styles.noConnectionsHeading}>
+        You don't have any connections yet!
+      </Text>
+      <Text style={styles.noConnectionsSubHeading}>
+        Go ahead and say hello! Find new connections in the suggested tab.
+      </Text>
+      <View>
+        <GradientButton
+          text={'View Suggested'}
+          onPress={() => {
+            toggleForm();
+          }}></GradientButton>
+      </View>
+    </View>
+  );
+};
+
+displayConnected = (toggleForm, suggestedUsers) => {
+  const connectedUsers = [];
+  if ((connectedUsers.length = [0])) {
+    return displayNoConnections(toggleForm);
+  }
+};
+
+const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
+  return (
+    <ScrollView>
+      <View style={styles.headingsWrapper}>
+        <View style={styles.toggleButtonsWrapper}>
+          <TouchableOpacity
+            onPress={() => toggleForm()}
+            style={
+              !state.formToggle ? styles.toggleActive : styles.toggleInactive
+            }>
+            <Text
+              style={
+                !state.formToggle
+                  ? styles.toggleTextActive
+                  : styles.toggleTextInactive
+              }>
+              Suggested
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => toggleForm()}
+            style={
+              state.formToggle ? styles.toggleActive : styles.toggleInactive
+            }>
+            <Text
+              style={
+                state.formToggle
+                  ? styles.toggleTextActive
+                  : styles.toggleTextInactive
+              }>
+              Already Connected
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {!state.formToggle
+        ? this.displaySuggestions(suggestedUsers, viewer)
+        : this.displayConnected(toggleForm, suggestedUsers)}
+    </ScrollView>
+  );
+};
 
 export default Connections;
