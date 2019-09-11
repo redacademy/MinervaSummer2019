@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
-import {BorderlessButton} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   postWrapper: {
@@ -70,6 +69,10 @@ const styles = StyleSheet.create({
 
   topicTextActive: {
     color: '#FFF',
+  },
+
+  favouriteHeaderIcon: {
+    height: '60%',
   },
 });
 

@@ -12,11 +12,17 @@ const CommunityStack = createStackNavigator({
   Community: {
     screen: CommunityScreen,
   },
+
   Comments: {
     screen: CommentsScreen,
   },
+
   CreatePost: {
     screen: CreatePostScreen,
+  },
+
+  Favourites: {
+    screen: FavouritesScreen,
   },
 });
 const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});
