@@ -6,10 +6,17 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
 import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
+import CreateComment from '../CreateComment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import theme from '../../config/theme';
 
 class PostList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayCommentInput: false,
+    };
+  }
   setMenuRef = ref => {
     this._menu = ref;
   };
@@ -20,6 +27,10 @@ class PostList extends Component {
 
   showMenu = () => {
     this._menu.show();
+  };
+
+  toggleCommentDisplay = () => {
+    this.setState({displayCommentInput: !this.state.displayCommentInput});
   };
 
   render() {
@@ -143,7 +154,13 @@ class PostList extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.touchOp}>
+          <TouchableOpacity
+            style={styles.touchOp}
+            onPress={() =>
+              this.setState({
+                displayCommentInput: !this.state.displayCommentInput,
+              })
+            }>
             <View style={styles.commentBtn}>
               <Ionics
                 name={'ios-text'}
@@ -154,6 +171,13 @@ class PostList extends Component {
             </View>
           </TouchableOpacity>
         </View>
+        {this.state.displayCommentInput && (
+          <CreateComment
+            postId={post.id}
+            toggleCommentDisplay={this.toggleCommentDisplay}
+            viewer={viewer}
+          />
+        )}
       </View>
     );
   }
