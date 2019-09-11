@@ -20,6 +20,25 @@ const DELETE_POST_MUTATION = gql`
   }
 `;
 
+const LIKE_POST_MUTATION = gql`
+  mutation addToPostLikes($likesPostId: ID!, $likesUserId: ID!) {
+    addToPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
+      likesPost {
+        id
+      }
+    }
+  }
+`;
+const DISLIKE_POST_MUTATION = gql`
+  mutation addToPostLikes($likesPostId: ID!, $likesUserId: ID!) {
+    addToPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
+      likesPost {
+        id
+      }
+    }
+  }
+`;
+
 export const GET_ALL_POSTS = gql`
   query {
     allPosts(orderBy: createdAt_ASC) {
@@ -76,6 +95,15 @@ class PostList extends Component {
     this.setState({displayCommentInput: !this.state.displayCommentInput});
   };
 
+  toggleLike = async (likeMutation, viewerId, postId) => {
+    try {
+      await likeMutation({
+        variables: {likesPostId: postId, likesUserId: viewerId},
+      });
+    } catch (e) {
+      throw e;
+    }
+  };
   removePost = async (deletePost, authorId, viewerId, viewerPosts, postId) => {
     const viewerPostIds = viewerPosts.map(post => post.id);
 
@@ -94,6 +122,8 @@ class PostList extends Component {
   render() {
     const {post, navigation, faved, addFave, removeFave, viewer} = this.props;
     const newDate = formatDateString(post.createdAt);
+    const liked = post.likes.includes(viewer.id);
+    console.log(liked);
     return (
       <View style={styles.container}>
         <View style={styles.postWrapper}>
@@ -219,16 +249,26 @@ class PostList extends Component {
         </View>
 
         <View style={styles.opWrapper}>
-          <TouchableOpacity style={styles.touchOp}>
-            <View style={styles.likeBtn}>
-              <Ionics
-                name={'ios-thumbs-up'}
-                size={15}
-                color={theme.palette.darkGrey}
-              />
-              <Text style={styles.response}>Like</Text>
-            </View>
-          </TouchableOpacity>
+          <Mutation
+            mutation={liked ? DISLIKE_POST_MUTATION : LIKE_POST_MUTATION}
+            refetchQueries={() => [{query: GET_ALL_POSTS}]}>
+            {likeMutation => (
+              <TouchableOpacity
+                style={styles.touchOp}
+                onPress={() =>
+                  this.toggleLike(likeMutation, viewer.id, post.id)
+                }>
+                <View style={styles.likeBtn}>
+                  <Ionics
+                    name={'ios-thumbs-up'}
+                    size={15}
+                    color={liked ? theme.palette.green : theme.palette.darkGrey}
+                  />
+                  <Text style={styles.response}>Like</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          </Mutation>
 
           <TouchableOpacity
             style={styles.touchOp}
