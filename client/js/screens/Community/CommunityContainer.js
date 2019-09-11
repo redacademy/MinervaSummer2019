@@ -12,6 +12,7 @@ export const GET_ALL_POSTS = gql`
   query {
     allPosts(orderBy: createdAt_ASC) {
       author {
+        id
         firstName
         lastName
         photo {
@@ -21,7 +22,6 @@ export const GET_ALL_POSTS = gql`
       type
       id
       createdAt
-      title
       content
       likes {
         id
@@ -62,7 +62,12 @@ class CommunityContainer extends Component {
             <Query query={GET_ALL_POSTS}>
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
-                if (error) return <Text>Error!</Text>;
+                if (error) {
+                  {
+                    console.log(error);
+                  }
+                  return <Text>Error!</Text>;
+                }
                 if (data)
                   return <Community context={context} posts={data.allPosts} />;
               }}
