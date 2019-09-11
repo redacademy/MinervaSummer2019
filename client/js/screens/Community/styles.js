@@ -4,7 +4,7 @@ import {BorderlessButton} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   postWrapper: {
-    paddingVertical: '5%',
+    paddingVertical: '3%',
     paddingHorizontal: '3%',
     borderBottomWidth: 1,
     borderColor: theme.palette.lightGrey,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     marginVertical: '5%',
-    height: 50,
+    height: 40,
   },
 
   topicsWrapper: {

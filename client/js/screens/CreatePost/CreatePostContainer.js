@@ -22,12 +22,15 @@ export default class CreatePostContainer extends React.Component {
   };
 
   render() {
+    const {navigation} = this.props;
+    const viewer = navigation.getParam('viewer');
     return (
       <CreatePost
         insertChips={this.insertChips}
         getState={this.getState}
         insertState={this.insertState}
-        navigation={this.props.navigation}
+        navigation={navigation}
+        viewer={viewer}
       />
     );
   }

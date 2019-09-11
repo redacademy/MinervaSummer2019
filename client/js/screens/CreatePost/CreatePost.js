@@ -7,6 +7,7 @@ import GradientButton from '../../components/GradientButton';
 import {Mutation} from '@apollo/react-components';
 import {gql} from 'apollo-boost';
 import styles from './styles';
+// import console = require('console');
 
 const CREATE_POST = gql`
   mutation createPost($authorId: ID, $content: String!, $type: String!) {
@@ -16,10 +17,11 @@ const CREATE_POST = gql`
   }
 `;
 
-const CreatePost = ({getState, insertState, navigation}) => {
+const CreatePost = ({getState, insertState, navigation, viewer}) => {
   const [text, onChangeText] = React.useState();
   return (
     <View style={{flex: 1}}>
+      {console.log(viewer)}
       <Mutation mutation={CREATE_POST}>
         {(createPost, {loading}) => (
           <View>
@@ -29,6 +31,7 @@ const CreatePost = ({getState, insertState, navigation}) => {
                 value={text}
                 placeholder={'Share Your Thoughts...'}
                 keyboardType={'default'}
+                multiline={true}
                 style={styles.input}
               />
             </View>
@@ -122,7 +125,7 @@ const CreatePost = ({getState, insertState, navigation}) => {
                     getState() &&
                     createPost({
                       variables: {
-                        authorId: 'ck07255yn0pyx01415da8y14o',
+                        authorId: viewer.id,
                         content: text,
                         type: getState(),
                       },

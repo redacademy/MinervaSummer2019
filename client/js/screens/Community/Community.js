@@ -14,7 +14,7 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
           opacity={0.8}
           style={styles.op}
           onPress={() => {
-            navigation.navigate('CreatePost');
+            navigation.navigate('CreatePost', {viewer});
           }}>
           <View style={styles.postInput}>
             <MaterialCommunityIcons name="thought-bubble-outline" size={25} />

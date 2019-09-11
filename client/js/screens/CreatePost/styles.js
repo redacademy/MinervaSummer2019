@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
 
   input: {
     minHeight: '30%',
-    textAlign: 'center',
     fontSize: 16,
   },
 
