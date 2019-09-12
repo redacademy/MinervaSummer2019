@@ -18,9 +18,13 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
               navigation.navigate('CreatePost', {viewer});
             }}>
             <View style={styles.postInput}>
-              <MaterialCommunityIcons name="thought-bubble-outline" size={25} />
-              <View style={styles.textBubble}>
-                <Text> Share your thoughts here...</Text>
+              <MaterialCommunityIcons
+                name="thought-bubble-outline"
+                size={25}
+                style={styles.textBubble}
+              />
+              <View style={styles.textWrapper}>
+                <Text style={styles.text}> Share your thoughts here...</Text>
               </View>
             </View>
           </TouchableOpacity>

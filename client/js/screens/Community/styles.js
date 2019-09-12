@@ -3,20 +3,20 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   postWrapper: {
-    paddingTop: '10%',
-    paddingBottom: '10%',
+    marginVertical: 10,
     paddingHorizontal: '3%',
+    justifyContent: 'space-around',
     borderBottomWidth: 1,
     borderColor: theme.palette.lightGrey,
-    justifyContent: 'space-around',
   },
 
   touchOp: {
-    borderWidth: 1,
-    borderColor: theme.palette.lightGrey,
     height: 40,
-    borderRadius: 50,
+    marginVertical: 10,
     justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: theme.palette.lightGrey,
   },
 
   postInput: {
@@ -26,33 +26,50 @@ const styles = StyleSheet.create({
   },
 
   textBubble: {
+    color: theme.palette.mediumGrey,
+  },
+
+  textWrapper: {
     justifyContent: 'center',
+    fontSize: theme.font.paragraph,
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.lightGrey,
+  },
+
+  text: {
+    color: theme.palette.mediumGrey,
+    fontFamily: theme.fonts.regular,
   },
 
   header: {
-    fontSize: 24,
+    marginVertical: 10,
     textAlign: 'center',
-    // marginVertical: '5%',
-    height: 40,
+    fontSize: theme.font.header,
+    fontFamily: theme.fonts.medium,
+    color: theme.palette.darkGrey,
   },
 
   topicsWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    marginVertical: '5%',
+    flexWrap: 'wrap',
   },
 
   topic: {
     height: 35,
-    width: 80,
+    width: '22%',
     borderWidth: 1,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.lightGrey,
   },
 
   topicInactive: {
-    borderColor: theme.palette.darkGrey,
+    borderColor: theme.palette.mediumGrey,
   },
 
   topicActive: {
@@ -61,8 +78,8 @@ const styles = StyleSheet.create({
   },
 
   topicText: {
-    fontSize: 16,
     textAlign: 'center',
+    fontSize: theme.font.subtitle,
   },
 
   topicTextInactive: {
@@ -74,7 +91,7 @@ const styles = StyleSheet.create({
   },
 
   favouriteHeaderIcon: {
-    height: '60%',
+    height: '65%',
   },
 });
 
