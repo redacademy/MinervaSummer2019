@@ -283,7 +283,11 @@ class PostList extends Component {
                         : theme.palette.darkGrey
                     }
                   />
-                  <Text style={styles.touchOpResponse}>Like</Text>
+                  {this.state.liked ? (
+                    <Text style={styles.like}>Liked</Text>
+                  ) : (
+                    <Text style={styles.liked}>Like</Text>
+                  )}
                 </View>
               </TouchableOpacity>
             )}

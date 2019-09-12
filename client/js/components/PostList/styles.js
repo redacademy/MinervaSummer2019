@@ -106,6 +106,20 @@ const styles = StyleSheet.create({
     fontSize: theme.font.subtitle,
   },
 
+  like: {
+    paddingHorizontal: '2%',
+    color: theme.palette.green,
+    fontFamily: theme.fonts.bold,
+    fontSize: theme.font.subtitle,
+  },
+
+  liked: {
+    paddingHorizontal: '2%',
+    color: theme.palette.darkGrey,
+    fontFamily: theme.fonts.bold,
+    fontSize: theme.font.subtitle,
+  },
+
   likeBtn: {
     width: '100%',
     flexDirection: 'row',
