@@ -9,6 +9,68 @@ import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import CreateComment from '../CreateComment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import theme from '../../config/theme';
+import {gql} from 'apollo-boost';
+import {Mutation} from '@apollo/react-components';
+
+const DELETE_POST_MUTATION = gql`
+  mutation deletePost($id: ID!) {
+    deletePost(id: $id) {
+      id
+    }
+  }
+`;
+
+const LIKE_POST_MUTATION = gql`
+  mutation addToPostLikes($likesPostId: ID!, $likesUserId: ID!) {
+    addToPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
+      likesPost {
+        id
+      }
+    }
+  }
+`;
+const DISLIKE_POST_MUTATION = gql`
+  mutation removeFromPostLikes($likesPostId: ID!, $likesUserId: ID!) {
+    removeFromPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
+      likesPost {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_ALL_POSTS = gql`
+  query {
+    allPosts(orderBy: createdAt_ASC) {
+      author {
+        id
+        firstName
+        lastName
+        photo {
+          url
+        }
+      }
+      type
+      id
+      createdAt
+      content
+      likes {
+        id
+      }
+      comments {
+        id
+        author {
+          firstName
+          lastName
+        }
+        content
+        likes {
+          id
+        }
+      }
+    }
+  }
+`;
 
 class PostList extends Component {
   constructor(props) {
@@ -16,6 +78,12 @@ class PostList extends Component {
     this.state = {
       displayCommentInput: false,
     };
+  }
+  componentDidMount() {
+    const likedIds = this.props.post.likes.map(like => like.id);
+    this.setState({
+      liked: likedIds.includes(this.props.viewer.id),
+    });
   }
   setMenuRef = ref => {
     this._menu = ref;
@@ -31,6 +99,32 @@ class PostList extends Component {
 
   toggleCommentDisplay = () => {
     this.setState({displayCommentInput: !this.state.displayCommentInput});
+  };
+
+  toggleLike = async (likeMutation, viewerId, postId) => {
+    try {
+      await likeMutation({
+        variables: {likesPostId: postId, likesUserId: viewerId},
+      });
+      this.setState({liked: !this.state.liked});
+    } catch (e) {
+      throw e;
+    }
+  };
+
+  removePost = async (deletePost, authorId, viewerId, viewerPosts, postId) => {
+    const viewerPostIds = viewerPosts.map(post => post.id);
+
+    if (authorId === viewerId && viewerPostIds.includes(postId)) {
+      try {
+        postId && (await deletePost({variables: {id: postId}}));
+        this.hideMenu();
+      } catch (e) {
+        throw e;
+      }
+    } else {
+      throw new Error('You cannot delete another users post.');
+    }
   };
 
   render() {
@@ -109,14 +203,32 @@ class PostList extends Component {
                   <Text> Copy link</Text>
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem onPress={this.hideMenu}>
-                  <Ionics
-                    name="ios-trash"
-                    size={15}
-                    color={theme.palette.darkGrey}
-                  />
-                  <Text> Delete post</Text>
-                </MenuItem>
+
+                {viewer.id === post.author.id ? (
+                  <Mutation
+                    mutation={DELETE_POST_MUTATION}
+                    refetchQueries={() => [{query: GET_ALL_POSTS}]}>
+                    {deletePost => (
+                      <MenuItem
+                        onPress={() => {
+                          this.removePost(
+                            deletePost,
+                            post.author.id,
+                            viewer.id,
+                            viewer.posts,
+                            post.id,
+                          );
+                        }}>
+                        <Ionics
+                          name="ios-trash"
+                          size={15}
+                          color={theme.palette.darkGrey}
+                        />
+                        <Text> Delete post</Text>
+                      </MenuItem>
+                    )}
+                  </Mutation>
+                ) : null}
               </Menu>
             </View>
           </View>
@@ -150,16 +262,32 @@ class PostList extends Component {
         </View>
 
         <View style={styles.touchOpWrapper}>
-          <TouchableOpacity style={styles.touchOp}>
-            <View style={styles.likeBtn}>
-              <Entypo
-                name={'thumbs-up'}
-                size={15}
-                color={theme.palette.darkGrey}
-              />
-              <Text style={styles.touchOpResponse}>Like</Text>
-            </View>
-          </TouchableOpacity>
+          <Mutation
+            mutation={
+              this.state.liked ? DISLIKE_POST_MUTATION : LIKE_POST_MUTATION
+            }
+            refetchQueries={() => [{query: GET_ALL_POSTS}]}>
+            {likeMutation => (
+              <TouchableOpacity
+                style={styles.touchOp}
+                onPress={() =>
+                  this.toggleLike(likeMutation, viewer.id, post.id)
+                }>
+                <View style={styles.likeBtn}>
+                  <Entypo
+                    name={'thumbs-up'}
+                    size={15}
+                    color={
+                      this.state.liked
+                        ? theme.palette.green
+                        : theme.palette.darkGrey
+                    }
+                  />
+                  <Text style={styles.touchOpResponse}>Like</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          </Mutation>
 
           <TouchableOpacity
             style={styles.touchOp}

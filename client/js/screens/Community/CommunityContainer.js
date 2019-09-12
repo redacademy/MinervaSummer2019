@@ -12,6 +12,7 @@ export const GET_ALL_POSTS = gql`
   query {
     allPosts(orderBy: createdAt_DESC) {
       author {
+        id
         firstName
         lastName
         photo {

@@ -22,6 +22,9 @@ const USER_QUERY = gql`
         title
         id
       }
+      posts {
+        id
+      }
     }
   }
 `;
