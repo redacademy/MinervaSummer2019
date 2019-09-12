@@ -20,6 +20,7 @@ const DELETE_POST_MUTATION = gql`
   }
 `;
 
+
 const LIKE_POST_MUTATION = gql`
   mutation addToPostLikes($likesPostId: ID!, $likesUserId: ID!) {
     addToPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
@@ -38,6 +39,7 @@ const DISLIKE_POST_MUTATION = gql`
     }
   }
 `;
+
 
 export const GET_ALL_POSTS = gql`
   query {
@@ -101,6 +103,7 @@ class PostList extends Component {
     this.setState({displayCommentInput: !this.state.displayCommentInput});
   };
 
+
   toggleLike = async (likeMutation, viewerId, postId) => {
     try {
       await likeMutation({
@@ -111,6 +114,7 @@ class PostList extends Component {
       throw e;
     }
   };
+
   removePost = async (deletePost, authorId, viewerId, viewerPosts, postId) => {
     const viewerPostIds = viewerPosts.map(post => post.id);
 
