@@ -3,16 +3,18 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   postWrapper: {
-    paddingVertical: '3%',
+    paddingTop: '10%',
+    paddingBottom: '10%',
     paddingHorizontal: '3%',
     borderBottomWidth: 1,
     borderColor: theme.palette.lightGrey,
+    justifyContent: 'space-around',
   },
 
   touchOp: {
     borderWidth: 1,
     borderColor: theme.palette.lightGrey,
-    height: 35,
+    height: 40,
     borderRadius: 50,
     justifyContent: 'center',
   },
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     textAlign: 'center',
-    marginVertical: '5%',
+    // marginVertical: '5%',
     height: 40,
   },
 
