@@ -37,19 +37,26 @@ class PostList extends Component {
     const {post, navigation, faved, addFave, removeFave, viewer} = this.props;
     const newDate = formatDateString(post.createdAt);
     return (
-      <View style={styles.container}>
+      <View>
         <View style={styles.postWrapper}>
           <View style={styles.topWrapper}>
             <View style={styles.authorWrapper}>
-              <Image
-                style={styles.image}
-                source={require('../../assets/PNG/additional_illustrations/profile.png')}
-              />
+              {post.author.photo.url === null ? (
+                <Image
+                  style={styles.image}
+                  source={require('../../assets/PNG/additional_illustrations/profile.png')}
+                />
+              ) : (
+                <Image
+                  style={styles.image}
+                  source={{uri: post.author.photo.url}}
+                />
+              )}
 
               <View style={styles.nameWrapper}>
-                <Text>
+                <Text style={styles.name}>
                   {post.author.firstName}
-                  <View style={{width: 2}} />
+                  <View style={styles.lineB} />
                   {post.author.lastName}
                 </Text>
                 <Text style={styles.time}>{newDate}</Text>
@@ -117,8 +124,8 @@ class PostList extends Component {
           <Text style={styles.content}>{post.content}</Text>
 
           <View style={styles.responseWrapper}>
-            <Ionics
-              name={'ios-thumbs-up'}
+            <Entypo
+              name={'thumbs-up'}
               size={15}
               color={theme.palette.darkGrey}
             />
@@ -142,15 +149,15 @@ class PostList extends Component {
           </View>
         </View>
 
-        <View style={styles.opWrapper}>
+        <View style={styles.touchOpWrapper}>
           <TouchableOpacity style={styles.touchOp}>
             <View style={styles.likeBtn}>
-              <Ionics
-                name={'ios-thumbs-up'}
+              <Entypo
+                name={'thumbs-up'}
                 size={15}
                 color={theme.palette.darkGrey}
               />
-              <Text style={styles.response}>Like</Text>
+              <Text style={styles.touchOpResponse}>Like</Text>
             </View>
           </TouchableOpacity>
 
@@ -167,10 +174,11 @@ class PostList extends Component {
                 size={15}
                 color={theme.palette.darkGrey}
               />
-              <Text style={styles.response}>Comment</Text>
+              <Text style={styles.touchOpResponse}>Comment</Text>
             </View>
           </TouchableOpacity>
         </View>
+
         {this.state.displayCommentInput && (
           <CreateComment
             postId={post.id}

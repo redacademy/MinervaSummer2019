@@ -3,14 +3,13 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   postWrapper: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    padding: 10,
   },
 
   topWrapper: {
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
   },
 
   authorWrapper: {
@@ -29,56 +28,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
 
+  name: {
+    fontFamily: theme.fonts.bold,
+    color: theme.palette.darkGrey,
+    fontSize: theme.font.subtitle,
+  },
+
+  lineB: {
+    width: 2,
+  },
+
   time: {
     color: theme.palette.darkGrey,
-  },
-
-  content: {
-    paddingVertical: '5%',
-  },
-
-  responseWrapper: {
-    flexDirection: 'row',
-    paddingVertical: '2%',
-  },
-
-  response: {
-    paddingHorizontal: '2%',
-    color: theme.palette.darkGrey,
-  },
-
-  goToComment: {
-    flexDirection: 'row',
-  },
-
-  opWrapper: {
-    width: '100%',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: theme.palette.lightGrey,
-    flexDirection: 'row',
-    height: 40,
-  },
-
-  touchOp: {
-    flexDirection: 'row',
-    width: '50%',
-  },
-
-  likeBtn: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRightWidth: 1,
-    borderColor: theme.palette.lightGrey,
-  },
-
-  commentBtn: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    fontFamily: theme.fonts.regular,
+    fontSize: 12,
   },
 
   postBtn: {
@@ -96,6 +59,67 @@ const styles = StyleSheet.create({
 
   triDotIcon: {
     color: theme.palette.darkGrey,
+  },
+
+  content: {
+    paddingVertical: '5%',
+    paddingHorizontal: 10,
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.darkGrey,
+    fontSize: theme.font.subtitle,
+  },
+
+  responseWrapper: {
+    flexDirection: 'row',
+    paddingVertical: '2%',
+  },
+
+  response: {
+    paddingHorizontal: '2%',
+    color: theme.palette.darkGrey,
+    fontFamily: theme.fonts.regular,
+    fontSize: theme.font.subtitle,
+  },
+
+  goToComment: {
+    flexDirection: 'row',
+  },
+
+  touchOpWrapper: {
+    height: 40,
+    width: '100%',
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: theme.palette.lightGrey,
+  },
+
+  touchOp: {
+    width: '50%',
+    flexDirection: 'row',
+  },
+
+  touchOpResponse: {
+    paddingHorizontal: '2%',
+    color: theme.palette.darkGrey,
+    fontFamily: theme.fonts.bold,
+    fontSize: theme.font.subtitle,
+  },
+
+  likeBtn: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRightWidth: 1,
+    borderColor: theme.palette.lightGrey,
+  },
+
+  commentBtn: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

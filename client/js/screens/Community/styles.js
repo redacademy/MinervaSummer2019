@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     textAlign: 'center',
     fontSize: theme.font.header,
-    fontFamily: theme.fonts.medium,
+    fontFamily: theme.fonts.bold,
     color: theme.palette.darkGrey,
   },
 
