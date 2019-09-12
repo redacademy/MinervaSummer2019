@@ -96,8 +96,12 @@ export default createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
+      activeTintColor: '#00A3B4',
+      inactiveTintColor: '#CFCFCF',
+
       labelStyle: {
         fontSize: 12,
+        // color: '#00A3B4',
       },
     },
   },

@@ -13,6 +13,7 @@ const CREATE_POST = gql`
   mutation createPost($authorId: ID, $content: String!, $type: String!) {
     createPost(authorId: $authorId, content: $content, type: $type) {
       author {
+        id
         firstName
         lastName
         photo {

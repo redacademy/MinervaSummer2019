@@ -62,6 +62,10 @@ export const GET_ALL_POSTS = gql`
         author {
           firstName
           lastName
+          id
+          photo {
+            url
+          }
         }
         content
         likes {
@@ -132,6 +136,7 @@ class PostList extends Component {
     const newDate = formatDateString(post.createdAt);
     return (
       <View>
+        {console.log(post)}
         <View style={styles.postWrapper}>
           <View style={styles.topWrapper}>
             <View style={styles.authorWrapper}>

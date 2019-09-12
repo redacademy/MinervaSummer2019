@@ -13,6 +13,9 @@ const USER_QUERY = gql`
       id
       firstName
       lastName
+      photo {
+        url
+      }
       location
       school
       bio

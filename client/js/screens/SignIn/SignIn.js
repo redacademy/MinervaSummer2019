@@ -80,12 +80,12 @@ class SignIn extends Component {
           }
           if (error) {
             return (
-              <View>
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <Text>Were sorry, we could not log you in right now</Text>
                 <GradientButton
                   text="Back to Sign In"
                   onPress={() => {
-                    this.props.navigation.navigate('SignIn');
+                    this.props.navigation.goBack();
                   }}></GradientButton>
               </View>
             );

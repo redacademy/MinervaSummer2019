@@ -31,6 +31,9 @@ export const GET_ALL_POSTS = gql`
         author {
           firstName
           lastName
+          photo {
+            url
+          }
         }
         content
         likes {

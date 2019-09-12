@@ -4,39 +4,7 @@ import Ionics from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
-
-export const GET_ALL_POSTS = gql`
-  query {
-    allPosts(orderBy: createdAt_ASC) {
-      author {
-        id
-        firstName
-        lastName
-        photo {
-          url
-        }
-      }
-      type
-      id
-      createdAt
-      content
-      likes {
-        id
-      }
-      comments {
-        id
-        author {
-          firstName
-          lastName
-        }
-        content
-        likes {
-          id
-        }
-      }
-    }
-  }
-`;
+import {GET_ALL_POSTS} from '../PostList/PostList';
 
 const LIKE_COMMENT_MUTATION = gql`
   mutation addToCommentLikes($commentLikesCommentId: ID!, $likesUserId: ID!) {
@@ -105,12 +73,18 @@ class CommentList extends React.Component {
     const {comment} = this.props;
     return (
       <View style={styles.commentWrapper}>
-        <View>
+        {comment.author.photo.url === null ? (
           <Image
             style={styles.image}
             source={require('../../assets/PNG/additional_illustrations/profile.png')}
           />
-        </View>
+        ) : (
+          <Image
+            style={styles.image}
+            source={{uri: comment.author.photo.url}}
+          />
+        )}
+        {console.log(comment)}
 
         <View style={styles.comment}>
           <Text style={styles.author}>
