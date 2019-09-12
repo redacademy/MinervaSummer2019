@@ -53,7 +53,6 @@ class AuthLoadingScreen extends React.Component {
   };
 
   render() {
-    this.hasUserLoggedIn;
     return <CircularLoader />;
   }
 }

@@ -7,6 +7,7 @@ import ChatsScreen from '../screens/AllChats';
 import CommentsScreen from '../screens/Comments';
 import ProfileScreen from '../screens/UserProfile';
 import CreatePostScreen from '../screens/CreatePost';
+import SingleChatScreen from '../screens/SingleChat';
 
 const CommunityStack = createStackNavigator({
   Community: {
@@ -26,7 +27,12 @@ const CommunityStack = createStackNavigator({
   },
 });
 const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});
-const ChatsStack = createStackNavigator({Chats: ChatsScreen});
+const ChatsStack = createStackNavigator({
+  Chats: {screen: ChatsScreen},
+  SingleChat: {
+    screen: SingleChatScreen,
+  },
+});
 const ProfileStack = createStackNavigator({Profile: ProfileScreen});
 
 export default createBottomTabNavigator({

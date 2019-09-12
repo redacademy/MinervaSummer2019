@@ -77,8 +77,6 @@ class CommunityContainer extends Component {
             <Query query={GET_ALL_POSTS}>
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
-return <Community context={context} posts={data.allPosts} />;
-
                 if (error) return <Text>Error!</Text>;
                 return (
                   <Community
@@ -94,7 +92,6 @@ return <Community context={context} posts={data.allPosts} />;
                     getState={this.getState}
                   />
                 );
-
               }}
             </Query>
           );
