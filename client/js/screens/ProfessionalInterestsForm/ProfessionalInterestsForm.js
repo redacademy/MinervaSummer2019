@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, ScrollView} from 'react-native';
 import GradientButton from '../../components/GradientButton';
+import CircularLoader from '../../components/CircularLoader';
 import styles from './styles';
 import SelectableChips from 'react-native-chip/SelectableChips';
 import {withNavigation} from 'react-navigation';
@@ -8,7 +9,6 @@ import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import AsyncStorage from '@react-native-community/async-storage';
 import {storeToken} from '../../config/models';
-import CircularLoader from '../../components/CircularLoader';
 
 const AUTHENTICATE_USER_MUTATION = gql`
   mutation authenticateUser($email: String!, $password: String!) {
@@ -99,51 +99,59 @@ class ProfessionalInterestsForm extends React.Component {
       interest => interest.type === 'Professional',
     );
     return (
-      <ScrollView style={styles.root}>
-        <Text style={styles.stepText}>Step 6 of 6</Text>
-        <Text style={styles.heading}>Professional Interests</Text>
-        <Text style={styles.subHeading}>
-          By selecting your professional interests we can connect you with other
-          women who have similar interest. /n Please select some of our
-          professional interests below. You can add or edit new ones t anytime
-          on your profile page.
-        </Text>
-        <View style={styles.chipsWrapper}>
-          <Text style={styles.chipsHeading}>Professional Interests</Text>
-          <SelectableChips
-            initialChips={professionalInterests.map(interest => interest.title)}
-            onChangeChips={chips => this.addChips(chips)}
-            alertRequired={false}
-            chipStyle={styles.chip}
-            valueStyle={styles.chipText}
-            chipStyleSelected={styles.chipSelected}
-            valueStyleSelected={styles.chipTextSelected}
-          />
-        </View>
-        <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
-          {(authenticateUser, {loading}) => {
-            if (loading) {
-              return <CircularLoader />;
-            }
-            return (
-              <Mutation mutation={CREATE_USER_MUTATION}>
-                {createUser => (
-                  <View style={styles.buttonWrapper}>
-                    <GradientButton
-                      style={styles.button}
-                      width="80%"
-                      onPress={() =>
-                        this.submitForm(authenticateUser, createUser)
-                      }
-                      text="Continue"
-                    />
-                  </View>
-                )}
-              </Mutation>
-            );
-          }}
-        </Mutation>
-      </ScrollView>
+      <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
+        {(authenticateUser, {loading}) => {
+          if (loading) {
+            return <CircularLoader />;
+          }
+          return (
+            <Mutation mutation={CREATE_USER_MUTATION}>
+              {(createUser, {loading}) =>
+                loading ? (
+                  <CircularLoader></CircularLoader>
+                ) : (
+                  <ScrollView style={styles.root}>
+                    <Text style={styles.stepText}>Step 6 of 6</Text>
+                    <Text style={styles.heading}>Professional Interests</Text>
+                    <Text style={styles.subHeading}>
+                      By selecting your professional interests we can connect
+                      you with other women who have similar interest. /n Please
+                      select some of our professional interests below. You can
+                      add or edit new ones t anytime on your profile page.
+                    </Text>
+                    <View style={styles.chipsWrapper}>
+                      <Text style={styles.chipsHeading}>
+                        Professional Interests
+                      </Text>
+                      <SelectableChips
+                        initialChips={professionalInterests.map(
+                          interest => interest.title,
+                        )}
+                        onChangeChips={chips => this.addChips(chips)}
+                        alertRequired={false}
+                        chipStyle={styles.chip}
+                        valueStyle={styles.chipText}
+                        chipStyleSelected={styles.chipSelected}
+                        valueStyleSelected={styles.chipTextSelected}
+                      />
+                    </View>
+                    <View style={styles.buttonWrapper}>
+                      <GradientButton
+                        style={styles.button}
+                        width="80%"
+                        onPress={() =>
+                          this.submitForm(authenticateUser, createUser)
+                        }
+                        text="Continue"
+                      />
+                    </View>
+                  </ScrollView>
+                )
+              }
+            </Mutation>
+          );
+        }}
+      </Mutation>
     );
   }
 }

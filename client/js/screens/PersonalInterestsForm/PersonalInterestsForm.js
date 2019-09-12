@@ -11,15 +11,19 @@ class PersonalInterestsForm extends React.Component {
     this.state = {
       personalInterests: [],
       socialInterests: [],
+      pristine: true,
     };
   }
   submitForm() {
-    console.log(this.state);
+    this.setState({pristine: false});
     const {addPersonalInterests} = this.props.signUpContext;
     const interestTitles = [
       ...this.state.personalInterests,
       ...this.state.socialInterests,
     ];
+    if (interestTitles.length < 3) {
+      return;
+    }
     const interestIds = this.props.allInterests
       .filter(interest => interestTitles.includes(interest.title))
       .map(interest => interest.id);
@@ -69,6 +73,10 @@ class PersonalInterestsForm extends React.Component {
             valueStyleSelected={styles.chipTextSelected}
           />
         </View>
+        {!this.state.pristine &&
+        this.state.personalInterests.length + this.state.socialInterests < 3 ? (
+          <Text style={styles.error}>*please select at least 3 interests</Text>
+        ) : null}
         <View style={styles.buttonWrapper}>
           <GradientButton
             style={styles.button}

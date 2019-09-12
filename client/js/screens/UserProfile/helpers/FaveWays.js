@@ -25,9 +25,9 @@ class FaveWays extends Component {
     }
   }
   render() {
-    let {item, index} = this.props;
+    let {item, index, show} = this.props;
 
-    return (
+    return show || item.visible ? (
       <TouchableOpacity
         style={styles.icon}
         key={item.name}
@@ -40,6 +40,8 @@ class FaveWays extends Component {
         />
         <Text>{item.name}</Text>
       </TouchableOpacity>
+    ) : (
+      <Text style={{display: 'none'}}></Text>
     );
   }
 }

@@ -37,7 +37,7 @@ class InterestButton extends Component {
         },
       }));
       this.props.updateInterest(
-        this.props.info.name,
+        this.props.info.title,
         this.props.index,
         this.props.interest,
       );
@@ -48,9 +48,9 @@ class InterestButton extends Component {
 
     return show || info.visible ? (
       <TouchableOpacity
-        key={info.name}
+        key={info.title}
         onPress={this.changeBackground.bind(this)}>
-        <Text style={this.state.style}>{info.name}</Text>
+        <Text style={this.state.style}>{info.title}</Text>
       </TouchableOpacity>
     ) : (
       <Text style={{display: 'none'}}></Text>

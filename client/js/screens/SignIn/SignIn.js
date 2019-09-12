@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, TextInput, Keyboard} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import styles from './styles';
@@ -16,6 +15,24 @@ const AUTHENTICATE_USER_MUTATION = gql`
     authenticateUser(email: $email, password: $password) {
       id
       token
+    }
+  }
+`;
+
+const USER_QUERY = gql`
+  query User($email: String!) {
+    User(id: $email) {
+      firstName
+      lastName
+      location
+      school
+      bio
+      lookingFor
+      waysToMeet
+      interests {
+        title
+        id
+      }
     }
   }
 `;
@@ -57,9 +74,21 @@ class SignIn extends Component {
   render() {
     return (
       <Mutation mutation={AUTHENTICATE_USER_MUTATION}>
-        {(authenticateUser, {loading}) => {
+        {(authenticateUser, {loading, error}) => {
           if (loading) {
-            return <CircularLoader />;
+            return <CircularLoader></CircularLoader>;
+          }
+          if (error) {
+            return (
+              <View>
+                <Text>Were sorry, we could not log you in right now</Text>
+                <GradientButton
+                  text="Back to Sign In"
+                  onPress={() => {
+                    this.props.navigation.navigate('SignIn');
+                  }}></GradientButton>
+              </View>
+            );
           }
           return (
             <Form

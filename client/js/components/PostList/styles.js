@@ -80,6 +80,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  postBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  faveActive: {
+    color: theme.palette.green,
+  },
+
+  faveInactive: {
+    color: theme.palette.darkGrey,
+  },
+
+  triDotIcon: {
+    color: theme.palette.darkGrey,
+  },
 });
 
 export default styles;
