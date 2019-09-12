@@ -84,7 +84,6 @@ class CommentList extends React.Component {
             source={{uri: comment.author.photo.url}}
           />
         )}
-        {console.log(comment)}
 
         <View style={styles.comment}>
           <Text style={styles.author}>

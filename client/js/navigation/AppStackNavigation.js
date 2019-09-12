@@ -9,26 +9,33 @@ import ProfileScreen from '../screens/UserProfile';
 import CreatePostScreen from '../screens/CreatePost';
 
 import {View, Image} from 'react-native';
+import {sharedNavigationOptions} from './config';
 import React from 'react';
-import styles from './styles';
 
-const CommunityStack = createStackNavigator({
-  Community: {
-    screen: CommunityScreen,
-  },
+const CommunityStack = createStackNavigator(
+  {
+    Community: {
+      screen: CommunityScreen,
+    },
 
-  Comments: {
-    screen: CommentsScreen,
-  },
+    Comments: {
+      screen: CommentsScreen,
+    },
 
-  CreatePost: {
-    screen: CreatePostScreen,
-  },
+    CreatePost: {
+      screen: CreatePostScreen,
+    },
 
-  Favourites: {
-    screen: FavouritesScreen,
+    Favourites: {
+      screen: FavouritesScreen,
+    },
   },
-});
+  {
+    defaultNavigationOptions: ({navigation}) => ({
+      ...sharedNavigationOptions(navigation),
+    }),
+  },
+);
 const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});
 const ChatsStack = createStackNavigator({Chats: ChatsScreen});
 const ProfileStack = createStackNavigator({Profile: ProfileScreen});
@@ -101,7 +108,7 @@ export default createBottomTabNavigator(
 
       labelStyle: {
         fontSize: 12,
-        // color: '#00A3B4',
+        fontFamily: 'Lato-Regular',
       },
     },
   },

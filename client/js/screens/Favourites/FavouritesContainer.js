@@ -30,6 +30,9 @@ export const GET_ALL_POSTS = gql`
         author {
           firstName
           lastName
+          photo {
+            url
+          }
         }
         content
         likes {
@@ -51,6 +54,7 @@ class FavouritesContainer extends Component {
           return (
             <Query query={GET_ALL_POSTS} fetchPolicy="network-only">
               {({loading, error, data}) => {
+                console.log(data);
                 if (loading) return <CircularLoader />;
                 if (error) return <Text>Error!</Text>;
                 const favedPosts = data.allPosts.filter(post =>
