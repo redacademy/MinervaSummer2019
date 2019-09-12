@@ -9,6 +9,49 @@ import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import CreateComment from '../CreateComment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import theme from '../../config/theme';
+import {gql} from 'apollo-boost';
+import {Mutation} from '@apollo/react-components';
+
+const DELETE_POST_MUTATION = gql`
+  mutation deletePost($id: ID!) {
+    deletePost(id: $id) {
+      id
+    }
+  }
+`;
+
+export const GET_ALL_POSTS = gql`
+  query {
+    allPosts(orderBy: createdAt_ASC) {
+      author {
+        id
+        firstName
+        lastName
+        photo {
+          url
+        }
+      }
+      type
+      id
+      createdAt
+      content
+      likes {
+        id
+      }
+      comments {
+        id
+        author {
+          firstName
+          lastName
+        }
+        content
+        likes {
+          id
+        }
+      }
+    }
+  }
+`;
 
 class PostList extends Component {
   constructor(props) {
@@ -31,6 +74,21 @@ class PostList extends Component {
 
   toggleCommentDisplay = () => {
     this.setState({displayCommentInput: !this.state.displayCommentInput});
+  };
+
+  removePost = async (deletePost, authorId, viewerId, viewerPosts, postId) => {
+    const viewerPostIds = viewerPosts.map(post => post.id);
+
+    if (authorId === viewerId && viewerPostIds.includes(postId)) {
+      try {
+        postId && (await deletePost({variables: {id: postId}}));
+        this.hideMenu();
+      } catch (e) {
+        throw e;
+      }
+    } else {
+      throw new Error('You cannot delete another users post.');
+    }
   };
 
   render() {
@@ -102,14 +160,32 @@ class PostList extends Component {
                   <Text> Copy link</Text>
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem onPress={this.hideMenu}>
-                  <Ionics
-                    name="ios-trash"
-                    size={15}
-                    color={theme.palette.darkGrey}
-                  />
-                  <Text> Delete post</Text>
-                </MenuItem>
+
+                {viewer.id === post.author.id ? (
+                  <Mutation
+                    mutation={DELETE_POST_MUTATION}
+                    refetchQueries={() => [{query: GET_ALL_POSTS}]}>
+                    {deletePost => (
+                      <MenuItem
+                        onPress={() => {
+                          this.removePost(
+                            deletePost,
+                            post.author.id,
+                            viewer.id,
+                            viewer.posts,
+                            post.id,
+                          );
+                        }}>
+                        <Ionics
+                          name="ios-trash"
+                          size={15}
+                          color={theme.palette.darkGrey}
+                        />
+                        <Text> Delete post</Text>
+                      </MenuItem>
+                    )}
+                  </Mutation>
+                ) : null}
               </Menu>
             </View>
           </View>
