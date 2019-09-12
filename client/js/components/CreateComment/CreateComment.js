@@ -3,10 +3,12 @@ import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import {Mutation} from '@apollo/react-components';
 import {gql} from 'apollo-boost';
 import styles from './styles';
+import {GET_ALL_POSTS} from '../../screens/Community/CommunityContainer';
 
 const CREATE_COMMENT = gql`
   mutation createComment($authorId: ID, $postId: ID, $content: String!) {
     createComment(authorId: $authorId, postId: $postId, content: $content) {
+      id
       content
     }
   }
@@ -21,7 +23,9 @@ const CreateComment = ({postId, toggleCommentDisplay, viewer}) => {
         style={styles.image}
         source={require('../../assets/PNG/additional_illustrations/profile.png')}
       />
-      <Mutation mutation={CREATE_COMMENT}>
+      <Mutation
+        mutation={CREATE_COMMENT}
+        refetchQueries={() => [{query: GET_ALL_POSTS}]}>
         {(createComment, {loading}) => (
           <View style={styles.inputWrapper}>
             <TextInput
