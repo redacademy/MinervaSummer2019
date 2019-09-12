@@ -74,23 +74,28 @@ const DISLIKE_COMMENT_MUTATION = gql`
 class CommentList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      likeCount: this.props.comment.likes.length,
+    };
   }
   componentDidMount() {
     const {comment, viewer} = this.props;
     const likedIds = comment.likes.map(like => like.id);
     const liked = likedIds.includes(viewer.id);
-    this.setState({liked: liked, likeCount: comment.likes.length});
+    this.setState({liked: liked});
   }
   toggleLike = async likeMutation => {
     const {comment, viewer} = this.props;
+
     try {
       await likeMutation({
         variables: {commentLikesCommentId: comment.id, likesUserId: viewer.id},
       });
       this.setState({
         liked: !this.state.liked,
-        likeCount: this.props.comment.likes.length,
+        likeCount: this.state.liked
+          ? this.state.likeCount - 1
+          : this.state.likeCount + 1,
       });
     } catch (e) {
       throw e;
