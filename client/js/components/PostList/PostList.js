@@ -30,8 +30,8 @@ const LIKE_POST_MUTATION = gql`
   }
 `;
 const DISLIKE_POST_MUTATION = gql`
-  mutation addToPostLikes($likesPostId: ID!, $likesUserId: ID!) {
-    addToPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
+  mutation removeFromPostLikes($likesPostId: ID!, $likesUserId: ID!) {
+    removeFromPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
       likesPost {
         id
       }
@@ -79,6 +79,12 @@ class PostList extends Component {
       displayCommentInput: false,
     };
   }
+  componentDidMount() {
+    const likedIds = this.props.post.likes.map(like => like.id);
+    this.setState({
+      liked: likedIds.includes(this.props.viewer.id),
+    });
+  }
   setMenuRef = ref => {
     this._menu = ref;
   };
@@ -100,6 +106,7 @@ class PostList extends Component {
       await likeMutation({
         variables: {likesPostId: postId, likesUserId: viewerId},
       });
+      this.setState({liked: !this.state.liked});
     } catch (e) {
       throw e;
     }
@@ -122,8 +129,6 @@ class PostList extends Component {
   render() {
     const {post, navigation, faved, addFave, removeFave, viewer} = this.props;
     const newDate = formatDateString(post.createdAt);
-    const liked = post.likes.includes(viewer.id);
-    console.log(liked);
     return (
       <View style={styles.container}>
         <View style={styles.postWrapper}>
@@ -250,7 +255,9 @@ class PostList extends Component {
 
         <View style={styles.opWrapper}>
           <Mutation
-            mutation={liked ? DISLIKE_POST_MUTATION : LIKE_POST_MUTATION}
+            mutation={
+              this.state.liked ? DISLIKE_POST_MUTATION : LIKE_POST_MUTATION
+            }
             refetchQueries={() => [{query: GET_ALL_POSTS}]}>
             {likeMutation => (
               <TouchableOpacity
@@ -262,7 +269,11 @@ class PostList extends Component {
                   <Ionics
                     name={'ios-thumbs-up'}
                     size={15}
-                    color={liked ? theme.palette.green : theme.palette.darkGrey}
+                    color={
+                      this.state.liked
+                        ? theme.palette.green
+                        : theme.palette.darkGrey
+                    }
                   />
                   <Text style={styles.response}>Like</Text>
                 </View>
