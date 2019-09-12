@@ -1,5 +1,4 @@
 let organizer = interest => {
-  // let new_interest = {Personal: [], Social: [], Profesional: []};
   let new_interest = {
     Personal: [],
     Social: [],
