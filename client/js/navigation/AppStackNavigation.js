@@ -12,30 +12,23 @@ import {View, Image} from 'react-native';
 import {sharedNavigationOptions} from './config';
 import React from 'react';
 
-const CommunityStack = createStackNavigator(
-  {
-    Community: {
-      screen: CommunityScreen,
-    },
-
-    Comments: {
-      screen: CommentsScreen,
-    },
-
-    CreatePost: {
-      screen: CreatePostScreen,
-    },
-
-    Favourites: {
-      screen: FavouritesScreen,
-    },
+const CommunityStack = createStackNavigator({
+  Community: {
+    screen: CommunityScreen,
   },
-  {
-    defaultNavigationOptions: ({navigation}) => ({
-      ...sharedNavigationOptions(navigation),
-    }),
+
+  Comments: {
+    screen: CommentsScreen,
   },
-);
+
+  CreatePost: {
+    screen: CreatePostScreen,
+  },
+
+  Favourites: {
+    screen: FavouritesScreen,
+  },
+});
 const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});
 const ChatsStack = createStackNavigator({Chats: ChatsScreen});
 const ProfileStack = createStackNavigator({Profile: ProfileScreen});
