@@ -9,7 +9,6 @@ import ProfileScreen from '../screens/UserProfile';
 import CreatePostScreen from '../screens/CreatePost';
 
 import {View, Image} from 'react-native';
-import {sharedNavigationOptions} from './config';
 import React from 'react';
 
 const CommunityStack = createStackNavigator({
