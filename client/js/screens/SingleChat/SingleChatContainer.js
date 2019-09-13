@@ -52,8 +52,8 @@ class SingleChatContainer extends Component {
                 if (error) return <Text>Error!{console.log(error)}</Text>;
                 return (
                   <SingleChat
-                    chatId={chat.id}
-                    messages={this.state.messages}
+                    chat={chat}
+                    messages={chat.messages}
                     viewer={context.viewer}></SingleChat>
                 );
               }}

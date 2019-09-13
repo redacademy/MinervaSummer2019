@@ -36,8 +36,8 @@ const CREATE_MESSAGE = gql`
 `;
 
 const CHAT_SUBSCRIPTION = gql`
-  subscription Message($id: ID!) {
-    Message(filter: {node: {conversation: {id: $id}}}) {
+  subscription {
+    Message(filter: {mutation_in: [CREATED]}) {
       node {
         id
         sentAt
@@ -66,13 +66,11 @@ class SingleChat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: this.props.chat.messages,
       text: '',
     };
   }
   render() {
     const {chat, viewer} = this.props;
-    console.log(chat);
     const recipient = [
       chat.messages[0].recipient.id,
       chat.messages[0].author.id,
@@ -80,55 +78,61 @@ class SingleChat extends React.Component {
 
     return (
       <Fragment>
-        <ScrollView
-          contentContainerStyle={styles.root}
-          ref={ref => (this.scrollView = ref)}
-          onContentSizeChange={(contentWidth, contentHeight) => {
-            this.scrollView.scrollToEnd({animated: false});
-          }}>
-          {chat.messages.map(message => (
-            <View
-              key={message.id}
-              style={[
-                styles.chatCard,
-                message.author.id === viewer.id
-                  ? styles.sentMessage
-                  : styles.receivedMessage,
-              ]}>
-              <Image
-                source={
-                  message.author.photo
-                    ? message.author.photo.url
-                    : require('../../assets/PNG/additional_illustrations/profile.png')
-                }
-                style={styles.authorPicture}
-              />
-              <View style={styles.chatBubble}>
-                <Text style={styles.chatBubbleText}>{message.content}</Text>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
         <Subscription
           subscription={CHAT_SUBSCRIPTION}
-          variables={{id: chat.id}}
           onSubscriptionData={data => {
             if (data && data.Message) {
+              console.log(data);
             }
           }}>
-          {({data, error}) => {
+          {({loading, error, data}) => {
+            if (loading) console.log(loading);
+            if (error) console.log(error);
+            const chatMessages = chat.messages;
             if (data) {
-              console.log(data);
-              const message = data.Message.node;
+              chatMessages.push(data.Message.node);
             }
-            return null;
+
+            return (
+              <ScrollView
+                contentContainerStyle={styles.root}
+                ref={ref => (this.scrollView = ref)}
+                onContentSizeChange={(contentWidth, contentHeight) => {
+                  this.scrollView.scrollToEnd({animated: false});
+                }}>
+                {chatMessages.map(message => (
+                  <View
+                    key={message.id}
+                    style={[
+                      styles.chatCard,
+                      message.author.id === viewer.id
+                        ? styles.sentMessage
+                        : styles.receivedMessage,
+                    ]}>
+                    <Image
+                      source={
+                        message.author.photo
+                          ? message.author.photo.url
+                          : require('../../assets/PNG/additional_illustrations/profile.png')
+                      }
+                      style={styles.authorPicture}
+                    />
+                    <View style={styles.chatBubble}>
+                      <Text style={styles.chatBubbleText}>
+                        {message.content}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              </ScrollView>
+            );
           }}
         </Subscription>
         <Mutation
           mutation={CREATE_MESSAGE}
           refetchQueries={() => [
             {query: GET_USER_CHATS, variables: {id: viewer.id}},
-            {query: GET_CHAT, variables: {id: chat.id}},
+            // {query: GET_CHAT, variables: {id: chat.id}},
           ]}>
           {(createMessage, {loading}) => (
             <View style={styles.inputWrapper}>
