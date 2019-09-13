@@ -2,19 +2,12 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: '5%',
-    paddingVertical: '5%',
-    width: '100%',
-  },
-
   commentWrapper: {
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-  },
-
-  imageWrapper: {
-    flexDirection: 'row',
+    flexWrap: 'wrap',
+    margin: '2%',
   },
 
   image: {
@@ -36,12 +29,12 @@ const styles = StyleSheet.create({
 
   content: {
     paddingHorizontal: '5%',
-    paddingVertical: '3%',
+    paddingVertical: '5%',
   },
 
   resWrapper: {
     paddingHorizontal: '5%',
-    paddingVertical: '3%',
+    paddingBottom: '3%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -50,6 +43,10 @@ const styles = StyleSheet.create({
   likes: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+
+  lineB: {
+    width: 2,
   },
 });
 

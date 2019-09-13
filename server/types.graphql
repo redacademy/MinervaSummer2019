@@ -1,3 +1,9 @@
+enum Status {
+  PENDING
+  ACCEPTED
+  RRJECTED
+}
+
 type User @model {
   id: ID! @isUnique
   firstName: String!
@@ -16,6 +22,11 @@ type User @model {
   lookingFor: String!
   waysToMeet: [String!]!
   commentLikes: [Comment!]! @relation(name: "CommentLikes")
+  conversation: [Conversation!]! @relation(name: "UserConversation")
+  messagesSent: [Message!]! @relation(name: "UserMessageSent")
+  messagesReceived: [Message!]! @relation(name: "UserMessageReceived")
+  connectionsSent: [ConnectionRequest!]! @relation (name: "ConnectionsSent")
+  connectionsReceived: [ConnectionRequest!]! @relation (name: "ConnectionsReceived")
 }
 
 type Interest @model {
@@ -27,9 +38,8 @@ type Interest @model {
 
 type Post @model {
   id: ID! @isUnique
-  title: String!
   createdAt: DateTime! 
-  content: String
+  content: String! @migrationValue(value: "true")
   comments: [Comment!]! @relation(name: "PostComments")
   author: User! @relation(name: "UserPosts")
   likes: [User!]! @relation(name: "PostLikes")
@@ -40,7 +50,7 @@ type Comment @model {
   id: ID! @isUnique
   content: String
   createdAt: DateTime!
-  post: Post! @relation(name: "PostComments")
+  post: Post @relation(name: "PostComments")
   author: User! @relation(name: "UserComments")
   likes: [User!]! @relation(name: "CommentLikes")
 }
@@ -55,5 +65,30 @@ type File @model {
   updatedAt: DateTime!
   url: String! @isUnique
   user: User! @relation(name: "UserPhoto")
+}
+
+type Message @model {
+  id: ID! @isUnique
+  author: User! @relation(name: "UserMessageSent")
+  recipient: User! @relation(name: "UserMessageReceived")
+  content: String
+  conversation: Conversation @relation (name: "MessagesOnConversation")
+  sentAt: DateTime!
+}
+
+type Conversation @model {
+  id: ID! @isUnique
+  members: [User!]! @relation(name: "UserConversation")
+  createdAt: DateTime!
+  messages: [Message!]! @relation (name: "MessagesOnConversation")
+  update: String
+}
+
+type ConnectionRequest @model {
+  id: ID! @isUnique
+  message: String
+  status: Status 
+  sender: User! @relation (name: "ConnectionsSent")
+  receiver: User! @relation (name: "ConnectionsReceived")
 }
 
