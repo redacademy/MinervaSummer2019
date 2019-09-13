@@ -3,7 +3,6 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: 'center',
     flex: 1,
   },
   toggleButtonsWrapper: {

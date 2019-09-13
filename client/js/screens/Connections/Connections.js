@@ -51,7 +51,7 @@ displayConnected = (toggleForm, suggestedUsers) => {
 
 const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
   return (
-    <ScrollView>
+    <ScrollView style={styles.root}>
       <View style={styles.headingsWrapper}>
         <View
           style={[
