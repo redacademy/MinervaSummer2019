@@ -6,7 +6,7 @@ import {gql} from 'apollo-boost';
 import {Query} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
 
-const GET_USER_CHATS = gql`
+export const GET_USER_CHATS = gql`
   query($id: ID!) {
     allConversations(filter: {members_some: {id: $id}}) {
       id

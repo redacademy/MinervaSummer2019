@@ -11,37 +11,10 @@ import {gql} from 'apollo-boost';
 import {Query, Mutation} from '@apollo/react-components';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
+import {GET_USER_CHATS} from '../AllChats/AllChatsContainer';
+import CircularLoader from '../../components/CircularLoader';
+import {GET_CHAT} from './SingleChatContainer';
 
-const GET_CHAT = gql`
-  query($id: ID!) {
-    Conversation(id: $id) {
-      members {
-        id
-      }
-      messages {
-        id
-        sentAt
-        content
-        recipient {
-          id
-          firstName
-          lastName
-          photo {
-            url
-          }
-        }
-        author {
-          id
-          firstName
-          lastName
-          photo {
-            url
-          }
-        }
-      }
-    }
-  }
-`;
 const CREATE_MESSAGE = gql`
   mutation createMessage(
     $conversationId: ID!
@@ -62,7 +35,7 @@ const CREATE_MESSAGE = gql`
   }
 `;
 const SingleChat = ({chat, viewer}) => {
-  const [text, onChangeText] = React.useState();
+  const [text, setText] = React.useState();
 
   const recipient = [
     chat.messages[0].recipient.id,
@@ -70,7 +43,12 @@ const SingleChat = ({chat, viewer}) => {
   ].find(id => id !== viewer.id);
   return (
     <Fragment>
-      <ScrollView style={styles.root}>
+      <ScrollView
+        contentContainerStyle={styles.root}
+        ref={ref => (this.scrollView = ref)}
+        onContentSizeChange={(contentWidth, contentHeight) => {
+          this.scrollView.scrollToEnd({animated: false});
+        }}>
         {chat.messages.map(message => (
           <View
             key={message.id}
@@ -96,29 +74,38 @@ const SingleChat = ({chat, viewer}) => {
       </ScrollView>
       <Mutation
         mutation={CREATE_MESSAGE}
-        refetchQueries={() => [{query: GET_CHAT, variables: {id: chat.id}}]}>
+        refetchQueries={() => [
+          {query: GET_USER_CHATS, variables: {id: viewer.id}},
+          {query: GET_CHAT, variables: {id: chat.id}},
+        ]}>
         {(createMessage, {loading}) => (
           <View style={styles.inputWrapper}>
             <TextInput
-              onChangeText={text => onChangeText(text)}
+              onChangeText={text => setText(text)}
               value={text}
               style={styles.input}
               placeholder={'Type a message...'}
               keyboardType={'default'}
             />
+            {loading && <CircularLoader></CircularLoader>}
+
             <View style={styles.buttonWrapper}>
               <GradientButton
                 text={'Send'}
+                variant={'squared'}
                 onPress={() => {
-                  createMessage({
-                    variables: {
-                      conversationId: chat.id,
-                      authorId: viewer.id,
-                      recipientId: recipient,
-                      content: text,
-                      sentAt: new Date(),
-                    },
-                  });
+                  if (text !== '') {
+                    createMessage({
+                      variables: {
+                        conversationId: chat.id,
+                        authorId: viewer.id,
+                        recipientId: recipient,
+                        content: text,
+                        sentAt: new Date(),
+                      },
+                    });
+                    setText('');
+                  }
                 }}
               />
             </View>

@@ -4,7 +4,6 @@ import styles from './styles';
 import {withNavigation} from 'react-navigation';
 
 const ChatCard = ({chat, viewer, navigation}) => {
-  console.log(chat);
   const {members, messages} = chat;
   const chatee = members.find(member => member.id !== viewer.id);
   const chateeName = `${chatee.firstName} ${chatee.lastName}`;
@@ -32,7 +31,11 @@ const ChatCard = ({chat, viewer, navigation}) => {
       <View style={styles.chatTextWrapper}>
         <Text style={styles.chatTitle}>{chateeName}</Text>
         <View style={styles.chatTextBottom}>
-          <Text style={styles.chatPreview}>{recentMessage.content}</Text>
+          <Text style={styles.chatPreview}>
+            {recentMessage.content.length <= 100
+              ? recentMessage.content
+              : recentMessage.content.substring(0, 100) + '...'}
+          </Text>
           <Text style={styles.messageDate}>
             {new Date(recentMessage.sentAt).toLocaleString('en-us', {
               hour: 'numeric',

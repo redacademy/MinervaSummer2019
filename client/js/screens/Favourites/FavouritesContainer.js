@@ -12,6 +12,7 @@ export const GET_ALL_POSTS = gql`
   query {
     allPosts(orderBy: createdAt_DESC) {
       author {
+        id
         firstName
         lastName
         photo {
@@ -39,7 +40,6 @@ export const GET_ALL_POSTS = gql`
     }
   }
 `;
-
 class FavouritesContainer extends Component {
   static navigationOptions = {
     title: 'Favourites',
@@ -52,7 +52,7 @@ class FavouritesContainer extends Component {
             <Query query={GET_ALL_POSTS} fetchPolicy="network-only">
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
-                if (error) return <Text>Error!</Text>;
+                if (error) return <Text>Error!{console.log(error)}</Text>;
                 const favedPosts = data.allPosts.filter(post =>
                   context.faves.includes(post.id),
                 );

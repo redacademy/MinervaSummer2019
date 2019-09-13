@@ -7,7 +7,7 @@ import CircularLoader from '../../components/CircularLoader';
 import SingleChat from './SingleChat';
 import {withNavigation} from 'react-navigation';
 
-const GET_CHAT = gql`
+export const GET_CHAT = gql`
   query($id: ID!) {
     Conversation(id: $id) {
       members {
@@ -41,7 +41,6 @@ const GET_CHAT = gql`
 class SingleChatContainer extends Component {
   render() {
     const {navigation} = this.props;
-    console.log(navigation);
     const chat = navigation.getParam('chat');
     return (
       <FavesContext.Consumer>

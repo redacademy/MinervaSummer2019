@@ -4,6 +4,7 @@ import theme from '../../config/theme';
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
+    flex: 1,
   },
   toggleButtonsWrapper: {
     marginHorizontal: '10%',
@@ -14,6 +15,8 @@ const styles = StyleSheet.create({
     borderColor: theme.palette.blue,
     flexDirection: 'row',
     borderWidth: 1,
+    backgroundColor: theme.palette.blue,
+    overflow: 'hidden',
   },
   toggleTextActive: {
     textAlign: 'center',
@@ -21,20 +24,19 @@ const styles = StyleSheet.create({
     padding: '4%',
     paddingVertical: '7%',
     fontFamily: theme.fonts.regular,
-    color: 'white',
+    color: theme.palette.blue,
   },
   toggleTextInactive: {
     textAlign: 'center',
     fontSize: 14,
     padding: '4%',
     paddingVertical: '7%',
-    fontFamily: theme.fonts.regular,
-    color: theme.palette.blue,
+    fontFamily: theme.fonts.bold,
+    color: 'white',
   },
   toggleActive: {
     flex: 1,
-    backgroundColor: theme.palette.blue,
-    borderRadius: 5,
+    backgroundColor: 'white',
     fontFamily: theme.fonts.bold,
     textAlign: 'center',
     height: '100%',
@@ -43,11 +45,11 @@ const styles = StyleSheet.create({
   toggleInactive: {
     flex: 1,
     width: '50%',
-    borderRadius: 5,
     fontFamily: theme.fonts.bold,
     textAlign: 'center',
     height: '100%',
     alignItems: 'center',
+    backgroundColor: theme.palette.blue,
   },
   headingsWrapper: {
     justifyContent: 'center',
@@ -55,6 +57,9 @@ const styles = StyleSheet.create({
   noConnectionsWrapper: {
     alignItems: 'center',
     paddingHorizontal: '10%',
+    flex: 1,
+    height: '100%',
+    justifyContent: 'space-between',
   },
   noConnectionsImage: {
     width: '50%',
@@ -76,6 +81,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: '10%',
   },
+  noConnectionsButtonWrapper: {},
 });
 
 export default styles;
