@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {gql} from 'apollo-boost';
-import {Query, Mutation} from '@apollo/react-components';
+import {Query, Mutation, Subscription} from '@apollo/react-components';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
 import {GET_USER_CHATS} from '../AllChats/AllChatsContainer';
@@ -34,87 +34,139 @@ const CREATE_MESSAGE = gql`
     }
   }
 `;
-const SingleChat = ({chat, viewer}) => {
-  const [text, setText] = React.useState();
 
-  const recipient = [
-    chat.messages[0].recipient.id,
-    chat.messages[0].author.id,
-  ].find(id => id !== viewer.id);
+const CHAT_SUBSCRIPTION = gql`
+  subscription Message($id: ID!) {
+    Message(filter: {node: {conversation: {id: $id}}}) {
+      node {
+        id
+        sentAt
+        content
+        recipient {
+          id
+          firstName
+          lastName
+          photo {
+            url
+          }
+        }
+        author {
+          id
+          firstName
+          lastName
+          photo {
+            url
+          }
+        }
+      }
+    }
+  }
+`;
+class SingleChat extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: this.props.chat.messages,
+      text: '',
+    };
+  }
+  render() {
+    const {chat, viewer} = this.props;
+    console.log(chat);
+    const recipient = [
+      chat.messages[0].recipient.id,
+      chat.messages[0].author.id,
+    ].find(id => id !== viewer.id);
 
-  return (
-    <Fragment>
-      <ScrollView
-        contentContainerStyle={styles.root}
-        ref={ref => (this.scrollView = ref)}
-        onContentSizeChange={(contentWidth, contentHeight) => {
-          this.scrollView.scrollToEnd({animated: false});
-        }}>
-        {chat.messages.map(message => (
-          <View
-            key={message.id}
-            style={[
-              styles.chatCard,
-              message.author.id === viewer.id
-                ? styles.sentMessage
-                : styles.receivedMessage,
-            ]}>
-            <Image
-              source={
-                message.author.photo
-                  ? message.author.photo.url
-                  : require('../../assets/PNG/additional_illustrations/profile.png')
-              }
-              style={styles.authorPicture}
-            />
-            <View style={styles.chatBubble}>
-              <Text style={styles.chatBubbleText}>{message.content}</Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
-      <Mutation
-        mutation={CREATE_MESSAGE}
-        refetchQueries={() => [
-          {query: GET_USER_CHATS, variables: {id: viewer.id}},
-          {query: GET_CHAT, variables: {id: chat.id}},
-        ]}>
-        {(createMessage, {loading}) => (
-          <View style={styles.inputWrapper}>
-            <TextInput
-              onChangeText={text => setText(text)}
-              value={text}
-              style={styles.input}
-              placeholder={'Type a message...'}
-              keyboardType={'default'}
-            />
-            {loading && <CircularLoader></CircularLoader>}
-
-            <View style={styles.buttonWrapper}>
-              <GradientButton
-                text={'Send'}
-                variant={'squared'}
-                onPress={() => {
-                  if (text !== '') {
-                    createMessage({
-                      variables: {
-                        conversationId: chat.id,
-                        authorId: viewer.id,
-                        recipientId: recipient,
-                        content: text,
-                        sentAt: new Date(),
-                      },
-                    });
-                    setText('');
-                  }
-                }}
+    return (
+      <Fragment>
+        <ScrollView
+          contentContainerStyle={styles.root}
+          ref={ref => (this.scrollView = ref)}
+          onContentSizeChange={(contentWidth, contentHeight) => {
+            this.scrollView.scrollToEnd({animated: false});
+          }}>
+          {chat.messages.map(message => (
+            <View
+              key={message.id}
+              style={[
+                styles.chatCard,
+                message.author.id === viewer.id
+                  ? styles.sentMessage
+                  : styles.receivedMessage,
+              ]}>
+              <Image
+                source={
+                  message.author.photo
+                    ? message.author.photo.url
+                    : require('../../assets/PNG/additional_illustrations/profile.png')
+                }
+                style={styles.authorPicture}
               />
+              <View style={styles.chatBubble}>
+                <Text style={styles.chatBubbleText}>{message.content}</Text>
+              </View>
             </View>
-          </View>
-        )}
-      </Mutation>
-    </Fragment>
-  );
-};
+          ))}
+        </ScrollView>
+        <Subscription
+          subscription={CHAT_SUBSCRIPTION}
+          variables={{id: chat.id}}
+          onSubscriptionData={data => {
+            if (data && data.Message) {
+            }
+          }}>
+          {({data, error}) => {
+            if (data) {
+              console.log(data);
+              const message = data.Message.node;
+            }
+            return null;
+          }}
+        </Subscription>
+        <Mutation
+          mutation={CREATE_MESSAGE}
+          refetchQueries={() => [
+            {query: GET_USER_CHATS, variables: {id: viewer.id}},
+            {query: GET_CHAT, variables: {id: chat.id}},
+          ]}>
+          {(createMessage, {loading}) => (
+            <View style={styles.inputWrapper}>
+              <TextInput
+                onChangeText={text => this.setState({text})}
+                value={this.state.text}
+                style={styles.input}
+                placeholder={'Type a message...'}
+                keyboardType={'default'}
+              />
+              {loading && <CircularLoader></CircularLoader>}
+
+              <View style={styles.buttonWrapper}>
+                <GradientButton
+                  text={'Send'}
+                  variant={'squared'}
+                  onPress={() => {
+                    if (this.state.text !== '') {
+                      createMessage({
+                        variables: {
+                          conversationId: chat.id,
+                          authorId: viewer.id,
+                          recipientId: recipient,
+                          content: this.state.text,
+                          sentAt: new Date(),
+                        },
+                      });
+                      this.setState({text: ''});
+                    }
+                  }}
+                />
+              </View>
+            </View>
+          )}
+        </Mutation>
+      </Fragment>
+    );
+  }
+}
 
 export default SingleChat;

@@ -51,7 +51,10 @@ class SingleChatContainer extends Component {
                 if (loading) return <CircularLoader />;
                 if (error) return <Text>Error!{console.log(error)}</Text>;
                 return (
-                  <SingleChat chat={chat} viewer={context.viewer}></SingleChat>
+                  <SingleChat
+                    chatId={chat.id}
+                    messages={this.state.messages}
+                    viewer={context.viewer}></SingleChat>
                 );
               }}
             </Query>

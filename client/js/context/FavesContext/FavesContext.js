@@ -51,7 +51,10 @@ class FavesProvider extends Component {
   };
   updateViewer = async (newViewerObject, token) => {
     try {
-      const updatedViewer = await storeToken({...newViewerObject, token);
+      const updatedViewer = await storeToken({
+        ...newViewerObject,
+        token: token,
+      });
       this.setState({viewer: updatedViewer});
     } catch (e) {
       throw e;
