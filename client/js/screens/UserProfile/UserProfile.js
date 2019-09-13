@@ -6,9 +6,13 @@ import styles from './styles';
 import PropTypes from 'prop-types';
 import {gql} from 'apollo-boost';
 import GradientButton from '../../components/GradientButton';
-import InterestButton from '../../lib/helpers/InterestButton';
-import FaveWays from '../../lib/helpers/FaveWays';
-import organizer from '../../lib/helpers/interest_function';
+import InterestButton from './components/InterestButton';
+import FaveWays from './components/FaveWays';
+import {
+  organizer,
+  saveInterest,
+  saveWays,
+} from '../../lib/helpers/interest_function';
 import CircularLoader from '../../components/CircularLoader';
 
 const UPDATE_PROFILE = gql`
@@ -20,6 +24,8 @@ const UPDATE_PROFILE = gql`
     $school: String
     $bio: String
     $lookingFor: String
+    $waysToMeet: [String!]
+    $interestsIds: [ID!]
   ) {
     updateUser(
       id: $id
@@ -29,6 +35,8 @@ const UPDATE_PROFILE = gql`
       school: $school
       bio: $bio
       lookingFor: $lookingFor
+      waysToMeet: $waysToMeet
+      interestsIds: $interestsIds
     ) {
       id
     }
@@ -66,18 +74,15 @@ class UserProfile extends Component {
         bio: data.bio,
         userId: data.id,
       },
-      interest: organizer(this.props.info.allInterests),
+      interest: organizer(this.props.info.allInterests, data.interests),
     });
     data.waysToMeet.map(way => this.updateWaysToMeet(way));
   }
 
-  editProfile(save = false) {
+  editProfile() {
     this.setState({
       profileEditable: !this.state.profileEditable,
     });
-    if (save) {
-      this.runQuery();
-    }
   }
 
   updateProfile(section, key, newValue) {
@@ -109,6 +114,7 @@ class UserProfile extends Component {
       },
     }));
   }
+
   TI = (name, style, multiline = false, lines = 1) => {
     let styleTI = {
       ...styles[style],
@@ -117,7 +123,7 @@ class UserProfile extends Component {
       borderStyle: 'solid',
       padding: '3%',
     };
-    let maxLength = lines === 1 ? 20 : 300;
+    let maxLength = lines === 1 ? 1 : lines;
     return (
       <TextInput
         style={styleTI}
@@ -133,16 +139,8 @@ class UserProfile extends Component {
     );
   };
 
-  toggleProfile() {
-    this.setState({ownProfile: !this.state.ownProfile});
-  }
-
-  runQuery = () => {};
-
   editProfileSave = async (save = false, mutation) => {
-    this.setState({
-      profileEditable: !this.state.profileEditable,
-    });
+    saveWays(this.state.WaysToMeet);
 
     const updatedINFO = await mutation({
       variables: {
@@ -153,8 +151,16 @@ class UserProfile extends Component {
         lookingFor: this.state.profileInfo.status,
         school: this.state.profileInfo.school,
         bio: this.state.profileInfo.bio,
+        waysToMeet: saveWays(this.state.WaysToMeet),
+        interestsIds: saveInterest(this.state.interest),
       },
     });
+
+    if (updatedINFO) {
+      this.setState({
+        profileEditable: !this.state.profileEditable,
+      });
+    }
   };
   render() {
     let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
@@ -214,10 +220,10 @@ class UserProfile extends Component {
                   <View style={styles.locationMetrix}>
                     <Image
                       style={styles.locationIcon}
-                      resizeMode={'cover'}
-                      source={require('../../assets/PNG/ways_to_meet/after_school_active.png')}></Image>
+                      resizeMode={'contain'}
+                      source={require('../../assets/PNG/Profile_icons/icon_city.png')}></Image>
                     {this.state.profileEditable ? (
-                      this.TI('location', 'locationStatus')
+                      this.TI('location', 'locationStatus', false, 30)
                     ) : (
                       <Text style={styles.locationStatus}>
                         {this.state.profileInfo.location}
@@ -227,10 +233,10 @@ class UserProfile extends Component {
                   <View style={styles.locationMetrix}>
                     <Image
                       style={styles.locationIcon}
-                      resizeMode={'cover'}
-                      source={require('../../assets/PNG/ways_to_meet/after_school_active.png')}></Image>
+                      resizeMode={'contain'}
+                      source={require('../../assets/PNG/Profile_icons/icon_school.png')}></Image>
                     {this.state.profileEditable ? (
-                      this.TI('school', 'locationStatus')
+                      this.TI('school', 'locationStatus', false, 30)
                     ) : (
                       <Text style={styles.locationStatus}>
                         {this.state.profileInfo.school}
@@ -241,7 +247,7 @@ class UserProfile extends Component {
                   <View style={styles.section}>
                     <Text style={styles.sectionTitle}>About Me</Text>
                     {this.state.profileEditable ? (
-                      this.TI('bio', 'sectionContent', true, 5)
+                      this.TI('bio', 'sectionContent', true, 300)
                     ) : (
                       <Text style={styles.sectionContent}>
                         {this.state.profileInfo.bio}

@@ -32,7 +32,7 @@ class UserProfileContainer extends Component {
             throw Error(e);
           }
         }}>
-        <Text style={styles.logout}>Sign Out</Text>
+        <Text style={styles.logout}>Sign Out </Text>
       </TouchableOpacity>
     ),
   });
