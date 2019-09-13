@@ -1,25 +1,16 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {Query} from '@apollo/react-components';
-import {gql} from 'apollo-boost';
 import CircularLoader from '../../components/CircularLoader';
 import ProfessionalInterestsForm from './ProfessionalInterestsForm';
 import SignUpContext from '../../context/SignUpContext';
+import {ALL_INTERESTS} from '../../config/apollo/queries'
 
 class ProfessionalInterestsContainer extends React.Component {
   static navigationOptions = {
     title: 'Professional Interests',
   };
   render() {
-    const ALL_INTERESTS = gql`
-      {
-        allInterests {
-          id
-          title
-          type
-        }
-      }
-    `;
     return (
       <SignUpContext.Consumer>
         {context => (

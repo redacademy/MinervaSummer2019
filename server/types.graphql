@@ -16,6 +16,9 @@ type User @model {
   lookingFor: String!
   waysToMeet: [String!]!
   commentLikes: [Comment!]! @relation(name: "CommentLikes")
+  conversation: [Conversation!]! @relation(name: "UserConversation")
+  messagesSent: [Message!]! @relation(name: "UserMessageSent")
+  messagesReceived: [Message!]! @relation(name: "UserMessageReceived")
 }
 
 type Interest @model {
@@ -56,3 +59,19 @@ type File @model {
   user: User! @relation(name: "UserPhoto")
 }
 
+type Message @model {
+  id: ID! @isUnique
+  author: User! @relation(name: "UserMessageSent")
+  recipient: User! @relation(name: "UserMessageReceived")
+  content: String
+  conversation: Conversation @relation (name: "MessagesOnConversation")
+  sentAt: DateTime!
+}
+
+type Conversation @model {
+  id: ID! @isUnique
+  members: [User!]! @relation(name: "UserConversation")
+  createdAt: DateTime!
+  messages: [Message!]! @relation (name: "MessagesOnConversation")
+  update: String
+}
