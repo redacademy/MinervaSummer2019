@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import Ionics from 'react-native-vector-icons/Ionicons';
-import styles from '../styles';
-import theme from '../../../config/theme';
+import styles from '../../screens/UserProfile/styles';
+import theme from '../../config/theme';
 
 let initialColor = styles.globe.backgroundColor;
 let unSelectedColor = 'grey';

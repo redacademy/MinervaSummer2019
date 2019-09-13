@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
-import Ionics from 'react-native-vector-icons/Ionicons';
-import styles from '../styles';
-import theme from '../../../config/theme';
+import styles from '../../screens/UserProfile/styles';
 import source from './source';
 
 class FaveWays extends Component {

@@ -6,9 +6,9 @@ import styles from './styles';
 import PropTypes from 'prop-types';
 import {gql} from 'apollo-boost';
 import GradientButton from '../../components/GradientButton';
-import InterestButton from './helpers/InterestButton';
-import FaveWays from './helpers/FaveWays';
-import organizer from './helpers/interest_function';
+import InterestButton from '../../lib/helpers/InterestButton';
+import FaveWays from '../../lib/helpers/FaveWays';
+import organizer from '../../lib/helpers/interest_function';
 import CircularLoader from '../../components/CircularLoader';
 
 const UPDATE_PROFILE = gql`
@@ -42,13 +42,13 @@ class UserProfile extends Component {
       profileEditable: false,
       ownProfile: true,
       WaysToMeet: {
-        coffee: {name: 'Coffee', icon: 'coffee', visible: false},
+        Coffee: {name: 'Coffee', icon: 'coffee', visible: false},
         afterSchool: {
           name: 'After School',
           icon: 'after_school',
           visible: false,
         },
-        lunch: {name: 'Lunch', icon: 'lunch', visible: false},
+        Lunch: {name: 'Lunch', icon: 'lunch', visible: false},
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
     };
