@@ -2,42 +2,10 @@ import React from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import Ionics from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
-import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
-import {GET_ALL_POSTS} from '../PostList/PostList';
-
-const LIKE_COMMENT_MUTATION = gql`
-  mutation addToCommentLikes($commentLikesCommentId: ID!, $likesUserId: ID!) {
-    addToCommentLikes(
-      commentLikesCommentId: $commentLikesCommentId
-      likesUserId: $likesUserId
-    ) {
-      commentLikesComment {
-        _likesMeta {
-          count
-        }
-      }
-    }
-  }
-`;
-
-const DISLIKE_COMMENT_MUTATION = gql`
-  mutation removeFromCommentLikes(
-    $commentLikesCommentId: ID!
-    $likesUserId: ID!
-  ) {
-    removeFromCommentLikes(
-      commentLikesCommentId: $commentLikesCommentId
-      likesUserId: $likesUserId
-    ) {
-      commentLikesComment {
-        _likesMeta {
-          count
-        }
-      }
-    }
-  }
-`;
+import {GET_ALL_POSTS} from '../../config/apollo/queries';
+import {LIKE_COMMENT_MUTATION} from '../../config/apollo/queries';
+import {DISLIKE_COMMENT_MUTATION} from '../../config/apollo/queries';
 
 class CommentList extends React.Component {
   constructor(props) {

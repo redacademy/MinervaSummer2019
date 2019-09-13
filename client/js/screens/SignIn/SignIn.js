@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, TextInput, Keyboard} from 'react-native';
-import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
@@ -9,33 +8,9 @@ import {Form, Field} from 'react-final-form';
 import GradientButton from '../../components/GradientButton';
 import {storeToken} from '../../config/models';
 import CircularLoader from '../../components/CircularLoader';
+import {AUTHENTICATE_USER_MUTATION} from '../../config/apollo/queries'
 
-const AUTHENTICATE_USER_MUTATION = gql`
-  mutation authenticateUser($email: String!, $password: String!) {
-    authenticateUser(email: $email, password: $password) {
-      id
-      token
-    }
-  }
-`;
 
-const USER_QUERY = gql`
-  query User($email: String!) {
-    User(id: $email) {
-      firstName
-      lastName
-      location
-      school
-      bio
-      lookingFor
-      waysToMeet
-      interests {
-        title
-        id
-      }
-    }
-  }
-`;
 
 class SignIn extends Component {
   constructor(props) {

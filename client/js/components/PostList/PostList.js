@@ -9,72 +9,11 @@ import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import CreateComment from '../CreateComment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import theme from '../../config/theme';
-import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
-
-const DELETE_POST_MUTATION = gql`
-  mutation deletePost($id: ID!) {
-    deletePost(id: $id) {
-      id
-    }
-  }
-`;
-
-const LIKE_POST_MUTATION = gql`
-  mutation addToPostLikes($likesPostId: ID!, $likesUserId: ID!) {
-    addToPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
-      likesPost {
-        id
-      }
-    }
-  }
-`;
-const DISLIKE_POST_MUTATION = gql`
-  mutation removeFromPostLikes($likesPostId: ID!, $likesUserId: ID!) {
-    removeFromPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
-      likesPost {
-        id
-      }
-    }
-  }
-`;
-
-export const GET_ALL_POSTS = gql`
-  query {
-    allPosts(orderBy: createdAt_ASC) {
-      author {
-        id
-        firstName
-        lastName
-        photo {
-          url
-        }
-      }
-      type
-      id
-      createdAt
-      content
-      likes {
-        id
-      }
-      comments {
-        id
-        author {
-          firstName
-          lastName
-          id
-          photo {
-            url
-          }
-        }
-        content
-        likes {
-          id
-        }
-      }
-    }
-  }
-`;
+import {DELETE_POST_MUTATION} from '../../config/apollo/queries';
+import {LIKE_POST_MUTATION} from '../../config/apollo/queries';
+import {DISLIKE_POST_MUTATION} from '../../config/apollo/queries';
+import {GET_ALL_POSTS} from '../../config/apollo/queries';
 
 class PostList extends Component {
   constructor(props) {
