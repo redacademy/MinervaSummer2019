@@ -41,6 +41,7 @@ const SingleChat = ({chat, viewer}) => {
     chat.messages[0].recipient.id,
     chat.messages[0].author.id,
   ].find(id => id !== viewer.id);
+
   return (
     <Fragment>
       <ScrollView
