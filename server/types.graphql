@@ -73,4 +73,5 @@ type Conversation @model {
   members: [User!]! @relation(name: "UserConversation")
   createdAt: DateTime!
   messages: [Message!]! @relation (name: "MessagesOnConversation")
+  update: String
 }
