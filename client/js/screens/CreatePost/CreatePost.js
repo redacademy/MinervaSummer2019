@@ -5,41 +5,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Feather from 'react-native-vector-icons/Feather';
 import GradientButton from '../../components/GradientButton';
 import {Mutation} from '@apollo/react-components';
-import {gql} from 'apollo-boost';
 import styles from './styles';
-import {GET_ALL_POSTS} from '../Community/CommunityContainer';
-
-const CREATE_POST = gql`
-  mutation createPost($authorId: ID, $content: String!, $type: String!) {
-    createPost(authorId: $authorId, content: $content, type: $type) {
-      author {
-        firstName
-        lastName
-        photo {
-          url
-        }
-      }
-      type
-      id
-      createdAt
-      content
-      likes {
-        id
-      }
-      comments {
-        id
-        author {
-          firstName
-          lastName
-        }
-        content
-        likes {
-          id
-        }
-      }
-    }
-  }
-`;
+import {GET_ALL_POSTS} from '../../config/apollo/queries';
+import {CREATE_POST} from '../../config/apollo/queries';
 
 const CreatePost = ({getState, insertState, navigation, viewer}) => {
   const [text, onChangeText] = React.useState();

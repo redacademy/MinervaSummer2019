@@ -1,34 +1,11 @@
 import React from 'react';
 import {ActivityIndicator, StatusBar, View} from 'react-native';
 import CircularLoader from '../CircularLoader';
-import {gql} from 'apollo-boost';
-import {Query} from '@apollo/react-components';
 import AsyncStorage from '@react-native-community/async-storage';
 import {storeToken, getToken, removeToken} from '../../config/models';
 import client from '../../config/apollo/index';
+import {USER_QUERY} from '../../config/apollo/queries'
 
-const USER_QUERY = gql`
-  query User($id: ID!) {
-    User(id: $id) {
-      id
-      firstName
-      lastName
-      location
-      school
-      bio
-      lookingFor
-      waysToMeet
-      interests {
-        title
-        id
-        type
-      }
-      posts {
-        id
-      }
-    }
-  }
-`;
 class AuthLoadingScreen extends React.Component {
   componentDidMount() {
     this.hasUserLoggedIn();

@@ -5,50 +5,11 @@ import CircularLoader from '../../components/CircularLoader';
 import styles from './styles';
 import SelectableChips from 'react-native-chip/SelectableChips';
 import {withNavigation} from 'react-navigation';
-import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
 import AsyncStorage from '@react-native-community/async-storage';
 import {storeToken} from '../../config/models';
-
-const AUTHENTICATE_USER_MUTATION = gql`
-  mutation authenticateUser($email: String!, $password: String!) {
-    authenticateUser(email: $email, password: $password) {
-      id
-      token
-    }
-  }
-`;
-
-const CREATE_USER_MUTATION = gql`
-  mutation createUser(
-    $bio: String!
-    $email: String!
-    $firstName: String!
-    $lastName: String!
-    $location: String
-    $lookingFor: String!
-    $password: String!
-    $school: String
-    $waysToMeet: [String!]
-    $interestsIds: [ID!]
-  ) {
-    createUser(
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      bio: $bio
-      location: $location
-      school: $school
-      password: $password
-      interestsIds: $interestsIds
-      lookingFor: $lookingFor
-      waysToMeet: $waysToMeet
-    ) {
-      email
-      password
-    }
-  }
-`;
+import {AUTHENTICATE_USER_MUTATION} from '../../config/apollo/queries'
+import {CREATE_USER_MUTATION} from '../../config/apollo/queries'
 
 class ProfessionalInterestsForm extends React.Component {
   storeToken = async userToken => {

@@ -1,3 +1,9 @@
+enum Status {
+  PENDING
+  ACCEPTED
+  RRJECTED
+}
+
 type User @model {
   id: ID! @isUnique
   firstName: String!
@@ -16,6 +22,11 @@ type User @model {
   lookingFor: String!
   waysToMeet: [String!]!
   commentLikes: [Comment!]! @relation(name: "CommentLikes")
+  conversation: [Conversation!]! @relation(name: "UserConversation")
+  messagesSent: [Message!]! @relation(name: "UserMessageSent")
+  messagesReceived: [Message!]! @relation(name: "UserMessageReceived")
+  connectionsSent: [ConnectionRequest!]! @relation (name: "ConnectionsSent")
+  connectionsReceived: [ConnectionRequest!]! @relation (name: "ConnectionsReceived")
 }
 
 type Interest @model {
@@ -54,5 +65,30 @@ type File @model {
   updatedAt: DateTime!
   url: String! @isUnique
   user: User! @relation(name: "UserPhoto")
+}
+
+type Message @model {
+  id: ID! @isUnique
+  author: User! @relation(name: "UserMessageSent")
+  recipient: User! @relation(name: "UserMessageReceived")
+  content: String
+  conversation: Conversation @relation (name: "MessagesOnConversation")
+  sentAt: DateTime!
+}
+
+type Conversation @model {
+  id: ID! @isUnique
+  members: [User!]! @relation(name: "UserConversation")
+  createdAt: DateTime!
+  messages: [Message!]! @relation (name: "MessagesOnConversation")
+  update: String
+}
+
+type ConnectionRequest @model {
+  id: ID! @isUnique
+  message: String
+  status: Status 
+  sender: User! @relation (name: "ConnectionsSent")
+  receiver: User! @relation (name: "ConnectionsReceived")
 }
 

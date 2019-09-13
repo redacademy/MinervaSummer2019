@@ -7,7 +7,7 @@ const theme = {
     mediumGrey: '#979797',
     darkGrey: '#4D4D4F',
     red: '#D86060',
-    darkGrey: '#34495e',
+    darkBlue: '#34495e',
   },
   font: {
     header: 25,
