@@ -2,42 +2,34 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
-  postWrapper: {
-    paddingVertical: '3%',
-    paddingHorizontal: '3%',
+  inputWrapper: {
+    minHeight: '30%',
+    paddingHorizontal: '5%',
+  },
+
+  input: {
+    minHeight: '30%',
+    fontSize: 16,
+  },
+
+  chips: {
+    backgroundColor: '#F3F3F3',
+    height: '20%',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     borderBottomWidth: 1,
     borderColor: theme.palette.lightGrey,
   },
 
-  touchOp: {
-    borderWidth: 1,
-    borderColor: theme.palette.lightGrey,
-    height: 35,
-    borderRadius: 50,
-    justifyContent: 'center',
-  },
-
-  postInput: {
-    marginLeft: '5%',
-    flexDirection: 'row',
-    alignContent: 'center',
-  },
-
-  textBubble: {
-    justifyContent: 'center',
-  },
-
   header: {
-    fontSize: 24,
     textAlign: 'center',
-    marginVertical: '5%',
-    height: 40,
+    fontSize: 16,
   },
 
-  topicsWrapper: {
+  opWrapper: {
     flexDirection: 'row',
+    width: '100%',
     justifyContent: 'space-around',
-    alignItems: 'center',
   },
 
   topic: {
@@ -71,8 +63,23 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
 
-  favouriteHeaderIcon: {
-    height: '60%',
+  iconWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: '10%',
+    borderBottomWidth: 1,
+    borderColor: theme.palette.lightGrey,
+    paddingVertical: 5,
+  },
+
+  icons: {
+    paddingHorizontal: '3%',
+  },
+
+  postBtn: {
+    paddingTop: '8%',
+    alignItems: 'center',
+    height: '20%',
   },
 });
 

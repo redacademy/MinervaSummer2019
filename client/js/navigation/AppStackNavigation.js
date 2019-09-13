@@ -6,13 +6,23 @@ import ConnectionsScreen from '../screens/Connections';
 import ChatsScreen from '../screens/AllChats';
 import CommentsScreen from '../screens/Comments';
 import ProfileScreen from '../screens/UserProfile';
+import CreatePostScreen from '../screens/CreatePost';
 
 const CommunityStack = createStackNavigator({
   Community: {
     screen: CommunityScreen,
   },
+
   Comments: {
     screen: CommentsScreen,
+  },
+
+  CreatePost: {
+    screen: CreatePostScreen,
+  },
+
+  Favourites: {
+    screen: FavouritesScreen,
   },
 });
 const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});
