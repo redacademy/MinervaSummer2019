@@ -26,7 +26,10 @@ const CommunityStack = createStackNavigator({
     screen: FavouritesScreen,
   },
 });
-const ConnectionsStack = createStackNavigator({Connections: ConnectionsScreen});
+const ConnectionsStack = createStackNavigator({
+  Connections: {screen: ConnectionsScreen},
+  Profile: {screen: ProfileScreen},
+});
 const ChatsStack = createStackNavigator({
   Chats: {screen: ChatsScreen},
   SingleChat: {

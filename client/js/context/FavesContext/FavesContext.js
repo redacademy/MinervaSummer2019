@@ -68,6 +68,7 @@ class FavesProvider extends Component {
           ...this.state,
           addFave: this.addFave,
           removeFave: this.removeFave,
+          updateViewer: this.updateViewer,
         }}>
         {this.props.children}
       </FavesContext.Provider>

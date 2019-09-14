@@ -14,6 +14,7 @@ import GradientButton from '../../components/GradientButton';
 import {GET_USER_CHATS} from '../AllChats/AllChatsContainer';
 import CircularLoader from '../../components/CircularLoader';
 import {GET_CHAT} from './SingleChatContainer';
+import {Form, Field} from 'react-final-form';
 
 const CREATE_MESSAGE = gql`
   mutation createMessage(
@@ -135,37 +136,46 @@ class SingleChat extends React.Component {
             // {query: GET_CHAT, variables: {id: chat.id}},
           ]}>
           {(createMessage, {loading}) => (
-            <View style={styles.inputWrapper}>
-              <TextInput
-                onChangeText={text => this.setState({text})}
-                value={this.state.text}
-                style={styles.input}
-                placeholder={'Type a message...'}
-                keyboardType={'default'}
-              />
-              {loading && <CircularLoader></CircularLoader>}
-
-              <View style={styles.buttonWrapper}>
-                <GradientButton
-                  text={'Send'}
-                  variant={'squared'}
-                  onPress={() => {
-                    if (this.state.text !== '') {
-                      createMessage({
-                        variables: {
-                          conversationId: chat.id,
-                          authorId: viewer.id,
-                          recipientId: recipient,
-                          content: this.state.text,
-                          sentAt: new Date(),
-                        },
-                      });
-                      this.setState({text: ''});
-                    }
-                  }}
-                />
-              </View>
-            </View>
+            <Form
+              onSubmit={values => {
+                console.log(values);
+                if (values.text !== '') {
+                  createMessage({
+                    variables: {
+                      conversationId: chat.id,
+                      authorId: viewer.id,
+                      recipientId: recipient,
+                      content: values.text,
+                      sentAt: new Date(),
+                    },
+                  });
+                  values.text = '';
+                }
+              }}
+              render={({handleSubmit, pristine, form}) => (
+                <View style={styles.inputWrapper}>
+                  <Field
+                    name="text"
+                    required={true}
+                    render={({input, meta}) => (
+                      <TextInput
+                        style={styles.input}
+                        placeholder={'Type a message...'}
+                        keyboardType={'default'}
+                        {...input}
+                      />
+                    )}
+                  />
+                  <View style={styles.buttonWrapper}>
+                    <GradientButton
+                      text={'Send'}
+                      variant={'squared'}
+                      onPress={() => handleSubmit()}
+                    />
+                  </View>
+                </View>
+              )}
+            />
           )}
         </Mutation>
       </Fragment>
