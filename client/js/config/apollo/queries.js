@@ -271,3 +271,32 @@ export const DISLIKE_COMMENT_MUTATION = gql`
     }
   }
 `;
+
+//update user profile.
+export const UPDATE_PROFILE = gql`
+  mutation updateUser(
+    $id: ID!
+    $firstName: String
+    $lastName: String
+    $location: String
+    $school: String
+    $bio: String
+    $lookingFor: String
+    $waysToMeet: [String!]
+    $interestsIds: [ID!]
+  ) {
+    updateUser(
+      id: $id
+      firstName: $firstName
+      lastName: $lastName
+      location: $location
+      school: $school
+      bio: $bio
+      lookingFor: $lookingFor
+      waysToMeet: $waysToMeet
+      interestsIds: $interestsIds
+    ) {
+      id
+    }
+  }
+`;

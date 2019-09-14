@@ -83,6 +83,13 @@ const styles = StyleSheet.create({
     fontSize: theme.font.subtitle,
     marginBottom: '2%',
   },
+  bio: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    maxWidth: '80%',
+    marginTop: '3%',
+    textAlign: 'justify',
+  },
   sectionContent: {
     flex: 1,
     flexWrap: 'wrap',

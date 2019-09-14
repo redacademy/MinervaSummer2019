@@ -3,8 +3,6 @@ import {Text, View, TextInput, Keyboard, Image, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Mutation} from '@apollo/react-components';
 import styles from './styles';
-import PropTypes from 'prop-types';
-import {gql} from 'apollo-boost';
 import GradientButton from '../../components/GradientButton';
 import InterestButton from '../../components/UserProfile/InterestButton';
 import FaveWays from '../../components/UserProfile/FaveWays';
@@ -14,34 +12,7 @@ import {
   saveWays,
 } from '../../lib/helpers/interest_function';
 import CircularLoader from '../../components/CircularLoader';
-
-const UPDATE_PROFILE = gql`
-  mutation updateUser(
-    $id: ID!
-    $firstName: String
-    $lastName: String
-    $location: String
-    $school: String
-    $bio: String
-    $lookingFor: String
-    $waysToMeet: [String!]
-    $interestsIds: [ID!]
-  ) {
-    updateUser(
-      id: $id
-      firstName: $firstName
-      lastName: $lastName
-      location: $location
-      school: $school
-      bio: $bio
-      lookingFor: $lookingFor
-      waysToMeet: $waysToMeet
-      interestsIds: $interestsIds
-    ) {
-      id
-    }
-  }
-`;
+import {UPDATE_PROFILE} from '../../config/apollo/queries';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -70,14 +41,27 @@ class UserProfile extends Component {
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
     };
-    this.props.context.viewer.waysToMeet.map(way => this.updateWaysToMeet(way));
+    if (this.props.myProfile) {
+      this.props.context.viewer.waysToMeet.map(way =>
+        this.updateWaysToMeet(way),
+      );
+    } else {
+      this.props.viewer.User.waysToMeet.map(way => this.updateWaysToMeet(way));
+    }
   }
 
   componentDidMount() {
-    let data = this.props.context.viewer;
+    let data;
+    if (this.props.myProfile) {
+      data = this.props.context.viewer;
+    } else {
+      data = this.props.viewer.User;
+    }
+
     this.setState({
       profileInfo: {
         name: data.firstName,
+        ownProfile: this.props.ownProfile,
         lastName: data.lastName,
         status: data.lookingFor,
         location: data.location,
@@ -217,11 +201,9 @@ class UserProfile extends Component {
                     <View style={styles.buttonWrapper}>
                       <GradientButton
                         onPress={() =>
-                          this.state.ownProfile ? this.editProfile() : ''
+                          this.props.myProfile ? this.editProfile() : ''
                         }
-                        text={
-                          this.state.ownProfile ? 'Edit Profile' : 'Message'
-                        }
+                        text={this.props.myProfile ? 'Edit Profile' : 'Message'}
                         variant={'contained'}
                       />
                     </View>
@@ -263,7 +245,7 @@ class UserProfile extends Component {
                     {this.state.profileEditable ? (
                       this.TI('bio', 'sectionContent', 300, true, 5)
                     ) : (
-                      <Text style={styles.sectionContent}>
+                      <Text style={styles.bio}>
                         {this.state.profileInfo.bio}
                       </Text>
                     )}
