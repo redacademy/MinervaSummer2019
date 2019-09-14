@@ -6,8 +6,8 @@ import styles from './styles';
 import PropTypes from 'prop-types';
 import {gql} from 'apollo-boost';
 import GradientButton from '../../components/GradientButton';
-import InterestButton from './components/InterestButton';
-import FaveWays from './components/FaveWays';
+import InterestButton from '../../components/UserProfile/InterestButton';
+import FaveWays from '../../components/UserProfile/FaveWays';
 import {
   organizer,
   saveInterest,
@@ -49,6 +49,16 @@ class UserProfile extends Component {
     this.state = {
       profileEditable: false,
       ownProfile: true,
+      profileInfo: {
+        name: '',
+        lastName: '',
+        status: '',
+        location: '',
+        school: '',
+        bio: '',
+        userId: '',
+      },
+      interest: {},
       WaysToMeet: {
         Coffee: {name: 'Coffee', icon: 'coffee', visible: false},
         afterSchool: {
@@ -60,9 +70,10 @@ class UserProfile extends Component {
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
     };
+    this.props.context.viewer.waysToMeet.map(way => this.updateWaysToMeet(way));
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let data = this.props.context.viewer;
     this.setState({
       profileInfo: {
@@ -76,7 +87,6 @@ class UserProfile extends Component {
       },
       interest: organizer(this.props.info.allInterests, data.interests),
     });
-    data.waysToMeet.map(way => this.updateWaysToMeet(way));
   }
 
   editProfile() {
@@ -115,7 +125,7 @@ class UserProfile extends Component {
     }));
   }
 
-  TI = (name, style, multiline = false, lines = 1) => {
+  TI = (name, style, length = 10, multiline = false, lines = 1) => {
     let styleTI = {
       ...styles[style],
       borderColor: 'grey',
@@ -123,14 +133,14 @@ class UserProfile extends Component {
       borderStyle: 'solid',
       padding: '3%',
     };
-    let maxLength = lines === 1 ? 1 : lines;
+
     return (
       <TextInput
         style={styleTI}
         placeholder={name}
         multiline={multiline}
         numberOfLines={lines}
-        maxLength={maxLength}
+        maxLength={length}
         onBlur={Keyboard.dismiss}
         value={this.state.profileInfo[name]}
         onChangeText={input =>
@@ -160,6 +170,11 @@ class UserProfile extends Component {
       this.setState({
         profileEditable: !this.state.profileEditable,
       });
+
+      await this.props.context.updateViewer(
+        updatedINFO,
+        this.props.context.viewer.token,
+      );
     }
   };
   render() {
@@ -199,7 +214,7 @@ class UserProfile extends Component {
                     </Text>
                   )}
                   {!this.state.profileEditable && (
-                    <View style={{alignSelf: 'center'}}>
+                    <View style={styles.buttonWrapper}>
                       <GradientButton
                         onPress={() =>
                           this.state.ownProfile ? this.editProfile() : ''
@@ -207,8 +222,7 @@ class UserProfile extends Component {
                         text={
                           this.state.ownProfile ? 'Edit Profile' : 'Message'
                         }
-                        width={'40%'}
-                        styleGradient={{width: '90%'}}
+                        variant={'contained'}
                       />
                     </View>
                   )}
@@ -223,7 +237,7 @@ class UserProfile extends Component {
                       resizeMode={'contain'}
                       source={require('../../assets/PNG/Profile_icons/icon_city.png')}></Image>
                     {this.state.profileEditable ? (
-                      this.TI('location', 'locationStatus', false, 30)
+                      this.TI('location', 'locationStatus', 15, false)
                     ) : (
                       <Text style={styles.locationStatus}>
                         {this.state.profileInfo.location}
@@ -236,7 +250,7 @@ class UserProfile extends Component {
                       resizeMode={'contain'}
                       source={require('../../assets/PNG/Profile_icons/icon_school.png')}></Image>
                     {this.state.profileEditable ? (
-                      this.TI('school', 'locationStatus', false, 30)
+                      this.TI('school', 'locationStatus', 15, false)
                     ) : (
                       <Text style={styles.locationStatus}>
                         {this.state.profileInfo.school}
@@ -247,7 +261,7 @@ class UserProfile extends Component {
                   <View style={styles.section}>
                     <Text style={styles.sectionTitle}>About Me</Text>
                     {this.state.profileEditable ? (
-                      this.TI('bio', 'sectionContent', true, 300)
+                      this.TI('bio', 'sectionContent', 300, true, 5)
                     ) : (
                       <Text style={styles.sectionContent}>
                         {this.state.profileInfo.bio}
@@ -294,11 +308,12 @@ class UserProfile extends Component {
                 </View>
 
                 {this.state.profileEditable && (
-                  <GradientButton
-                    onPress={() => this.editProfileSave(true, updateUser)}
-                    text="Save Changes"
-                    width={'40%'}
-                  />
+                  <View style={styles.buttonWrapper}>
+                    <GradientButton
+                      onPress={() => this.editProfileSave(true, updateUser)}
+                      text="Save Changes"
+                    />
+                  </View>
                 )}
               </View>
             </ScrollView>

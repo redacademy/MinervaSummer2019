@@ -37,10 +37,13 @@ class UserProfileContainer extends Component {
     ),
   });
   render() {
+    console.log(this.props.navigation.getParam('user'));
     return (
       <FavesContext.Consumer>
         {context => {
-          return (
+          return this.props.navigation.getParam('user') ? (
+            <Text>other</Text>
+          ) : (
             <Query query={GET_ALL_INTEREST}>
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;

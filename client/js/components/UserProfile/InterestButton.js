@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import styles from '../styles';
+import styles from '../../screens/UserProfile/styles';
 
 let initialColor = styles.globe.backgroundColor;
 let unSelectedColor = 'grey';
@@ -12,7 +12,7 @@ class InterestButton extends Component {
       style: styles.globe,
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.info.visible
       ? ''
       : this.setState(prevState => ({

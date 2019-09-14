@@ -44,6 +44,15 @@ class FavesProvider extends Component {
     }
   };
 
+  updateViewer = async (newViewerObject, token) => {
+    try {
+      const updatedViewer = await storeToken({...newViewerObject, token});
+      this.setState({viewer: updatedViewer});
+    } catch (e) {
+      throw e;
+    }
+  };
+
   render() {
     return (
       <FavesContext.Provider
@@ -51,6 +60,7 @@ class FavesProvider extends Component {
           ...this.state,
           addFave: this.addFave,
           removeFave: this.removeFave,
+          updateViewer: this.updateViewer,
         }}>
         {this.props.children}
       </FavesContext.Provider>

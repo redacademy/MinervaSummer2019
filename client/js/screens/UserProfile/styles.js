@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     marginTop: '3%',
     textAlign: 'justify',
-    // height: 'auto',
   },
   icon: {
     flex: 1,
@@ -131,6 +130,11 @@ const styles = StyleSheet.create({
     color: theme.palette.red,
     fontFamily: theme.fonts.regular,
     marginRight: 10,
+  },
+  buttonWrapper: {
+    width: '100%',
+    alignSelf: 'center',
+    textAlign: 'center',
   },
 });
 
