@@ -2,17 +2,19 @@ import React, {Component} from 'react';
 import {Text, View, TextInput, Keyboard, Image, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Mutation} from '@apollo/react-components';
+import CircularLoader from '../../components/CircularLoader';
+import {UPDATE_PROFILE} from '../../config/apollo/queries';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
 import InterestButton from '../../components/UserProfile/InterestButton';
 import FaveWays from '../../components/UserProfile/FaveWays';
+import Selector from '../../components/UserProfile/selector';
 import {
   organizer,
   saveInterest,
   saveWays,
 } from '../../lib/helpers/interest_function';
-import CircularLoader from '../../components/CircularLoader';
-import {UPDATE_PROFILE} from '../../config/apollo/queries';
+import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -41,6 +43,7 @@ class UserProfile extends Component {
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
     };
+
     if (this.props.myProfile) {
       this.props.context.viewer.waysToMeet.map(way =>
         this.updateWaysToMeet(way),
@@ -112,10 +115,7 @@ class UserProfile extends Component {
   TI = (name, style, length = 10, multiline = false, lines = 1) => {
     let styleTI = {
       ...styles[style],
-      borderColor: 'grey',
-      borderWidth: 0.5,
-      borderStyle: 'solid',
-      padding: '3%',
+      ...styles.textInput,
     };
 
     return (
@@ -208,10 +208,19 @@ class UserProfile extends Component {
                       />
                     </View>
                   )}
-
-                  <Text style={styles.status}>
-                    Status: {this.state.profileInfo.status}
-                  </Text>
+                  {this.state.profileEditable ? (
+                    <Selector
+                      title={this.state.profileInfo.status}
+                      options={[
+                        {title: 'Looking for a Mentor', value: 'Mentor'},
+                        {title: 'Looking for a Mentee', value: 'Mentee'},
+                        {title: 'Decide Later', value: 'Decide Later'},
+                      ]}></Selector>
+                  ) : (
+                    <Text style={styles.status}>
+                      Status: Looking for a {this.state.profileInfo.status}
+                    </Text>
+                  )}
 
                   <View style={styles.locationMetrix}>
                     <Image

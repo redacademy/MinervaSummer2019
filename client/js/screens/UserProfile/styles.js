@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   locationIcon: {
-    height: 20,
-    width: 20,
+    height: 15,
+    width: 15,
     marginRight: '2%',
   },
   globe: {
@@ -142,6 +142,28 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     textAlign: 'center',
+  },
+  menuSelector: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '50%',
+    borderColor: theme.palette.lightGrey,
+    borderWidth: 1,
+    marginBottom: '2%',
+  },
+  selectedSelector: {
+    color: theme.palette.blue,
+    paddingHorizontal: '3%',
+    paddingVertical: '1%',
+    minWidth: '50%',
+    textAlign: 'center',
+  },
+  textInput: {
+    borderColor: theme.palette.lightGrey,
+    borderWidth: 0.5,
+    borderStyle: 'solid',
+    padding: '4%',
   },
 });
 
