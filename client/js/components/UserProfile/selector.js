@@ -21,13 +21,12 @@ class Selector extends React.PureComponent {
     this.setState({
       selected: value,
     });
+    this.props.connection('profileInfo', 'status', value);
   }
 
   showMenu = () => {
     this._menu.show();
   };
-
-  showMenu() {}
 
   render() {
     return (
@@ -40,7 +39,9 @@ class Selector extends React.PureComponent {
             </Text>
           }>
           {this.props.options.map(option => (
-            <MenuItem onPress={() => this.hideMenu(option.value)}>
+            <MenuItem
+              key={option.value}
+              onPress={() => this.hideMenu(option.value)}>
               {option.title}
             </MenuItem>
           ))}

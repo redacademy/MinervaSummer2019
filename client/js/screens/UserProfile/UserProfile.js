@@ -14,7 +14,6 @@ import {
   saveInterest,
   saveWays,
 } from '../../lib/helpers/interest_function';
-import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -82,11 +81,11 @@ class UserProfile extends Component {
     });
   }
 
-  updateProfile(section, key, newValue) {
+  updateProfile = (section, key, newValue) => {
     this.setState(prevState => ({
       [section]: {...prevState[section], [key]: newValue},
     }));
-  }
+  };
 
   updateWaysToMeet = way => {
     let newWays = this.state.WaysToMeet;
@@ -210,15 +209,24 @@ class UserProfile extends Component {
                   )}
                   {this.state.profileEditable ? (
                     <Selector
-                      title={this.state.profileInfo.status}
+                      title={
+                        this.state.profileInfo.status === 'Undecided'
+                          ? 'Select a Status'
+                          : `Looking for ${this.state.profileInfo.status}`
+                      }
                       options={[
                         {title: 'Looking for a Mentor', value: 'Mentor'},
                         {title: 'Looking for a Mentee', value: 'Mentee'},
-                        {title: 'Decide Later', value: 'Decide Later'},
-                      ]}></Selector>
+                        {title: 'Decide Later', value: 'Undecided'},
+                      ]}
+                      connection={this.updateProfile}></Selector>
                   ) : (
                     <Text style={styles.status}>
-                      Status: Looking for a {this.state.profileInfo.status}
+                      Status:{' '}
+                      {this.state.profileInfo.status === 'Undecided'
+                        ? ''
+                        : 'Looking for a '}
+                      {this.state.profileInfo.status}
                     </Text>
                   )}
 
