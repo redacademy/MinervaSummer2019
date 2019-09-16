@@ -161,6 +161,34 @@ export const AUTHENTICATE_USER_MUTATION = gql`
   }
 `;
 
+export const UPDATE_PROFILE = gql`
+  mutation updateUser(
+    $id: ID!
+    $firstName: String
+    $lastName: String
+    $location: String
+    $school: String
+    $bio: String
+    $lookingFor: String
+    $waysToMeet: [String!]
+    $interestsIds: [ID!]
+  ) {
+    updateUser(
+      id: $id
+      firstName: $firstName
+      lastName: $lastName
+      location: $location
+      school: $school
+      bio: $bio
+      lookingFor: $lookingFor
+      waysToMeet: $waysToMeet
+      interestsIds: $interestsIds
+    ) {
+      id
+    }
+  }
+`;
+
 /*
  * Post related mutations
  */
@@ -272,34 +300,9 @@ export const DISLIKE_COMMENT_MUTATION = gql`
   }
 `;
 
-//update user profile.
-export const UPDATE_PROFILE = gql`
-  mutation updateUser(
-    $id: ID!
-    $firstName: String
-    $lastName: String
-    $location: String
-    $school: String
-    $bio: String
-    $lookingFor: String
-    $waysToMeet: [String!]
-    $interestsIds: [ID!]
-  ) {
-    updateUser(
-      id: $id
-      firstName: $firstName
-      lastName: $lastName
-      location: $location
-      school: $school
-      bio: $bio
-      lookingFor: $lookingFor
-      waysToMeet: $waysToMeet
-      interestsIds: $interestsIds
-    ) {
-      id
-    }
-  }
-`;
+/*
+ * Chat related mutation
+ */
 
 export const DELETE_CHAT = gql`
   mutation deleteConversation($id: ID!) {
@@ -453,6 +456,98 @@ export const GET_CHAT = gql`
             url
           }
         }
+      }
+    }
+  }
+`;
+
+/*
+ * Connections related mutations
+ */
+
+export const CREATE_CONNECTIONS = gql`
+  mutation createConnectionRequest(
+    $message: String
+    $senderId: ID
+    $receiverId: ID
+    $status: Status
+  ) {
+    createConnectionRequest(
+      message: $message
+      senderId: $senderId
+      receiverId: $receiverId
+      status: $status
+    ) {
+      message
+      status
+      sender {
+        firstName
+        lastName
+        email
+        id
+      }
+      receiver {
+        firstName
+        lastName
+        email
+        id
+      }
+    }
+  }
+`;
+
+export const UPDATE_CONNECTIONS_STATUS = gql`
+  mutation updateConnectionRequest(
+    $senderId: ID
+    $receiverId: ID
+    $status: Status
+  ) {
+    createConnectionRequest(
+      senderId: $senderId
+      receiverId: $receiverId
+      status: $status
+    ) {
+      status
+      sender {
+        firstName
+        lastName
+        email
+        id
+      }
+      receiver {
+        firstName
+        lastName
+        email
+        id
+      }
+    }
+  }
+`;
+
+export const UPDATE_USERS_CONNECTIONS = gql`
+  mutation updateUser(
+    $senderId: ID!
+    $receiver: ID!
+    $senderConnectionId: [ID!]
+    $receiverConnectionId: [ID!]
+  ) {
+    sender: updateUser(id: $senderId, userConnectionsIds: $senderConnectionId) {
+      userConnections {
+        firstName
+        lastName
+        email
+        id
+      }
+    }
+    receiver: updateUser(
+      id: $receiver
+      userConnectionsIds: $receiverConnectionId
+    ) {
+      userConnections {
+        firstName
+        lastName
+        email
+        id
       }
     }
   }
