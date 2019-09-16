@@ -13,50 +13,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from 'react-native-modal';
 import theme from '../../config/theme';
-import {gql} from 'apollo-boost';
 import {Query, Mutation} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
 import {withNavigation} from 'react-navigation';
 import {GET_USER_CHATS} from './AllChatsContainer';
-
-const GET_USERS = gql`
-  query($id: ID!) {
-    allUsers(filter: {id_not: $id}) {
-      id
-      firstName
-      lastName
-      photo {
-        url
-      }
-    }
-  }
-`;
-
-const CREATE_CHAT = gql`
-  mutation createConversation($id1: ID!, $id2: ID!) {
-    createConversation(membersIds: [$id1, $id2]) {
-      id
-      members {
-        id
-        firstName
-        lastName
-        photo {
-          url
-        }
-      }
-      messages {
-        content
-        author {
-          id
-        }
-        recipient {
-          id
-        }
-        sentAt
-      }
-    }
-  }
-`;
+import {GET_USERS, CREATE_CHAT} from '../../config/apollo/queries';
 
 const AllChats = ({chats, viewer, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);

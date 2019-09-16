@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {gql} from 'apollo-boost';
 import {Query, Mutation, Subscription} from '@apollo/react-components';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
@@ -15,54 +14,8 @@ import {GET_USER_CHATS} from '../AllChats/AllChatsContainer';
 import CircularLoader from '../../components/CircularLoader';
 import {GET_CHAT} from './SingleChatContainer';
 import {Form, Field} from 'react-final-form';
+import {CHAT_SUBSCRIPTION, CREATE_MESSAGE} from '../../config/apollo/queries';
 
-const CREATE_MESSAGE = gql`
-  mutation createMessage(
-    $conversationId: ID!
-    $authorId: ID!
-    $recipientId: ID!
-    $content: String
-    $sentAt: DateTime!
-  ) {
-    createMessage(
-      conversationId: $conversationId
-      authorId: $authorId
-      recipientId: $recipientId
-      content: $content
-      sentAt: $sentAt
-    ) {
-      id
-    }
-  }
-`;
-
-const CHAT_SUBSCRIPTION = gql`
-  subscription($id: ID!) {
-    Message(filter: {node: {conversation: {id: $id}}}) {
-      node {
-        id
-        sentAt
-        content
-        recipient {
-          id
-          firstName
-          lastName
-          photo {
-            url
-          }
-        }
-        author {
-          id
-          firstName
-          lastName
-          photo {
-            url
-          }
-        }
-      }
-    }
-  }
-`;
 class SingleChat extends React.Component {
   constructor(props) {
     super(props);

@@ -6,37 +6,7 @@ import {Query} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
 import SingleChat from './SingleChat';
 import {withNavigation} from 'react-navigation';
-
-export const GET_CHAT = gql`
-  query($id: ID!) {
-    Conversation(id: $id) {
-      members {
-        id
-      }
-      messages {
-        id
-        sentAt
-        content
-        recipient {
-          id
-          firstName
-          lastName
-          photo {
-            url
-          }
-        }
-        author {
-          id
-          firstName
-          lastName
-          photo {
-            url
-          }
-        }
-      }
-    }
-  }
-`;
+import {GET_CHAT} from '../../config/apollo/queries';
 
 class SingleChatContainer extends Component {
   render() {

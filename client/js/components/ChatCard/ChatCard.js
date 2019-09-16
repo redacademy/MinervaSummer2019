@@ -6,15 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import theme from '../../config/theme';
 import {Mutation} from '@apollo/react-components';
 import {GET_USER_CHATS} from '../../screens/AllChats/AllChatsContainer';
-import {gql} from 'apollo-boost';
-
-const DELETE_CHAT = gql`
-  mutation deleteConversation($id: ID!) {
-    deleteConversation(id: $id) {
-      id
-    }
-  }
-`;
+import {DELETE_CHAT} from '../../config/apollo/queries';
 
 const ChatCard = ({chat, viewer, navigation}) => {
   const {members, messages} = chat;
