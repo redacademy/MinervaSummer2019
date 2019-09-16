@@ -29,6 +29,16 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     marginLeft: 10,
   },
+  modalRoot: {
+    height: '100%',
+    alignItems: 'center',
+    paddingVertical: '20%',
+    paddingHorizontal: '10%',
+  },
+  backHeader: {
+    width: '100%',
+    alignItems: 'flex-start',
+  },
 });
 
 export default styles;
