@@ -54,8 +54,8 @@ class LocationForm extends React.Component {
         </Text>
         <View style={styles.selectWrapper}>
           {this.createSelectChip('Decide Later', 'Undecided')}
-          {this.createSelectChip('Be a mentor', 'Mentor')}
-          {this.createSelectChip('Be a mentee', 'Mentee')}
+          {this.createSelectChip('Be a mentor', 'Mentee')}
+          {this.createSelectChip('Be a mentee', 'Mentor')}
           {this.state.error ? (
             <Text style={styles.errorMessage}>*please select one option</Text>
           ) : null}

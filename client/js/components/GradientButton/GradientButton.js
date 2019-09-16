@@ -30,6 +30,4 @@ GradientButton.propTypes = {
   text: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   variant: PropTypes.oneOf(['outlined', 'contained']),
-  textStyle: PropTypes.object,
-  buttonStyle: PropTypes.object,
 };

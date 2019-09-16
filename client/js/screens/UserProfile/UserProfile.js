@@ -1,99 +1,104 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Keyboard,
-  Image,
-  ScrollView,
-  Picker,
-} from 'react-native';
+import {Text, View, TextInput, Keyboard, Image, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
+import CircularLoader from '../../components/CircularLoader';
+import {UPDATE_PROFILE} from '../../config/apollo/queries';
 import styles from './styles';
-import PropTypes from 'prop-types';
 import GradientButton from '../../components/GradientButton';
-import Ionics from 'react-native-vector-icons/Ionicons';
-import InterestButton from './helpers/InterestButton';
-import FaveWays from './helpers/FaveWays';
+import InterestButton from '../../components/UserProfile/InterestButton';
+import FaveWays from '../../components/UserProfile/FaveWays';
+import Selector from '../../components/UserProfile/selector';
+import {
+  organizer,
+  saveInterest,
+  saveWays,
+} from '../../lib/helpers/interest_function';
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       profileEditable: false,
+      ownProfile: true,
       profileInfo: {
-        name: 'Jenny Lee',
-        status: 'mentor',
-        location: 'Vancouver, Bc',
-        school: 'Burnaby:Hihg School',
-        pic: '../../assets/PNG/extras/Jenna.png',
-        bio:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Crasvitae porta magna. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae porta magna.Lorem ipsum dolor sit amet. ',
+        name: '',
+        lastName: '',
+        status: '',
+        location: '',
+        school: '',
+        bio: '',
+        userId: '',
       },
-      WaysToMeet: [
-        {name: 'Coffe', icon: 'ios-cafe', visible: true},
-        {name: 'After School', icon: 'ios-school', visible: true},
-        {name: 'Lunch', icon: 'ios-pizza', visible: false},
-        {name: 'A Walk', icon: 'ios-walk', visible: true},
-      ],
-      interest: {
-        Personal: [
-          {name: 'Sports', visible: true},
-          {name: 'Dance', visible: true},
-          {name: 'Read', visible: true},
-          {name: 'Walk', visible: true},
-          {name: 'Read', visible: true},
-          {name: 'Walk', visible: true},
-        ],
-        Social: [
-          {name: 'Sports', visible: true},
-          {name: 'Dance', visible: false},
-          {name: 'Read', visible: false},
-          {name: 'Walk', visible: true},
-          {name: 'Read', visible: true},
-          {name: 'Walk', visible: true},
-        ],
-        Profesional: [
-          {name: 'Sports', visible: true},
-          {name: 'Dance', visible: true},
-          {name: 'Read', visible: true},
-          {name: 'Walk', visible: true},
-          {name: 'Read', visible: true},
-          {name: 'Walk', visible: true},
-        ],
+      interest: {},
+      WaysToMeet: {
+        Coffee: {name: 'Coffee', icon: 'coffee', visible: false},
+        afterSchool: {
+          name: 'After School',
+          icon: 'after_school',
+          visible: false,
+        },
+        Lunch: {name: 'Lunch', icon: 'lunch', visible: false},
+        aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
     };
-  }
 
-  editProfile(save = false) {
-    this.setState({
-      profileEditable: !this.state.profileEditable,
-    });
-    if (save) {
-      this.runQuery();
+    if (this.props.myProfile) {
+      this.props.context.viewer.waysToMeet.map(way =>
+        this.updateWaysToMeet(way),
+      );
+    } else {
+      this.props.viewer.User.waysToMeet.map(way => this.updateWaysToMeet(way));
     }
   }
 
-  updateProfile(section, key, newValue) {
+  componentDidMount() {
+    let data;
+    if (this.props.myProfile) {
+      data = this.props.context.viewer;
+    } else {
+      data = this.props.viewer.User;
+    }
+
+    this.setState({
+      profileInfo: {
+        name: data.firstName,
+        ownProfile: this.props.ownProfile,
+        lastName: data.lastName,
+        status: data.lookingFor,
+        location: data.location,
+        school: data.school,
+        bio: data.bio,
+        userId: data.id,
+      },
+      interest: organizer(this.props.info.allInterests, data.interests),
+    });
+  }
+
+  editProfile() {
+    this.setState({
+      profileEditable: !this.state.profileEditable,
+    });
+  }
+
+  updateProfile = (section, key, newValue) => {
     this.setState(prevState => ({
       [section]: {...prevState[section], [key]: newValue},
     }));
-  }
+  };
 
-  updateWaysToMeet(index) {
+  updateWaysToMeet = way => {
     let newWays = this.state.WaysToMeet;
-    newWays[index] = {...newWays[index], visible: !newWays[index].visible};
-    this.setState(prevState => ({
+    newWays[way] = {...newWays[way], visible: !newWays[way].visible};
+    this.setState({
       WaysToMeet: newWays,
-    }));
-  }
+    });
+  };
 
   updateInterest(key, index, subInterest) {
     let newInterest = this.state.interest[subInterest];
     newInterest[index] = {
+      ...newInterest[index],
       name: [key],
       visible: !newInterest[index].visible,
     };
@@ -105,22 +110,20 @@ class UserProfile extends Component {
       },
     }));
   }
-  TI = (name, style, multiline = false, lines = 1) => {
+
+  TI = (name, style, length = 10, multiline = false, lines = 1) => {
     let styleTI = {
       ...styles[style],
-      borderColor: 'grey',
-      borderWidth: 0.5,
-      borderStyle: 'solid',
-      padding: '3%',
+      ...styles.textInput,
     };
-    let maxLength = lines === 1 ? 20 : 300;
+
     return (
       <TextInput
         style={styleTI}
         placeholder={name}
         multiline={multiline}
         numberOfLines={lines}
-        maxLength={maxLength}
+        maxLength={length}
         onBlur={Keyboard.dismiss}
         value={this.state.profileInfo[name]}
         onChangeText={input =>
@@ -129,114 +132,193 @@ class UserProfile extends Component {
     );
   };
 
-  runQuery() {
-    return this.state;
-  }
+  editProfileSave = async (save = false, mutation) => {
+    saveWays(this.state.WaysToMeet);
 
+    const updatedINFO = await mutation({
+      variables: {
+        id: this.state.profileInfo.userId,
+        firstName: this.state.profileInfo.name,
+        lastName: this.state.profileInfo.lastName,
+        location: this.state.profileInfo.location,
+        lookingFor: this.state.profileInfo.status,
+        school: this.state.profileInfo.school,
+        bio: this.state.profileInfo.bio,
+        waysToMeet: saveWays(this.state.WaysToMeet),
+        interestsIds: saveInterest(this.state.interest),
+      },
+    });
+
+    if (updatedINFO) {
+      this.setState({
+        profileEditable: !this.state.profileEditable,
+      });
+
+      await this.props.context.updateViewer(
+        updatedINFO,
+        this.props.context.viewer.token,
+      );
+    }
+  };
   render() {
-    let waysToMeetSelected = this.state.WaysToMeet.filter(way =>
-      this.state.profileEditable ? true : way.visible,
-    );
+    let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
     let listOfInterest = Object.keys(this.state.interest);
 
     return (
-      <ScrollView>
-        <View style={styles.root}>
-          <View style={styles.metaProfile}>
-            <Image
-              style={styles.profileImage}
-              resizeMode={'cover'}
-              source={require('../../assets/PNG/extras/Jenna.png')}
-            />
-            {this.state.profileEditable ? (
-              this.TI('name', 'name')
-            ) : (
-              <Text style={styles.name}>{this.state.profileInfo.name}</Text>
-            )}
-            {!this.state.profileEditable && (
-              <GradientButton
-                onPress={() => this.editProfile()}
-                text="Edit Profile"
-              />
-            )}
-
-            <Text style={styles.status}>
-              Status: {this.state.profileInfo.status}
-            </Text>
-
-            {this.state.profileEditable ? (
-              this.TI('location', 'locationStatus')
-            ) : (
-              <Text style={styles.locationStatus}>
-                <Ionics name={`ios-today`} size={25} />
-                {this.state.profileInfo.location}
-              </Text>
-            )}
-
-            {this.state.profileEditable ? (
-              this.TI('school', 'locationStatus')
-            ) : (
-              <Text style={styles.locationStatus}>
-                <Ionics name={`ios-book`} size={25} />
-                {this.state.profileInfo.school}
-              </Text>
-            )}
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>About Me</Text>
-              {this.state.profileEditable ? (
-                this.TI('bio', 'sectionContent', true, 5)
-              ) : (
-                <Text style={styles.sectionContent}>
-                  {this.state.profileInfo.bio}
-                </Text>
-              )}
-            </View>
-          </View>
-          <View style={styles.interest}>
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Favorite Ways to Meet</Text>
-              <View style={styles.sectionContent}>
-                {waysToMeetSelected.map((item, index) => (
-                  <FaveWays
-                    key={item.name + index}
-                    item={item}
-                    index={index}
-                    updateWaysToMeet={this.updateWaysToMeet.bind(
-                      this,
-                    )}></FaveWays>
-                ))}
+      <Mutation mutation={UPDATE_PROFILE}>
+        {(updateUser, {loading, error}) => {
+          if (loading) {
+            return <CircularLoader></CircularLoader>;
+          }
+          if (error) {
+            return (
+              <View>
+                <Text>Data not saved</Text>
               </View>
-            </View>
-            {listOfInterest.map(section => (
-              <View style={styles.section} key={section}>
-                <Text style={styles.sectionTitle}>{section} Interests</Text>
-                <View style={styles.sectionContent}>
-                  {this.state.interest[section].map((group, index) => (
-                    <InterestButton
-                      key={group.name + index}
-                      info={group}
-                      interest={section}
-                      index={index}
-                      show={this.state.profileEditable}
-                      updateInterest={this.updateInterest.bind(
-                        this,
-                      )}></InterestButton>
+            );
+          }
+          return (
+            <ScrollView>
+              <View style={styles.root}>
+                <View style={styles.metaProfile}>
+                  <Image
+                    style={styles.profileImage}
+                    resizeMode={'cover'}
+                    source={require('../../assets/PNG/additional_illustrations/profile.png')}
+                  />
+                  {this.state.profileEditable ? (
+                    <View>
+                      <View>{this.TI('name', 'name')}</View>
+                      <View>{this.TI('lastName', 'name')}</View>
+                    </View>
+                  ) : (
+                    <Text style={styles.name}>
+                      {`${this.state.profileInfo.name} ${this.state.profileInfo.lastName}`}
+                    </Text>
+                  )}
+                  {!this.state.profileEditable && (
+                    <View style={styles.buttonWrapper}>
+                      <GradientButton
+                        onPress={() =>
+                          this.props.myProfile ? this.editProfile() : ''
+                        }
+                        text={this.props.myProfile ? 'Edit Profile' : 'Message'}
+                        variant={'contained'}
+                      />
+                    </View>
+                  )}
+                  {this.state.profileEditable ? (
+                    <Selector
+                      title={
+                        this.state.profileInfo.status === 'Undecided'
+                          ? 'Select a Status'
+                          : `Looking for ${this.state.profileInfo.status}`
+                      }
+                      options={[
+                        {title: 'Looking for a Mentor', value: 'Mentor'},
+                        {title: 'Looking for a Mentee', value: 'Mentee'},
+                        {title: 'Decide Later', value: 'Undecided'},
+                      ]}
+                      connection={this.updateProfile}></Selector>
+                  ) : (
+                    <Text style={styles.status}>
+                      Status:{' '}
+                      {this.state.profileInfo.status === 'Undecided'
+                        ? ''
+                        : 'Looking for a '}
+                      {this.state.profileInfo.status}
+                    </Text>
+                  )}
+
+                  <View style={styles.locationMetrix}>
+                    <Image
+                      style={styles.locationIcon}
+                      resizeMode={'contain'}
+                      source={require('../../assets/PNG/Profile_icons/icon_city.png')}></Image>
+                    {this.state.profileEditable ? (
+                      this.TI('location', 'locationStatus', 15, false)
+                    ) : (
+                      <Text style={styles.locationStatus}>
+                        {this.state.profileInfo.location}
+                      </Text>
+                    )}
+                  </View>
+                  <View style={styles.locationMetrix}>
+                    <Image
+                      style={styles.locationIcon}
+                      resizeMode={'contain'}
+                      source={require('../../assets/PNG/Profile_icons/icon_school.png')}></Image>
+                    {this.state.profileEditable ? (
+                      this.TI('school', 'locationStatus', 15, false)
+                    ) : (
+                      <Text style={styles.locationStatus}>
+                        {this.state.profileInfo.school}
+                      </Text>
+                    )}
+                  </View>
+
+                  <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>About Me</Text>
+                    {this.state.profileEditable ? (
+                      this.TI('bio', 'sectionContent', 300, true, 5)
+                    ) : (
+                      <Text style={styles.bio}>
+                        {this.state.profileInfo.bio}
+                      </Text>
+                    )}
+                  </View>
+                </View>
+                <View style={styles.interest}>
+                  <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>
+                      Favorite Ways to Meet
+                    </Text>
+                    <View style={styles.sectionContent}>
+                      {waysToMeetSelected.map((item, index) => (
+                        <FaveWays
+                          key={item + index}
+                          item={this.state.WaysToMeet[item]}
+                          show={this.state.profileEditable}
+                          index={item}
+                          updateWaysToMeet={this.updateWaysToMeet}></FaveWays>
+                      ))}
+                    </View>
+                  </View>
+                  {listOfInterest.map(section => (
+                    <View style={styles.section} key={section}>
+                      <Text style={styles.sectionTitle}>
+                        {section} Interests
+                      </Text>
+                      <View style={styles.sectionContent}>
+                        {this.state.interest[section].map((group, index) => (
+                          <InterestButton
+                            key={group.title + index}
+                            info={group}
+                            interest={section}
+                            index={index}
+                            show={this.state.profileEditable}
+                            updateInterest={this.updateInterest.bind(
+                              this,
+                            )}></InterestButton>
+                        ))}
+                      </View>
+                    </View>
                   ))}
                 </View>
-              </View>
-            ))}
-          </View>
 
-          {this.state.profileEditable && (
-            <GradientButton
-              onPress={() => this.editProfile(true)}
-              text="Save Changes"
-              style={styles.interest}
-            />
-          )}
-        </View>
-      </ScrollView>
+                {this.state.profileEditable && (
+                  <View style={styles.buttonWrapper}>
+                    <GradientButton
+                      onPress={() => this.editProfileSave(true, updateUser)}
+                      text="Save Changes"
+                    />
+                  </View>
+                )}
+              </View>
+            </ScrollView>
+          );
+        }}
+      </Mutation>
     );
   }
 }
