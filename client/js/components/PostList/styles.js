@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontFamily: theme.fonts.bold,
+    fontFamily: theme.fonts.heavy,
     color: theme.palette.darkGrey,
     fontSize: theme.font.subtitle,
   },
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
 
   responseWrapper: {
     flexDirection: 'row',
-    paddingVertical: '2%',
+    paddingVertical: '3%',
     alignItems: 'center',
   },
 

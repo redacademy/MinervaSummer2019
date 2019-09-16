@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
 
   header: {
     marginVertical: 10,
-    textAlign: 'center',
+    marginLeft: 5,
     fontSize: theme.font.header,
     fontFamily: theme.fonts.bold,
     color: theme.palette.darkGrey,
+    fontSize: 18,
   },
 
   topicsWrapper: {
@@ -90,8 +91,14 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
 
+  favouriteHeaderButton: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    width: '30%',
+  },
   favouriteHeaderIcon: {
-    height: '65%',
+    width: 30,
+    height: 30,
   },
 });
 

@@ -105,7 +105,7 @@ class PostList extends Component {
                 <TouchableOpacity onPress={() => removeFave(post.id)}>
                   <Image
                     source={require('../../assets/PNG/additional_illustrations/Filled_star.png')}
-                    style={{width: 25, height: 25}}
+                    style={{width: 26, height: 25}}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
@@ -113,7 +113,7 @@ class PostList extends Component {
                 <TouchableOpacity onPress={() => addFave(post.id)}>
                   <Image
                     source={require('../../assets/PNG/additional_illustrations/Outlined_star.png')}
-                    style={{width: 215, height: 25}}
+                    style={{width: 26, height: 25}}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
@@ -223,7 +223,7 @@ class PostList extends Component {
                         ? require('../../assets/PNG/additional_illustrations/like_icon_2.png')
                         : require('../../assets/PNG/additional_illustrations/like_icon_1.png')
                     }
-                    style={{width: 15, hegiht: 15}}
+                    style={{width: 15, height: 15}}
                     resizeMode="contain"
                   />
                   {this.state.liked ? (
@@ -246,7 +246,7 @@ class PostList extends Component {
             <View style={styles.commentBtn}>
               <Image
                 source={require('../../assets/PNG/additional_illustrations/comment_1.png')}
-                style={{width: 15, hegiht: 15}}
+                style={{width: 15, height: 15}}
                 resizeMode="contain"
               />
               <Text style={styles.touchOpResponse}>Comment</Text>

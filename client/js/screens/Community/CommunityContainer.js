@@ -19,7 +19,9 @@ class CommunityContainer extends Component {
   static navigationOptions = ({navigation}) => ({
     title: 'Community',
     headerRight: (
-      <TouchableOpacity onPress={() => navigation.navigate('Favourites')}>
+      <TouchableOpacity
+        style={styles.favouriteHeaderButton}
+        onPress={() => navigation.navigate('Favourites')}>
         <Image
           resizeMode={'contain'}
           style={styles.favouriteHeaderIcon}
