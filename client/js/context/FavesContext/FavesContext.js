@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 const FavesContext = React.createContext();
-import {getFaves, getToken, addFaveId, removeFaveId} from '../../config/models';
+import {
+  getFaves,
+  getToken,
+  addFaveId,
+  removeFaveId,
+  storeToken,
+} from '../../config/models';
 
 class FavesProvider extends Component {
   constructor(props) {
@@ -39,6 +45,17 @@ class FavesProvider extends Component {
     try {
       const newFaves = await removeFaveId(this.state.viewer, postId);
       this.setState({faves: newFaves});
+    } catch (e) {
+      throw e;
+    }
+  };
+  updateViewer = async (newViewerObject, token) => {
+    try {
+      const updatedViewer = await storeToken({
+        ...newViewerObject,
+        token: token,
+      });
+      this.setState({viewer: updatedViewer});
     } catch (e) {
       throw e;
     }
