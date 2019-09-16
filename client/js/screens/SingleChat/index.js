@@ -1,3 +1,3 @@
-import SingleChatsContainer from './SingleChatsContainer';
+import SingleChatContainer from './SingleChatContainer';
 
-export default SingleChatsContainer;
+export default SingleChatContainer;

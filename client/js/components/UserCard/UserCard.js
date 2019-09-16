@@ -52,7 +52,7 @@ const UserCard = ({user, navigation}) => {
       <View style={styles.buttonWrapper}>
         <GradientButton
           text={'View Profile'}
-          onPress={() => navigation.navigate('Profile', {user})}
+          onPress={() => navigation.navigate('Profile', {user: user.id})}
         />
       </View>
     </View>

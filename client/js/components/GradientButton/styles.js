@@ -3,16 +3,8 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 5,
-    overflow: 'hidden',
-    display: 'flex',
-    flex: 1,
-  },
-  buttonOutlined: {
-    borderRadius: 5,
-    overflow: 'visible',
-    display: 'flex',
-    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     color: 'white',

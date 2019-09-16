@@ -7,6 +7,7 @@ import ChatsScreen from '../screens/AllChats';
 import CommentsScreen from '../screens/Comments';
 import ProfileScreen from '../screens/UserProfile';
 import CreatePostScreen from '../screens/CreatePost';
+import SingleChatScreen from '../screens/SingleChat';
 
 import {View, Image} from 'react-native';
 import React from 'react';
@@ -32,7 +33,12 @@ const ConnectionsStack = createStackNavigator({
   Connections: {screen: ConnectionsScreen},
   Profile: {screen: ProfileScreen},
 });
-const ChatsStack = createStackNavigator({Chats: ChatsScreen});
+const ChatsStack = createStackNavigator({
+  Chats: {screen: ChatsScreen},
+  SingleChat: {
+    screen: SingleChatScreen,
+  },
+});
 const ProfileStack = createStackNavigator({Profile: ProfileScreen});
 
 export default createBottomTabNavigator(
