@@ -67,6 +67,11 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'space-between',
   },
+  textTop: {
+    width: '100%',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
 });
 
 export default styles;

@@ -16,8 +16,11 @@ import theme from '../../config/theme';
 import {Query, Mutation} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
 import {withNavigation} from 'react-navigation';
-import {GET_USER_CHATS} from './AllChatsContainer';
-import {GET_USERS, CREATE_CHAT} from '../../config/apollo/queries';
+import {
+  GET_USERS,
+  GET_USER_CHATS,
+  CREATE_CHAT,
+} from '../../config/apollo/queries';
 
 const AllChats = ({chats, viewer, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -82,7 +85,9 @@ const AllChats = ({chats, viewer, navigation}) => {
                 <Fragment>
                   <View style={styles.searchWrapper}>
                     <Text style={styles.searchLabel}>Add Members</Text>
-                    <TextInput placeholder="Search member name..."></TextInput>
+                    <TextInput
+                      style={styles.searchInput}
+                      placeholder="Search member name..."></TextInput>
                   </View>
                   <ScrollView style={styles.scrollRoot}>
                     {data.allUsers.map(user => (

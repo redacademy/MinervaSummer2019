@@ -126,5 +126,12 @@ const styles = StyleSheet.create({
     width: '60%',
     height: '50%',
   },
+  searchInput: {
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 50,
+    borderColor: theme.palette.lightGrey,
+  },
 });
 export default styles;
