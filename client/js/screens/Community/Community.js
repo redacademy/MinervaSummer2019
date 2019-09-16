@@ -4,6 +4,7 @@ import {ScrollView, TouchableOpacity, View, Text} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {withNavigation} from 'react-navigation';
 import styles from './styles';
+import CircularLoader from '../../components/CircularLoader';
 
 const Community = ({posts, context, navigation, insertState, getState}) => {
   const {faves, addFave, removeFave, viewer} = context;
@@ -108,17 +109,20 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
           </View>
         </View>
       </View>
-
-      {posts.map(post => (
-        <PostList
-          key={post.id}
-          post={post}
-          viewer={viewer}
-          removeFave={removeFave}
-          addFave={addFave}
-          faved={faves && faves.includes(post.id)}
-        />
-      ))}
+      {viewer ? (
+        posts.map(post => (
+          <PostList
+            key={post.id}
+            post={post}
+            viewer={viewer}
+            removeFave={removeFave}
+            addFave={addFave}
+            faved={faves && faves.includes(post.id)}
+          />
+        ))
+      ) : (
+        <CircularLoader />
+      )}
     </ScrollView>
   );
 };

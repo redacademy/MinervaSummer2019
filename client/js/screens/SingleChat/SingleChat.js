@@ -10,11 +10,13 @@ import {
 import {Query, Mutation, Subscription} from '@apollo/react-components';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
-import {GET_USER_CHATS} from '../AllChats/AllChatsContainer';
 import CircularLoader from '../../components/CircularLoader';
-import {GET_CHAT} from './SingleChatContainer';
 import {Form, Field} from 'react-final-form';
-import {CHAT_SUBSCRIPTION, CREATE_MESSAGE} from '../../config/apollo/queries';
+import {
+  CHAT_SUBSCRIPTION,
+  CREATE_MESSAGE,
+  GET_USER_CHATS,
+} from '../../config/apollo/queries';
 
 class SingleChat extends React.Component {
   constructor(props) {
@@ -63,7 +65,12 @@ class SingleChat extends React.Component {
                       }
                       style={styles.authorPicture}
                     />
-                    <View style={styles.chatBubble}>
+                    <View
+                      style={
+                        message.author.id === viewer.id
+                          ? styles.chatBubbleSent
+                          : styles.chatBubbleReceived
+                      }>
                       <Text style={styles.chatBubbleText}>
                         {message.content}
                       </Text>

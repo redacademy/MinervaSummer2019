@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   responseWrapper: {
     flexDirection: 'row',
     paddingVertical: '2%',
+    alignItems: 'center',
   },
 
   response: {
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
 
   goToComment: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
 
   touchOpWrapper: {

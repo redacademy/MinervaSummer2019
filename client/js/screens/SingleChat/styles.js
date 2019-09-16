@@ -17,7 +17,13 @@ const styles = StyleSheet.create({
   receivedMessage: {
     flexDirection: 'row',
   },
-  chatBubble: {
+  chatBubbleReceived: {
+    backgroundColor: theme.palette.lightGrey,
+    borderRadius: 5,
+    justifyContent: 'center',
+    maxWidth: '80%',
+  },
+  chatBubbleSent: {
     backgroundColor: theme.palette.lightBlue,
     borderRadius: 5,
     justifyContent: 'center',

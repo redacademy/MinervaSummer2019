@@ -16,8 +16,11 @@ import theme from '../../config/theme';
 import {Query, Mutation} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
 import {withNavigation} from 'react-navigation';
-import {GET_USER_CHATS} from './AllChatsContainer';
-import {GET_USERS, CREATE_CHAT} from '../../config/apollo/queries';
+import {
+  GET_USERS,
+  CREATE_CHAT,
+  GET_USER_CHATS,
+} from '../../config/apollo/queries';
 
 const AllChats = ({chats, viewer, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
