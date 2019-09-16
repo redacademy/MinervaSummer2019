@@ -42,11 +42,12 @@ displayNoConnections = toggleForm => {
   );
 };
 
-displayConnected = (toggleForm, suggestedUsers) => {
-  const connectedUsers = [];
-  if ((connectedUsers.length = [0])) {
-    return displayNoConnections(toggleForm);
-  }
+displayConnected = (toggleForm, viewer) => {
+  return viewer.userConnections.length === 0
+    ? displayNoConnections(toggleForm)
+    : viewer.userConnections.map(user => (
+        <UserCard user={user} key={user.id}></UserCard>
+      ));
 };
 
 const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
@@ -95,7 +96,7 @@ const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
       </View>
       {!state.formToggle
         ? this.displaySuggestions(suggestedUsers, viewer)
-        : this.displayConnected(toggleForm, suggestedUsers)}
+        : this.displayConnected(toggleForm, viewer)}
     </ScrollView>
   );
 };

@@ -16,6 +16,9 @@ export const ALL_USERS_QUERY = gql`
       interests {
         id
       }
+      photo {
+        url
+      }
     }
   }
 `;
@@ -41,6 +44,18 @@ export const USER_QUERY = gql`
       posts {
         id
       }
+      userConnections {
+        firstName
+        lastName
+        email
+        id
+        bio
+        location
+        school
+        photo {
+          url
+        }
+      }
     }
   }
 `;
@@ -63,6 +78,9 @@ export const SUGGESTED_USERS_QUERY = gql`
       id
       school
       location
+      photo {
+        url
+      }
     }
   }
 `;
