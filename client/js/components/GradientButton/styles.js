@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     padding: 20,
+    width: '100%',
     paddingTop: 15,
     paddingBottom: 15,
     fontFamily: theme.fonts.heavy,

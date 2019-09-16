@@ -1,28 +1,26 @@
 import React from 'react';
 import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
 import {Mutation} from '@apollo/react-components';
-import {gql} from 'apollo-boost';
-import styles from './styles';
-import {GET_ALL_POSTS} from '../../screens/Community/CommunityContainer';
 
-const CREATE_COMMENT = gql`
-  mutation createComment($authorId: ID, $postId: ID, $content: String!) {
-    createComment(authorId: $authorId, postId: $postId, content: $content) {
-      id
-      content
-    }
-  }
-`;
+import styles from './styles';
+import {GET_ALL_POSTS} from '../../config/apollo/queries';
+import {CREATE_COMMENT} from '../../config/apollo/queries'
+
 
 const CreateComment = ({postId, toggleCommentDisplay, viewer}) => {
   const [text, onChangeText] = React.useState();
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../../assets/PNG/additional_illustrations/profile.png')}
-      />
+      {viewer.photo.url === null ? (
+        <Image
+          style={styles.image}
+          source={require('../../assets/PNG/additional_illustrations/profile.png')}
+        />
+      ) : (
+        <Image style={styles.image} source={{uri: viewer.photo.url}} />
+      )}
+
       <Mutation
         mutation={CREATE_COMMENT}
         refetchQueries={() => [{query: GET_ALL_POSTS}]}>
@@ -46,7 +44,7 @@ const CreateComment = ({postId, toggleCommentDisplay, viewer}) => {
                 });
                 toggleCommentDisplay();
               }}>
-              <Text style={styles.postBtn}>Post</Text>
+              <Text style={styles.commentBtn}>Comment</Text>
             </TouchableOpacity>
           </View>
         )}

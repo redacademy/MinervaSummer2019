@@ -9,70 +9,11 @@ import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import CreateComment from '../CreateComment';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import theme from '../../config/theme';
-import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
-
-const DELETE_POST_MUTATION = gql`
-  mutation deletePost($id: ID!) {
-    deletePost(id: $id) {
-      id
-    }
-  }
-`;
-
-
-const LIKE_POST_MUTATION = gql`
-  mutation addToPostLikes($likesPostId: ID!, $likesUserId: ID!) {
-    addToPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
-      likesPost {
-        id
-      }
-    }
-  }
-`;
-const DISLIKE_POST_MUTATION = gql`
-  mutation removeFromPostLikes($likesPostId: ID!, $likesUserId: ID!) {
-    removeFromPostLikes(likesPostId: $likesPostId, likesUserId: $likesUserId) {
-      likesPost {
-        id
-      }
-    }
-  }
-`;
-
-
-export const GET_ALL_POSTS = gql`
-  query {
-    allPosts(orderBy: createdAt_ASC) {
-      author {
-        id
-        firstName
-        lastName
-        photo {
-          url
-        }
-      }
-      type
-      id
-      createdAt
-      content
-      likes {
-        id
-      }
-      comments {
-        id
-        author {
-          firstName
-          lastName
-        }
-        content
-        likes {
-          id
-        }
-      }
-    }
-  }
-`;
+import {DELETE_POST_MUTATION} from '../../config/apollo/queries';
+import {LIKE_POST_MUTATION} from '../../config/apollo/queries';
+import {DISLIKE_POST_MUTATION} from '../../config/apollo/queries';
+import {GET_ALL_POSTS} from '../../config/apollo/queries';
 
 class PostList extends Component {
   constructor(props) {
@@ -102,7 +43,6 @@ class PostList extends Component {
   toggleCommentDisplay = () => {
     this.setState({displayCommentInput: !this.state.displayCommentInput});
   };
-
 
   toggleLike = async (likeMutation, viewerId, postId) => {
     try {
@@ -134,19 +74,26 @@ class PostList extends Component {
     const {post, navigation, faved, addFave, removeFave, viewer} = this.props;
     const newDate = formatDateString(post.createdAt);
     return (
-      <View style={styles.container}>
+      <View>
         <View style={styles.postWrapper}>
           <View style={styles.topWrapper}>
             <View style={styles.authorWrapper}>
-              <Image
-                style={styles.image}
-                source={require('../../assets/PNG/additional_illustrations/profile.png')}
-              />
+              {post.author.photo.url === null ? (
+                <Image
+                  style={styles.image}
+                  source={require('../../assets/PNG/additional_illustrations/profile.png')}
+                />
+              ) : (
+                <Image
+                  style={styles.image}
+                  source={{uri: post.author.photo.url}}
+                />
+              )}
 
               <View style={styles.nameWrapper}>
-                <Text>
+                <Text style={styles.name}>
                   {post.author.firstName}
-                  <View style={{width: 2}} />
+                  <View style={styles.lineB} />
                   {post.author.lastName}
                 </Text>
                 <Text style={styles.time}>{newDate}</Text>
@@ -232,8 +179,8 @@ class PostList extends Component {
           <Text style={styles.content}>{post.content}</Text>
 
           <View style={styles.responseWrapper}>
-            <Ionics
-              name={'ios-thumbs-up'}
+            <Entypo
+              name={'thumbs-up'}
               size={15}
               color={theme.palette.darkGrey}
             />
@@ -257,7 +204,7 @@ class PostList extends Component {
           </View>
         </View>
 
-        <View style={styles.opWrapper}>
+        <View style={styles.touchOpWrapper}>
           <Mutation
             mutation={
               this.state.liked ? DISLIKE_POST_MUTATION : LIKE_POST_MUTATION
@@ -270,8 +217,8 @@ class PostList extends Component {
                   this.toggleLike(likeMutation, viewer.id, post.id)
                 }>
                 <View style={styles.likeBtn}>
-                  <Ionics
-                    name={'ios-thumbs-up'}
+                  <Entypo
+                    name={'thumbs-up'}
                     size={15}
                     color={
                       this.state.liked
@@ -279,7 +226,11 @@ class PostList extends Component {
                         : theme.palette.darkGrey
                     }
                   />
-                  <Text style={styles.response}>Like</Text>
+                  {this.state.liked ? (
+                    <Text style={styles.like}>Liked</Text>
+                  ) : (
+                    <Text style={styles.liked}>Like</Text>
+                  )}
                 </View>
               </TouchableOpacity>
             )}
@@ -298,10 +249,11 @@ class PostList extends Component {
                 size={15}
                 color={theme.palette.darkGrey}
               />
-              <Text style={styles.response}>Comment</Text>
+              <Text style={styles.touchOpResponse}>Comment</Text>
             </View>
           </TouchableOpacity>
         </View>
+
         {this.state.displayCommentInput && (
           <CreateComment
             postId={post.id}

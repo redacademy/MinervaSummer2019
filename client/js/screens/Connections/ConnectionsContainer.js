@@ -1,49 +1,11 @@
 import React, {Component} from 'react';
 import Connections from './Connections';
 import {Query} from '@apollo/react-components';
-import {gql} from 'apollo-boost';
 import CircularLoader from '../../components/CircularLoader';
 import {Text} from 'react-native';
 import {getToken} from '../../config/models';
 import FavesContext from '../../context/FavesContext';
-
-const ALL_USERS_QUERY = gql`
-  {
-    allUsers {
-      id
-      bio
-      firstName
-      lastName
-      location
-      school
-      interests {
-        id
-      }
-    }
-  }
-`;
-
-const SUGGESTED_USERS_QUERY = gql`
-  query($interest1: ID!, $interest2: ID!, $interest3: ID!) {
-    allUsers(
-      filter: {
-        AND: [
-          {interests_some: {id: $interest1}}
-          {interests_some: {id: $interest2}}
-          {interests_some: {id: $interest3}}
-        ]
-      }
-      first: 5
-    ) {
-      firstName
-      bio
-      lastName
-      id
-      school
-      location
-    }
-  }
-`;
+import {SUGGESTED_USERS_QUERY} from '../../config/apollo/queries';
 
 export default class ConnectionsContainer extends Component {
   constructor(props) {

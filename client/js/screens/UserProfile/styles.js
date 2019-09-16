@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   metaProfile: {
     flex: 1,
-    marginVertical: '5%',
+    marginTop: '5%',
     alignItems: 'center',
   },
   profileImage: {
@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
     letterSpacing: 0.3,
     lineHeight: 25,
     marginVertical: '5%',
+    minWidth: '50%',
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   status: {
     fontSize: theme.font.subtitle,
@@ -49,24 +52,43 @@ const styles = StyleSheet.create({
   locationStatus: {
     fontSize: theme.font.paragraph,
     color: theme.palette.darkGrey,
-    marginVertical: '2%',
+    marginVertical: '1%',
+    minWidth: '20%',
+    textAlign: 'left',
+    textAlignVertical: 'center',
+  },
+  locationMetrix: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: '1%',
   },
 
   interest: {
     flex: 1,
-    marginVertical: '5%',
+    marginVertical: '3%',
     height: 'auto',
   },
   section: {
     flex: 1,
     marginVertical: '5%',
     height: 'auto',
+    minWidth: '100%',
   },
   sectionTitle: {
     flex: 1,
     textAlign: 'center',
+    fontWeight: 'bold',
     color: theme.palette.darkGrey,
     fontSize: theme.font.subtitle,
+    marginBottom: '2%',
+  },
+  bio: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    maxWidth: '80%',
+    marginTop: '3%',
+    textAlign: 'justify',
   },
   sectionContent: {
     flex: 1,
@@ -74,9 +96,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginVertical: '2%',
-    textAlign: 'center',
-    height: 'auto',
+    alignContent: 'center',
+    marginTop: '3%',
+    textAlign: 'justify',
   },
   icon: {
     flex: 1,
@@ -84,19 +106,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  locationIcon: {
+    height: 15,
+    width: 15,
+    marginRight: '2%',
+  },
   globe: {
     textAlignVertical: 'center',
     textAlign: 'center',
-    marginVertical: '2%',
+    marginVertical: '3%',
     marginHorizontal: '1%',
     fontSize: theme.font.subtitle,
     backgroundColor: theme.palette.blue,
     color: 'white',
-    fontWeight: '900',
-    paddingHorizontal: '5%',
-    paddingTop: '2%',
-    paddingBottom: '20%',
-    borderRadius: 10,
+    fontWeight: '500',
+    paddingHorizontal: '6%',
+    paddingVertical: 10,
+    borderRadius: 15,
   },
   removeIcon: {
     color: theme.palette.red,
@@ -110,6 +136,34 @@ const styles = StyleSheet.create({
   logout: {
     color: theme.palette.red,
     fontFamily: theme.fonts.regular,
+    marginRight: 10,
+  },
+  buttonWrapper: {
+    width: '100%',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+  menuSelector: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '50%',
+    borderColor: theme.palette.lightGrey,
+    borderWidth: 1,
+    marginBottom: '2%',
+  },
+  selectedSelector: {
+    color: theme.palette.blue,
+    paddingHorizontal: '3%',
+    paddingVertical: '1%',
+    minWidth: '50%',
+    textAlign: 'center',
+  },
+  textInput: {
+    borderColor: theme.palette.lightGrey,
+    borderWidth: 0.5,
+    borderStyle: 'solid',
+    padding: '4%',
   },
 });
 

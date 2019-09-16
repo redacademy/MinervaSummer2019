@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    width: '80%',
+    width: '70%',
   },
 
-  postBtn: {
+  commentBtn: {
     color: theme.palette.green,
   },
 });

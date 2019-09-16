@@ -2,74 +2,10 @@ import React from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import Ionics from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
-import {gql} from 'apollo-boost';
 import {Mutation} from '@apollo/react-components';
-
-export const GET_ALL_POSTS = gql`
-  query {
-    allPosts(orderBy: createdAt_ASC) {
-      author {
-        id
-        firstName
-        lastName
-        photo {
-          url
-        }
-      }
-      type
-      id
-      createdAt
-      content
-      likes {
-        id
-      }
-      comments {
-        id
-        author {
-          firstName
-          lastName
-        }
-        content
-        likes {
-          id
-        }
-      }
-    }
-  }
-`;
-
-const LIKE_COMMENT_MUTATION = gql`
-  mutation addToCommentLikes($commentLikesCommentId: ID!, $likesUserId: ID!) {
-    addToCommentLikes(
-      commentLikesCommentId: $commentLikesCommentId
-      likesUserId: $likesUserId
-    ) {
-      commentLikesComment {
-        _likesMeta {
-          count
-        }
-      }
-    }
-  }
-`;
-
-const DISLIKE_COMMENT_MUTATION = gql`
-  mutation removeFromCommentLikes(
-    $commentLikesCommentId: ID!
-    $likesUserId: ID!
-  ) {
-    removeFromCommentLikes(
-      commentLikesCommentId: $commentLikesCommentId
-      likesUserId: $likesUserId
-    ) {
-      commentLikesComment {
-        _likesMeta {
-          count
-        }
-      }
-    }
-  }
-`;
+import {GET_ALL_POSTS} from '../../config/apollo/queries';
+import {LIKE_COMMENT_MUTATION} from '../../config/apollo/queries';
+import {DISLIKE_COMMENT_MUTATION} from '../../config/apollo/queries';
 
 class CommentList extends React.Component {
   constructor(props) {
@@ -105,12 +41,17 @@ class CommentList extends React.Component {
     const {comment} = this.props;
     return (
       <View style={styles.commentWrapper}>
-        <View>
+        {comment.author.photo.url === null ? (
           <Image
             style={styles.image}
             source={require('../../assets/PNG/additional_illustrations/profile.png')}
           />
-        </View>
+        ) : (
+          <Image
+            style={styles.image}
+            source={{uri: comment.author.photo.url}}
+          />
+        )}
 
         <View style={styles.comment}>
           <Text style={styles.author}>
