@@ -4,6 +4,17 @@ import styles from './styles';
 import {withNavigation} from 'react-navigation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import theme from '../../config/theme';
+import {Mutation} from '@apollo/react-components';
+import {GET_USER_CHATS} from '../../screens/AllChats/AllChatsContainer';
+import {gql} from 'apollo-boost';
+
+const DELETE_CHAT = gql`
+  mutation deleteConversation($id: ID!) {
+    deleteConversation(id: $id) {
+      id
+    }
+  }
+`;
 
 const ChatCard = ({chat, viewer, navigation}) => {
   const {members, messages} = chat;
@@ -39,7 +50,25 @@ const ChatCard = ({chat, viewer, navigation}) => {
                 ? recentMessage.content
                 : recentMessage.content.substring(0, 100) + '...'}
             </Text>
-            <View style={styles.datDeleteWrapper}>
+            <View style={styles.dateDeleteWrapper}>
+              <Mutation
+                mutation={DELETE_CHAT}
+                refetchQueries={() => [
+                  {query: GET_USER_CHATS, variables: {id: viewer.id}},
+                ]}>
+                {deleteConversation => (
+                  <TouchableOpacity
+                    onPress={() =>
+                      deleteConversation({variables: {id: chat.id}})
+                    }>
+                    <FontAwesome
+                      color={theme.palette.red}
+                      size={18}
+                      name="trash-o"
+                    />
+                  </TouchableOpacity>
+                )}
+              </Mutation>
               <Text style={styles.messageDate}>
                 {new Date(recentMessage.sentAt).toLocaleString('en-us', {
                   hour: 'numeric',
