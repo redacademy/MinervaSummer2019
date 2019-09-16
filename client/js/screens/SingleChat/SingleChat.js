@@ -72,24 +72,15 @@ class SingleChat extends React.Component {
   }
   render() {
     const {chat, viewer} = this.props;
-    const recipient = [
-      chat.messages[0].recipient.id,
-      chat.messages[0].author.id,
-    ].find(id => id !== viewer.id);
-
+    const recipient = chat.members
+      .map(member => member.id)
+      .find(member => member !== viewer.id);
     return (
       <Fragment>
         <Subscription
           subscription={CHAT_SUBSCRIPTION}
-          variables={{id: chat.id}}
-          onSubscriptionData={data => {
-            if (data && data.Message) {
-              console.log(data);
-            }
-          }}>
+          variables={{id: chat.id}}>
           {({loading, error, data}) => {
-            if (loading) console.log(loading);
-            if (error) console.log(error);
             const chatMessages = chat.messages;
             if (data) {
               chatMessages.push(data.Message.node);
@@ -134,12 +125,10 @@ class SingleChat extends React.Component {
           mutation={CREATE_MESSAGE}
           refetchQueries={() => [
             {query: GET_USER_CHATS, variables: {id: viewer.id}},
-            // {query: GET_CHAT, variables: {id: chat.id}},
           ]}>
           {(createMessage, {loading}) => (
             <Form
               onSubmit={values => {
-                console.log(values);
                 if (values.text !== '') {
                   createMessage({
                     variables: {

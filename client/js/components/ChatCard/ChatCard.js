@@ -2,6 +2,8 @@ import React from 'react';
 import {Text, Image, View, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import theme from '../../config/theme';
 
 const ChatCard = ({chat, viewer, navigation}) => {
   const {members, messages} = chat;
@@ -30,19 +32,23 @@ const ChatCard = ({chat, viewer, navigation}) => {
       </View>
       <View style={styles.chatTextWrapper}>
         <Text style={styles.chatTitle}>{chateeName}</Text>
-        <View style={styles.chatTextBottom}>
-          <Text style={styles.chatPreview}>
-            {recentMessage.content.length <= 100
-              ? recentMessage.content
-              : recentMessage.content.substring(0, 100) + '...'}
-          </Text>
-          <Text style={styles.messageDate}>
-            {new Date(recentMessage.sentAt).toLocaleString('en-us', {
-              hour: 'numeric',
-              minute: 'numeric',
-            })}
-          </Text>
-        </View>
+        {recentMessage ? (
+          <View style={styles.chatTextBottom}>
+            <Text style={styles.chatPreview}>
+              {recentMessage && recentMessage.content.length <= 100
+                ? recentMessage.content
+                : recentMessage.content.substring(0, 100) + '...'}
+            </Text>
+            <View style={styles.datDeleteWrapper}>
+              <Text style={styles.messageDate}>
+                {new Date(recentMessage.sentAt).toLocaleString('en-us', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                })}
+              </Text>
+            </View>
+          </View>
+        ) : null}
       </View>
     </TouchableOpacity>
   );

@@ -50,6 +50,7 @@ export default class AllChatsContainer extends Component {
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
                 if (error) return <Text>Error!{console.log(error)}</Text>;
+
                 return (
                   <Chats
                     chats={data.allConversations}

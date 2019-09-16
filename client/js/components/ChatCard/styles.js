@@ -63,6 +63,10 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     alignSelf: 'center',
   },
+  dateDeleteWrapper: {
+    height: '100%',
+    justifyContent: 'space-between',
+  },
 });
 
 export default styles;

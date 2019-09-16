@@ -49,7 +49,7 @@ class SingleChatContainer extends Component {
             <Query query={GET_CHAT} variables={{id: chat.id}}>
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
-                if (error) return <Text>Error!{console.log(error)}</Text>;
+                if (error) return <Text>Error!</Text>;
                 return (
                   <SingleChat
                     chat={chat}

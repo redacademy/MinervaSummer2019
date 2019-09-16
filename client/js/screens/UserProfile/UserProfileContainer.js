@@ -25,7 +25,6 @@ class UserProfileContainer extends Component {
     ),
   });
   render() {
-    console.log(this.props.navigation.getParam('user'));
     return <UserProfile navigation={this.props.navigation} />;
   }
 }
