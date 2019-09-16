@@ -37,8 +37,8 @@ const CREATE_MESSAGE = gql`
 `;
 
 const CHAT_SUBSCRIPTION = gql`
-  subscription {
-    Message(filter: {mutation_in: [CREATED]}) {
+  subscription($id: ID!) {
+    Message(filter: {node: {conversation: {id: $id}}}) {
       node {
         id
         sentAt
@@ -81,6 +81,7 @@ class SingleChat extends React.Component {
       <Fragment>
         <Subscription
           subscription={CHAT_SUBSCRIPTION}
+          variables={{id: chat.id}}
           onSubscriptionData={data => {
             if (data && data.Message) {
               console.log(data);
