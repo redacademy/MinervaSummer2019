@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, TextInput, Keyboard, Image, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  Keyboard,
+  Image,
+  ScrollView,
+  Button,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Mutation} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
@@ -14,6 +22,8 @@ import {
   saveInterest,
   saveWays,
 } from '../../lib/helpers/interest_function';
+import Modal from 'react-native-modal';
+import {CREATE_CONNECTIONS} from '../../config/apollo/queries';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -41,6 +51,8 @@ class UserProfile extends Component {
         Lunch: {name: 'Lunch', icon: 'lunch', visible: false},
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
+      isModalVisible: false,
+      text: '',
     };
 
     if (this.props.myProfile) {
@@ -160,10 +172,30 @@ class UserProfile extends Component {
       );
     }
   };
+
+  toggleModal = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
+  };
+
+  onChangeText = text => {
+    this.setState({text: text});
+  };
+
+  checkConnectionStatus = (receiver, sender) => {
+    return !!sender.connectionsSent.find(
+      connectionSent =>
+        connectionSent.receiver.id === receiver.id &&
+        connectionSent.status === 'PENDING',
+    );
+  };
+
   render() {
     let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
     let listOfInterest = Object.keys(this.state.interest);
-
+    let sender = this.props.context.viewer;
+    let receiver = this.props.viewer.User;
+    console.log('Sender', sender);
+    console.log('Receiver', receiver);
     return (
       <Mutation mutation={UPDATE_PROFILE}>
         {(updateUser, {loading, error}) => {
@@ -197,14 +229,75 @@ class UserProfile extends Component {
                     </Text>
                   )}
                   {!this.state.profileEditable && (
-                    <View style={styles.buttonWrapper}>
-                      <GradientButton
-                        onPress={() =>
-                          this.props.myProfile ? this.editProfile() : ''
-                        }
-                        text={this.props.myProfile ? 'Edit Profile' : 'Message'}
-                        variant={'contained'}
-                      />
+                    <View>
+                      <View style={styles.buttonWrapper}>
+                        <GradientButton
+                          onPress={() =>
+                            this.props.myProfile
+                              ? this.editProfile()
+                              : receiver.userConnections.includes(sender.id)
+                              ? `Let's chat`
+                              : this.checkConnectionStatus(receiver, sender)
+                              ? null
+                              : this.toggleModal()
+                          }
+                          text={
+                            this.props.myProfile
+                              ? 'edit Profile'
+                              : receiver.userConnections.includes(sender.id)
+                              ? 'Chat'
+                              : this.checkConnectionStatus(receiver, sender)
+                              ? 'Pending'
+                              : 'Lets Connect'
+                          }
+                          variant={'contained'}
+                        />
+                      </View>
+                      <Mutation mutation={CREATE_CONNECTIONS}>
+                        {(createConnection, {loading}) => (
+                          <Modal
+                            animationIn={'slideInRight'}
+                            animationOut={'slideOutLeft'}
+                            isVisible={this.state.isModalVisible}
+                            onBackdropPress={() =>
+                              this.setState({isModalVisible: false})
+                            }
+                            style={styles.modal}>
+                            <View style={styles.modalWrapper}>
+                              <Text style={styles.sender}>
+                                From: {this.props.context.viewer.firstName}
+                                <View style={styles.lineB} />
+                                {this.props.context.viewer.lastName}
+                              </Text>
+                              <TextInput
+                                onChangeText={text => this.onChangeText(text)}
+                                value={this.text}
+                                style={styles.modalInput}
+                                placeholder={'I want to connect with you...'}
+                                keyboardType={'default'}
+                                multiline={true}
+                              />
+                              <View style={styles.modalBtn}>
+                                <Button
+                                  title="Send"
+                                  style={{width: '50%'}}
+                                  onPress={() => {
+                                    createConnection({
+                                      variables: {
+                                        message: this.state.text,
+                                        senderId: this.props.context.viewer.id,
+                                        receiverId: this.props.viewer.User.id,
+                                        status: 'PENDING',
+                                      },
+                                    });
+                                    this.setState({isModalVisible: false});
+                                  }}
+                                />
+                              </View>
+                            </View>
+                          </Modal>
+                        )}
+                      </Mutation>
                     </View>
                   )}
                   {this.state.profileEditable ? (

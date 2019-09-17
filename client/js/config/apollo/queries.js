@@ -56,6 +56,34 @@ export const USER_QUERY = gql`
           url
         }
       }
+      connectionsSent {
+        id
+        status
+        sender {
+          id
+          firstName
+          lastName
+        }
+        receiver {
+          id
+          firstName
+          lastName
+        }
+      }
+      connectionsReceived {
+        id
+        status
+        sender {
+          id
+          firstName
+          lastName
+        }
+        receiver {
+          id
+          firstName
+          lastName
+        }
+      }
     }
   }
 `;
@@ -567,6 +595,14 @@ export const UPDATE_USERS_CONNECTIONS = gql`
         email
         id
       }
+    }
+  }
+`;
+
+export const DELETE_USERS_CONNECTIONS = gql`
+  mutation deleteConnectionRequest($id: ID!) {
+    deleteConnectionRequest(id: $id) {
+      id
     }
   }
 `;
