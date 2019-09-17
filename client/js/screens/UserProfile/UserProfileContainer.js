@@ -25,7 +25,7 @@ class UserProfileContainer extends Component {
   };
   logOut = async () => {
     try {
-      removeToken();
+      await removeToken();
       this.props.navigation.navigate('AuthLoading');
     } catch (e) {}
   };
