@@ -300,3 +300,159 @@ export const UPDATE_PROFILE = gql`
     }
   }
 `;
+
+export const DELETE_CHAT = gql`
+  mutation deleteConversation($id: ID!) {
+    deleteConversation(id: $id) {
+      id
+    }
+  }
+`;
+
+export const GET_USERS = gql`
+  query($id: ID!) {
+    allUsers(filter: {id_not: $id}) {
+      id
+      firstName
+      lastName
+      photo {
+        url
+      }
+    }
+  }
+`;
+export const GET_USERS_NOT_IN_CHAT = gql`
+  query($ids: [ID!]!) {
+    allUsers(filter: {id_not_in: $ids}) {
+      id
+      firstName
+      lastName
+      photo {
+        url
+      }
+    }
+  }
+`;
+
+export const CREATE_CHAT = gql`
+  mutation createConversation($id1: ID!, $id2: ID!) {
+    createConversation(membersIds: [$id1, $id2]) {
+      id
+      members {
+        id
+        firstName
+        lastName
+        photo {
+          url
+        }
+      }
+      messages {
+        content
+        author {
+          id
+        }
+        sentAt
+      }
+    }
+  }
+`;
+
+export const GET_USER_CHATS = gql`
+  query($id: ID!) {
+    allConversations(filter: {members_some: {id: $id}}) {
+      id
+      members {
+        lastName
+        firstName
+        id
+        photo {
+          url
+        }
+      }
+      messages {
+        id
+        content
+        sentAt
+        author {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+
+export const CREATE_MESSAGE = gql`
+  mutation createMessage(
+    $conversationId: ID!
+    $authorId: ID!
+    $content: String
+    $sentAt: DateTime!
+  ) {
+    createMessage(
+      conversationId: $conversationId
+      authorId: $authorId
+      content: $content
+      sentAt: $sentAt
+    ) {
+      id
+    }
+  }
+`;
+
+export const CHAT_SUBSCRIPTION = gql`
+  subscription($id: ID!) {
+    Message(filter: {node: {conversation: {id: $id}}}) {
+      node {
+        id
+        sentAt
+        content
+        author {
+          id
+          firstName
+          lastName
+          photo {
+            url
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_CHAT = gql`
+  query($id: ID!) {
+    Conversation(id: $id) {
+      members {
+        id
+      }
+      messages {
+        id
+        sentAt
+        content
+        author {
+          id
+          firstName
+          lastName
+          photo {
+            url
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const ADD_USER_TO_CHAT = gql`
+  mutation addToUserConversation($chatId: ID!, $userId: ID!) {
+    addToUserConversation(
+      conversationConversationId: $chatId
+      membersUserId: $userId
+    ) {
+      membersUser {
+        id
+      }
+    }
+  }
+`;

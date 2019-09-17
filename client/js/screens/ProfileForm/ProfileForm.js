@@ -69,7 +69,7 @@ class ProfileForm extends React.Component {
             this.submitForm(values);
           }}
           render={({handleSubmit, pristine}) => (
-            <ScrollView contentContainerStyle={styles.root}>
+            <ScrollView contentContainerStyle={styles.scrollRoot}>
               <Text style={styles.stepText}>Step 4 of 6</Text>
 
               <Text style={styles.heading}>Profile Picture</Text>
@@ -86,15 +86,19 @@ class ProfileForm extends React.Component {
                 }
               />
               <View style={styles.imageButtonsWrapper}>
-                <GradientButton
-                  onPress={() => this.pickImage()}
-                  text="Take New"
-                  variant="outlined"
-                />
-                <GradientButton
-                  onPress={() => this.pickImage()}
-                  text="Upload"
-                />
+                <View style={styles.button}>
+                  <GradientButton
+                    onPress={() => this.pickImage()}
+                    text="Take New"
+                    variant="outlined"
+                  />
+                </View>
+                <View style={styles.button}>
+                  <GradientButton
+                    onPress={() => this.pickImage()}
+                    text="Upload"
+                  />
+                </View>
               </View>
               <Text style={styles.heading}>About Me</Text>
               <Text style={styles.subHeading}>

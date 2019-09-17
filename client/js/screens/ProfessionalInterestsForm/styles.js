@@ -46,18 +46,20 @@ const styles = StyleSheet.create({
     marginBottom: '1%',
     marginTop: '5%',
     fontSize: 24,
+    fontFamily: theme.fonts.heavy,
   },
   subHeading: {
     margin: '10%',
     marginTop: '0%',
     color: theme.palette.mediumGrey,
+    fontFamily: theme.fonts.regular,
   },
   divider: {
     borderTopColor: theme.palette.lightGrey,
     borderTopWidth: 1,
   },
   buttonWrapper: {
-    marginLeft: '10%',
+    alignItems: 'center',
   },
 });
 

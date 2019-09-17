@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 const FavesContext = React.createContext();
-import {getFaves, getToken, addFaveId, removeFaveId} from '../../config/models';
+import {
+  getFaves,
+  getToken,
+  addFaveId,
+  removeFaveId,
+  storeToken,
+} from '../../config/models';
 
 class FavesProvider extends Component {
   constructor(props) {
@@ -10,13 +16,16 @@ class FavesProvider extends Component {
       faves: [],
     };
   }
+  setViewer = async () => {
+    const userToken = await getToken();
+    if (userToken) {
+      this.setState({viewer: userToken});
+      this.updateFaves();
+    }
+  };
   componentDidMount = async () => {
     try {
-      const userToken = await getToken();
-      if (userToken) {
-        this.setState({viewer: userToken});
-        this.updateFaves();
-      }
+      this.setViewer();
     } catch (e) {
       throw e;
     }
@@ -43,6 +52,17 @@ class FavesProvider extends Component {
       throw e;
     }
   };
+  updateViewer = async (newViewerObject, token) => {
+    try {
+      const updatedViewer = await storeToken({
+        ...newViewerObject,
+        token: token,
+      });
+      this.setState({viewer: updatedViewer});
+    } catch (e) {
+      throw e;
+    }
+  };
 
   updateViewer = async (newViewerObject, token) => {
     try {
@@ -61,6 +81,7 @@ class FavesProvider extends Component {
           addFave: this.addFave,
           removeFave: this.removeFave,
           updateViewer: this.updateViewer,
+          setViewer: this.setViewer,
         }}>
         {this.props.children}
       </FavesContext.Provider>

@@ -3,16 +3,8 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 5,
-    overflow: 'hidden',
-    display: 'flex',
-    flex: 1,
-  },
-  buttonOutlined: {
-    borderRadius: 5,
-    overflow: 'visible',
-    display: 'flex',
-    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
   },
   buttonText: {
     color: 'white',
@@ -40,11 +32,8 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 15,
     paddingBottom: 15,
-    borderRadius: 5,
-    marginTop: 1,
-    marginLeft: 1,
-    marginBottom: 1,
-    marginRight: 1,
+    borderRadius: 4,
+    margin: 2,
     fontFamily: theme.fonts.heavy,
   },
 });

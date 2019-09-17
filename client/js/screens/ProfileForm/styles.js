@@ -2,13 +2,13 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
-  root: {
-    alignContent: 'center',
-    // flex: 1,
-    // height: '100%',
-    // width: '100%',
+  scrollRoot: {
+    alignItems: 'center',
     paddingLeft: '10%',
     paddingRight: '10%',
+  },
+  root: {
+    alignItems: 'center',
   },
   stepText: {
     textAlign: 'center',
@@ -91,6 +91,9 @@ const styles = StyleSheet.create({
   },
   toMeetButton: {
     alignItems: 'center',
+  },
+  button: {
+    width: '50%',
   },
 });
 

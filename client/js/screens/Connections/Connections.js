@@ -3,6 +3,7 @@ import {Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
 import UserCard from '../../components/UserCard';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
+import theme from '../../config/theme';
 
 displaySuggestions = suggestedUsers => {
   if (suggestedUsers.length === 0) {
@@ -30,7 +31,7 @@ displayNoConnections = toggleForm => {
       <Text style={styles.noConnectionsSubHeading}>
         Go ahead and say hello! Find new connections in the suggested tab.
       </Text>
-      <View>
+      <View style={styles.noConnectionsButtonWrapper}>
         <GradientButton
           text={'View Suggested'}
           onPress={() => {
@@ -50,10 +51,17 @@ displayConnected = (toggleForm, suggestedUsers) => {
 
 const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
   return (
-    <ScrollView>
+    <ScrollView style={styles.root}>
       <View style={styles.headingsWrapper}>
-        <View style={styles.toggleButtonsWrapper}>
+        <View
+          style={[
+            styles.toggleButtonsWrapper,
+            !state.formToggle
+              ? {backgroundColor: 'white'}
+              : {backgroundColor: theme.palette.blue},
+          ]}>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => toggleForm()}
             style={
               !state.formToggle ? styles.toggleActive : styles.toggleInactive
@@ -68,10 +76,12 @@ const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
+            activeOpacity={0.8}
             onPress={() => toggleForm()}
-            style={
-              state.formToggle ? styles.toggleActive : styles.toggleInactive
-            }>
+            style={[
+              state.formToggle ? styles.toggleActive : styles.toggleInactive,
+              {borderRadius: 5},
+            ]}>
             <Text
               style={
                 state.formToggle

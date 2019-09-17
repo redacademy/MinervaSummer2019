@@ -103,18 +103,18 @@ class PostList extends Component {
             <View style={styles.postBtn}>
               {faved ? (
                 <TouchableOpacity onPress={() => removeFave(post.id)}>
-                  <AntDesign
-                    style={styles.faveActive}
-                    size={25}
-                    name={'star'}
+                  <Image
+                    source={require('../../assets/PNG/additional_illustrations/Filled_star.png')}
+                    style={{width: 26, height: 25}}
+                    resizeMode="contain"
                   />
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity onPress={() => addFave(post.id)}>
-                  <AntDesign
-                    style={styles.faveInactive}
-                    size={25}
-                    name={'staro'}
+                  <Image
+                    source={require('../../assets/PNG/additional_illustrations/Outlined_star.png')}
+                    style={{width: 26, height: 25}}
+                    resizeMode="contain"
                   />
                 </TouchableOpacity>
               )}
@@ -179,10 +179,10 @@ class PostList extends Component {
           <Text style={styles.content}>{post.content}</Text>
 
           <View style={styles.responseWrapper}>
-            <Entypo
-              name={'thumbs-up'}
-              size={15}
-              color={theme.palette.darkGrey}
+            <Image
+              source={require('../../assets/PNG/additional_illustrations/like_icon_1.png')}
+              style={{width: 15, height: 15}}
+              resizeMode="contain"
             />
             <Text style={styles.response}>{post.likes.length} Likes</Text>
 
@@ -192,10 +192,10 @@ class PostList extends Component {
               }}
               activeOpacity={0.6}
               style={styles.goToComment}>
-              <Ionics
-                name={'ios-text'}
-                size={15}
-                color={theme.palette.darkGrey}
+              <Image
+                source={require('../../assets/PNG/additional_illustrations/comment_1.png')}
+                style={{width: 15, height: 15}}
+                resizeMode="contain"
               />
               <Text style={styles.response}>
                 {post.comments.length} Comments
@@ -217,17 +217,17 @@ class PostList extends Component {
                   this.toggleLike(likeMutation, viewer.id, post.id)
                 }>
                 <View style={styles.likeBtn}>
-                  <Entypo
-                    name={'thumbs-up'}
-                    size={15}
-                    color={
+                  <Image
+                    source={
                       this.state.liked
-                        ? theme.palette.green
-                        : theme.palette.darkGrey
+                        ? require('../../assets/PNG/additional_illustrations/like_icon_2.png')
+                        : require('../../assets/PNG/additional_illustrations/like_icon_1.png')
                     }
+                    style={{width: 15, height: 15}}
+                    resizeMode="contain"
                   />
                   {this.state.liked ? (
-                    <Text style={styles.like}>Liked</Text>
+                    <Text style={styles.liked}>Liked</Text>
                   ) : (
                     <Text style={styles.liked}>Like</Text>
                   )}
@@ -244,10 +244,10 @@ class PostList extends Component {
               })
             }>
             <View style={styles.commentBtn}>
-              <Ionics
-                name={'ios-text'}
-                size={15}
-                color={theme.palette.darkGrey}
+              <Image
+                source={require('../../assets/PNG/additional_illustrations/comment_1.png')}
+                style={{width: 15, height: 15}}
+                resizeMode="contain"
               />
               <Text style={styles.touchOpResponse}>Comment</Text>
             </View>
