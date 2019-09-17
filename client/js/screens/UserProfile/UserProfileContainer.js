@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import UserProfile from './UserProfile';
 import {Query} from '@apollo/react-components';
 import {removeToken} from '../../config/models';
@@ -8,21 +8,32 @@ import FavesContext from '../../context/FavesContext';
 import CircularLoader from '../../components/CircularLoader';
 import {withNavigation} from 'react-navigation';
 import {USER_QUERY, ALL_INTERESTS} from '../../config/apollo/queries';
+import SignOutModal from '../../components/UserProfile/signOutModal';
 
 class UserProfileContainer extends Component {
+  state = {
+    isLogoutModalVisible: false,
+  };
+
+  toggleLogoutModal = () => {
+    this.setState({isLogoutModalVisible: !this.state.isLogoutModalVisible});
+  };
+  componentDidMount = () => {
+    this.props.navigation.setParams({
+      toggleLogoutModal: this.toggleLogoutModal,
+    });
+  };
+  logOut = async () => {
+    try {
+      removeToken();
+      this.props.navigation.navigate('AuthLoading');
+    } catch (e) {}
+  };
   static navigationOptions = ({navigation, screenprops}) => ({
     title: 'Profile',
-    headerRight: (
-      <TouchableOpacity
-        onPress={async () => {
-          try {
-            removeToken();
-            navigation.navigate('AuthLoading');
-          } catch (e) {
-            throw Error(e);
-          }
-        }}>
-        <Text style={styles.logout}>Sign Out </Text>
+    headerRight: navigation.getParam('user') ? null : (
+      <TouchableOpacity onPress={navigation.getParam('toggleLogoutModal')}>
+        <Text style={styles.logout}>Sign Out</Text>
       </TouchableOpacity>
     ),
   });
@@ -34,7 +45,7 @@ class UserProfileContainer extends Component {
           return this.props.navigation.getParam('user') ? (
             <Query
               query={USER_QUERY}
-              variables={{id: this.props.navigation.getParam('user').id}}>
+              variables={{id: this.props.navigation.getParam('user')}}>
               {({loading, error, data}) => {
                 let userInfo = data;
 
@@ -65,12 +76,20 @@ class UserProfileContainer extends Component {
                 if (loading) return <CircularLoader />;
                 if (error) return <Text>Error!</Text>;
                 return (
-                  <UserProfile
-                    context={context}
-                    navigation={this.props.navigation}
-                    info={data}
-                    myProfile={true}
-                  />
+                  <View>
+                    <UserProfile
+                      context={context}
+                      navigation={this.props.navigation}
+                      info={data}
+                      myProfile={true}
+                    />
+
+                    <SignOutModal
+                      visible={this.state.isLogoutModalVisible}
+                      toggleLogout={this.toggleLogoutModal}
+                      logOut={this.logOut}
+                    />
+                  </View>
                 );
               }}
             </Query>
