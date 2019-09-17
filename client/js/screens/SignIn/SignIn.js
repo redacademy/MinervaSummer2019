@@ -4,12 +4,9 @@ import {
   View,
   TouchableOpacity,
   TextInput,
-<<<<<<< HEAD
   ImageBackground,
-=======
   Keyboard,
   Image,
->>>>>>> develop
 } from 'react-native';
 import {Mutation} from '@apollo/react-components';
 import styles from './styles';
