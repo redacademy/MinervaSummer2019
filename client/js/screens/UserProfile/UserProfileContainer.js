@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View, Image} from 'react-native';
 import UserProfile from './UserProfile';
 import {Query} from '@apollo/react-components';
 import {removeToken} from '../../config/models';
@@ -8,21 +8,37 @@ import FavesContext from '../../context/FavesContext';
 import CircularLoader from '../../components/CircularLoader';
 import {withNavigation} from 'react-navigation';
 import {USER_QUERY, ALL_INTERESTS} from '../../config/apollo/queries';
+import Modal from 'react-native-modal';
 
 class UserProfileContainer extends Component {
+  state = {
+    isModalVisible: false,
+  };
+
+  toggleModal = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
+  };
+  componentDidMount = () => {
+    this.props.navigation.setParams({toggleModal: this.toggleModal});
+  };
+
+  logOut = async () => {
+    try {
+      removeToken();
+      this.props.navigation.navigate('AuthLoading');
+    } catch (e) {
+      throw Error(e);
+    }
+  };
   static navigationOptions = ({navigation, screenprops}) => ({
     title: 'Profile',
     headerRight: (
-      <TouchableOpacity
-        onPress={async () => {
-          try {
-            removeToken();
-            navigation.navigate('AuthLoading');
-          } catch (e) {
-            throw Error(e);
-          }
-        }}>
-        <Text style={styles.logout}>Sign Out </Text>
+      <TouchableOpacity onPress={navigation.getParam('toggleModal')}>
+        {navigation.getParam('user') ? (
+          <Text></Text>
+        ) : (
+          <Text style={styles.logout}>Sign Out</Text>
+        )}
       </TouchableOpacity>
     ),
   });
@@ -34,7 +50,7 @@ class UserProfileContainer extends Component {
           return this.props.navigation.getParam('user') ? (
             <Query
               query={USER_QUERY}
-              variables={{id: this.props.navigation.getParam('user').id}}>
+              variables={{id: this.props.navigation.getParam('user')}}>
               {({loading, error, data}) => {
                 let userInfo = data;
 
@@ -65,12 +81,36 @@ class UserProfileContainer extends Component {
                 if (loading) return <CircularLoader />;
                 if (error) return <Text>Error!</Text>;
                 return (
-                  <UserProfile
-                    context={context}
-                    navigation={this.props.navigation}
-                    info={data}
-                    myProfile={true}
-                  />
+                  <View>
+                    <UserProfile
+                      context={context}
+                      navigation={this.props.navigation}
+                      info={data}
+                      myProfile={true}
+                    />
+
+                    <Modal
+                      backdropColor="white"
+                      backdropOpacity={1}
+                      isVisible={this.state.isModalVisible}>
+                      <View style={styles.modal}>
+                        <Image
+                          style={styles.attentionImage}
+                          resizeMode={'contain'}
+                          source={require('../../assets/PNG/additional_illustrations/attention.png')}
+                        />
+                        <Text style={styles.name}>Ready to sign Out?</Text>
+                        <View style={styles.modalButtons}>
+                          <TouchableOpacity onPress={this.toggleModal}>
+                            <Text style={styles.modalCancel}>Cancel</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={this.logOut}>
+                            <Text style={styles.modalConfirm}>Confirm</Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </Modal>
+                  </View>
                 );
               }}
             </Query>

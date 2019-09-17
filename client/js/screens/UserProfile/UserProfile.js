@@ -200,7 +200,9 @@ class UserProfile extends Component {
                     <View style={styles.buttonWrapper}>
                       <GradientButton
                         onPress={() =>
-                          this.props.myProfile ? this.editProfile() : ''
+                          this.props.myProfile
+                            ? this.editProfile()
+                            : this.toggleModal()
                         }
                         text={this.props.myProfile ? 'Edit Profile' : 'Message'}
                         variant={'contained'}
