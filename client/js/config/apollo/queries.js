@@ -321,6 +321,18 @@ export const GET_USERS = gql`
     }
   }
 `;
+export const GET_USERS_NOT_IN_CHAT = gql`
+  query($ids: [ID!]!) {
+    allUsers(filter: {id_not_in: $ids}) {
+      id
+      firstName
+      lastName
+      photo {
+        url
+      }
+    }
+  }
+`;
 
 export const CREATE_CHAT = gql`
   mutation createConversation($id1: ID!, $id2: ID!) {
@@ -427,6 +439,19 @@ export const GET_CHAT = gql`
             url
           }
         }
+      }
+    }
+  }
+`;
+
+export const ADD_USER_TO_CHAT = gql`
+  mutation addToUserConversation($chatId: ID!, $userId: ID!) {
+    addToUserConversation(
+      conversationConversationId: $chatId
+      membersUserId: $userId
+    ) {
+      membersUser {
+        id
       }
     }
   }

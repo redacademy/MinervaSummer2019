@@ -11,30 +11,17 @@ import {
 import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import theme from '../../config/theme';
 import {Mutation, Query} from '@apollo/react-components';
-import {gql} from 'apollo-boost';
 import {
   DELETE_CHAT,
   GET_USERS,
   GET_USER_CHATS,
+  ADD_USER_TO_CHAT,
+  GET_USERS_NOT_IN_CHAT,
 } from '../../config/apollo/queries';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CircularLoader from '../../components/CircularLoader';
-
-export const ADD_USER_TO_CHAT = gql`
-  mutation addToUserConversation($chatId: ID!, $userId: ID!) {
-    addToUserConversation(
-      conversationConversationId: $chatId
-      membersUserId: $userId
-    ) {
-      membersUser {
-        id
-      }
-    }
-  }
-`;
 
 const ChatCard = ({chat, viewer, navigation}) => {
   const {members, messages} = chat;
@@ -173,7 +160,11 @@ const ChatCard = ({chat, viewer, navigation}) => {
                 </Text>
               </TouchableOpacity>
             </View>
-            <Query query={GET_USERS} variables={{id: viewer.id}}>
+            <Query
+              query={GET_USERS_NOT_IN_CHAT}
+              variables={{
+                ids: [viewer.id, ...chat.members.map(member => member.id)],
+              }}>
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
                 if (error) return <Text>Error!{console.log(error)}</Text>;

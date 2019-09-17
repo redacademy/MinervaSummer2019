@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   membersNameWrapper: {
-    minHeight: '5%',
+    minHeight: '7%',
     paddingHorizontal: '10%',
     paddingVertical: 10,
     borderBottomColor: theme.palette.lightGrey,
@@ -74,6 +74,47 @@ const styles = StyleSheet.create({
   },
   fixedRoot: {
     flex: 1,
+  },
+  noMessagePicture: {
+    width: 120,
+    height: 120,
+    borderRadius: 75,
+    position: 'absolute',
+  },
+  noMessagePictureWrapper: {
+    width: '80%',
+    height: '25%',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  picture1: {
+    left: 0,
+    borderColor: 'white',
+    borderWidth: 3,
+    zIndex: 1000,
+  },
+  picture1: {
+    right: 0,
+  },
+  noMessagesRoot: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: '15%',
+  },
+  heading: {
+    fontSize: 20,
+    marginTop: '5%',
+    marginBottom: '5%',
+    textAlign: 'center',
+    fontFamily: theme.fonts.heavy,
+    color: theme.palette.darkGrey,
+  },
+  subHeading: {
+    color: theme.palette.darkGrey,
+    marginBottom: '10%',
+    textAlign: 'center',
+    fontFamily: theme.fonts.regular,
   },
 });
 

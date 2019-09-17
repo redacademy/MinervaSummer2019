@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Text} from 'react-native';
 import FavesContext from '../../context/FavesContext';
-import {gql} from 'apollo-boost';
 import {Query} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
 import SingleChat from './SingleChat';

@@ -49,42 +49,74 @@ class SingleChat extends React.Component {
                 <View style={styles.membersNameWrapper}>
                   <Text style={styles.membersText}>{memberNames}</Text>
                 </View>
-                <ScrollView
-                  contentContainerStyle={styles.root}
-                  ref={ref => (this.scrollView = ref)}
-                  onContentSizeChange={(contentWidth, contentHeight) => {
-                    this.scrollView.scrollToEnd({animated: false});
-                  }}>
-                  {chatMessages.map(message => (
-                    <View
-                      key={message.id}
-                      style={[
-                        styles.chatCard,
-                        message.author.id === viewer.id
-                          ? styles.sentMessage
-                          : styles.receivedMessage,
-                      ]}>
+                {chatMessages.length === 0 && chat.members.length === 2 ? (
+                  <View style={styles.noMessagesRoot}>
+                    <View style={styles.noMessagePictureWrapper}>
                       <Image
+                        resizeMode="cover"
+                        style={[styles.noMessagePicture, styles.picture1]}
                         source={
-                          message.author.photo
-                            ? {uri: message.author.photo.url}
+                          chat.members[0].photo
+                            ? {uri: chat.members[0].photo.url}
                             : require('../../assets/PNG/additional_illustrations/profile.png')
                         }
-                        style={styles.authorPicture}
                       />
-                      <View
-                        style={
-                          message.author.id === viewer.id
-                            ? styles.chatBubbleSent
-                            : styles.chatBubbleReceived
-                        }>
-                        <Text style={styles.chatBubbleText}>
-                          {message.content}
-                        </Text>
-                      </View>
+                      <Image
+                        resizeMode="cover"
+                        style={[styles.noMessagePicture, styles.picture2]}
+                        source={
+                          chat.members[1].photo
+                            ? {uri: chat.members[1].photo.url}
+                            : require('../../assets/PNG/additional_illustrations/profile.png')
+                        }
+                      />
                     </View>
-                  ))}
-                </ScrollView>
+                    <Text style={styles.heading}>{`Connect with ${
+                      chat.members.find(member => member.id !== viewer.id)
+                        .firstName
+                    } here!`}</Text>
+                    <Text style={styles.subHeading}>
+                      Send a message and get to know each other!
+                    </Text>
+                  </View>
+                ) : (
+                  <ScrollView
+                    contentContainerStyle={styles.root}
+                    ref={ref => (this.scrollView = ref)}
+                    onContentSizeChange={(contentWidth, contentHeight) => {
+                      this.scrollView.scrollToEnd({animated: false});
+                    }}>
+                    {chatMessages.map(message => (
+                      <View
+                        key={message.id}
+                        style={[
+                          styles.chatCard,
+                          message.author.id === viewer.id
+                            ? styles.sentMessage
+                            : styles.receivedMessage,
+                        ]}>
+                        <Image
+                          source={
+                            message.author.photo
+                              ? {uri: message.author.photo.url}
+                              : require('../../assets/PNG/additional_illustrations/profile.png')
+                          }
+                          style={styles.authorPicture}
+                        />
+                        <View
+                          style={
+                            message.author.id === viewer.id
+                              ? styles.chatBubbleSent
+                              : styles.chatBubbleReceived
+                          }>
+                          <Text style={styles.chatBubbleText}>
+                            {message.content}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </ScrollView>
+                )}
               </View>
             );
           }}
