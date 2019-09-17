@@ -62,6 +62,7 @@ class SignIn extends Component {
               return <CircularLoader></CircularLoader>;
             }
             if (error) {
+              console.log(error)
               return (
                 <View style={styles.errorRoot}>
                   <Text>Were sorry, we could not log you in right now</Text>
@@ -69,7 +70,7 @@ class SignIn extends Component {
                     text="Back to Sign In"
                     onPress={() => {
                       this.props.navigation.goBack();
-                    }}></GradientButton>
+                    }}/>
                 </View>
               );
             }

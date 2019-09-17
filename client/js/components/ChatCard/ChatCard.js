@@ -1,5 +1,5 @@
-import React from 'react';
-import {Text, Image, View, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {Text, Image, View, TouchableOpacity, Modal} from 'react-native';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -12,6 +12,8 @@ const ChatCard = ({chat, viewer, navigation}) => {
   const chatee = members.find(member => member.id !== viewer.id);
   const chateeName = `${chatee.firstName} ${chatee.lastName}`;
   const recentMessage = messages[messages.length - 1];
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -33,7 +35,19 @@ const ChatCard = ({chat, viewer, navigation}) => {
         />
       </View>
       <View style={styles.chatTextWrapper}>
-        <Text style={styles.chatTitle}>{chateeName}</Text>
+        <View style={styles.chatCardTop}>
+          <Text style={styles.chatTitle}>{chateeName}</Text>
+          <TouchableOpacity
+            onPress={() => {
+              setModalVisible(true);
+            }}>
+            <Image
+              resizeMode="contain"
+              style={styles.deleteIcon}
+              source={require('../../assets/PNG/additional_illustrations/delete.png')}
+            />
+          </TouchableOpacity>
+        </View>
         {recentMessage ? (
           <View style={styles.chatTextBottom}>
             <Text style={styles.chatPreview}>
@@ -41,35 +55,50 @@ const ChatCard = ({chat, viewer, navigation}) => {
                 ? recentMessage.content
                 : recentMessage.content.substring(0, 100) + '...'}
             </Text>
-            <View style={styles.dateDeleteWrapper}>
-              <Mutation
-                mutation={DELETE_CHAT}
-                refetchQueries={() => [
-                  {query: GET_USER_CHATS, variables: {id: viewer.id}},
-                ]}>
-                {deleteConversation => (
-                  <TouchableOpacity
-                    onPress={() =>
-                      deleteConversation({variables: {id: chat.id}})
-                    }>
-                    <FontAwesome
-                      color={theme.palette.red}
-                      size={18}
-                      name="trash-o"
-                    />
-                  </TouchableOpacity>
-                )}
-              </Mutation>
-              <Text style={styles.messageDate}>
-                {new Date(recentMessage.sentAt).toLocaleString('en-us', {
-                  hour: 'numeric',
-                  minute: 'numeric',
-                })}
-              </Text>
-            </View>
+            <Text style={styles.messageDate}>
+              {new Date(recentMessage.sentAt).toLocaleString('en-us', {
+                hour: 'numeric',
+                minute: 'numeric',
+              })}
+            </Text>
           </View>
         ) : null}
       </View>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <View style={styles.modalRoot}>
+          <View style={styles.deleteWrapper}>
+            <View style={styles.deleteTextWrapper}>
+              <Text style={styles.deleteHeading}>Delete Chat?</Text>
+              <Text style={styles.deleteSubHeading}>
+                This chat will be deleted permanently.
+              </Text>
+            </View>
+            <Mutation
+              mutation={DELETE_CHAT}
+              refetchQueries={() => [
+                {query: GET_USER_CHATS, variables: {id: viewer.id}},
+              ]}>
+              {deleteConversation => (
+                <TouchableOpacity
+                  style={styles.deleteButtons}
+                  onPress={() =>
+                    deleteConversation({variables: {id: chat.id}})
+                  }>
+                  <Text style={styles.deleteConfirm}>Delete</Text>
+                </TouchableOpacity>
+              )}
+            </Mutation>
+
+            <TouchableOpacity
+              style={styles.deleteButtons}
+              onPress={() => {
+                setModalVisible(false);
+              }}>
+              <Text style={styles.deleteCancel}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </TouchableOpacity>
   );
 };

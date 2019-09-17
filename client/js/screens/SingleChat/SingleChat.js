@@ -60,7 +60,7 @@ class SingleChat extends React.Component {
                     <Image
                       source={
                         message.author.photo
-                          ? message.author.photo.url
+                          ? {uri: message.author.photo.url}
                           : require('../../assets/PNG/additional_illustrations/profile.png')
                       }
                       style={styles.authorPicture}

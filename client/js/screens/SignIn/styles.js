@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     fontFamily: theme.fonts.bold,
+    color: theme.palette.darkGrey,
   },
   signUp: {
     fontFamily: theme.fonts.heavy,

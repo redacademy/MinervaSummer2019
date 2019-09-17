@@ -16,7 +16,7 @@ class UserProfileContainer extends Component {
       <TouchableOpacity
         onPress={async () => {
           try {
-            removeToken();
+            await removeToken();
             navigation.navigate('AuthLoading');
           } catch (e) {
             throw Error(e);
@@ -34,7 +34,7 @@ class UserProfileContainer extends Component {
           return this.props.navigation.getParam('user') ? (
             <Query
               query={USER_QUERY}
-              variables={{id: this.props.navigation.getParam('user').id}}>
+              variables={{id: this.props.navigation.getParam('user')}}>
               {({loading, error, data}) => {
                 let userInfo = data;
 

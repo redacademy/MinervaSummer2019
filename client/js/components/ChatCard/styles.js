@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     paddingHorizontal: '5%',
+    marginVertical: 10,
   },
   picturesWrapper: {
     position: 'relative',
@@ -63,9 +64,62 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     alignSelf: 'center',
   },
-  dateDeleteWrapper: {
-    height: '100%',
+  deleteIcon: {
+    height: 15,
+    width: 15,
+  },
+  chatCardTop: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  modalRoot: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    paddingBottom: '5%',
+    paddingHorizontal: '5%',
+    backgroundColor: 'rgba(80, 80, 80, 0.6)',
+  },
+  deleteWrapper: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    height: '30%',
+    justifyContent: 'flex-end',
+  },
+  deleteHeading: {
+    fontFamily: theme.fonts.heavy,
+    color: theme.palette.darkGrey,
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  deleteSubHeading: {
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.darkGrey,
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  deleteConfirm: {
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.red,
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  deleteCancel: {
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.blue,
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  deleteButtons: {
+    borderTopColor: theme.palette.lightGrey,
+    borderTopWidth: 1,
+    height: '30%',
+    justifyContent: 'center',
+  },
+  deleteTextWrapper: {
+    height: '40%',
+    justifyContent: 'center',
   },
 });
 

@@ -60,10 +60,7 @@ const AllChats = ({chats, viewer, navigation}) => {
         animationType="slide"
         transparent={false}
         visible={modalVisible}
-        propagateSwipe={true}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
+        propagateSwipe={true}>
         <View style={styles.modalRoot}>
           <View style={styles.backHeader}>
             <TouchableOpacity onPress={() => setModalVisible(false)}>

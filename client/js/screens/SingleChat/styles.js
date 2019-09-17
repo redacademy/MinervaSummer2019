@@ -37,13 +37,14 @@ const styles = StyleSheet.create({
   authorPicture: {
     height: 50,
     width: 50,
+    borderRadius: 25,
   },
   inputWrapper: {
     flexDirection: 'row',
     borderRadius: 5,
     borderWidth: 1,
     borderColor: theme.palette.lightGrey,
-    height: 45,
+    height: 50,
     width: '90%',
     marginHorizontal: '5%',
     justifyContent: 'space-between',
