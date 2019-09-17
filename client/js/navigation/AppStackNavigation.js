@@ -60,7 +60,14 @@ const ChatsStack = createStackNavigator(
     }),
   },
 );
-const ProfileStack = createStackNavigator({Profile: ProfileScreen});
+const ProfileStack = createStackNavigator(
+  {Profile: ProfileScreen},
+  {
+    defaultNavigationOptions: ({navigation}) => ({
+      ...sharedNavigationOptions(navigation),
+    }),
+  },
+);
 
 export default createBottomTabNavigator(
   {

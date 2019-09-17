@@ -8,6 +8,9 @@ import {withNavigation} from 'react-navigation';
 import {GET_CHAT} from '../../config/apollo/queries';
 
 class SingleChatContainer extends Component {
+  static navigationOptions = {
+    title: 'Sign In Details',
+  };
   render() {
     const {navigation} = this.props;
     const chat = navigation.getParam('chat');
