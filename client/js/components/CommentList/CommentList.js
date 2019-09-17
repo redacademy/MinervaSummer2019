@@ -63,7 +63,11 @@ class CommentList extends React.Component {
 
           <View style={styles.resWrapper}>
             <View style={styles.likes}>
-              <Ionics name={'ios-thumbs-up'} />
+              <Image
+                source={require('../../assets/PNG/additional_illustrations/like_icon_1.png')}
+                style={{width: 15, height: 15}}
+                resizeMode="contain"
+              />
               <View style={styles.lineB} />
               <Text>{this.state.likeCount} likes</Text>
             </View>

@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   buttonWrapper: {
-    marginLeft: '10%',
+    alignItems: 'center',
   },
 });
 

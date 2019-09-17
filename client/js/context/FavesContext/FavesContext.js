@@ -16,13 +16,16 @@ class FavesProvider extends Component {
       faves: [],
     };
   }
+  setViewer = async () => {
+    const userToken = await getToken();
+    if (userToken) {
+      this.setState({viewer: userToken});
+      this.updateFaves();
+    }
+  };
   componentDidMount = async () => {
     try {
-      const userToken = await getToken();
-      if (userToken) {
-        this.setState({viewer: userToken});
-        this.updateFaves();
-      }
+      this.setViewer();
     } catch (e) {
       throw e;
     }
@@ -78,6 +81,7 @@ class FavesProvider extends Component {
           addFave: this.addFave,
           removeFave: this.removeFave,
           updateViewer: this.updateViewer,
+          setViewer: this.setViewer,
         }}>
         {this.props.children}
       </FavesContext.Provider>

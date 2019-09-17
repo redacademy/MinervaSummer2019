@@ -8,38 +8,66 @@ import CommentsScreen from '../screens/Comments';
 import ProfileScreen from '../screens/UserProfile';
 import CreatePostScreen from '../screens/CreatePost';
 import SingleChatScreen from '../screens/SingleChat';
-
+import {sharedNavigationOptions} from './config';
 import {View, Image} from 'react-native';
 import React from 'react';
 
-const CommunityStack = createStackNavigator({
-  Community: {
-    screen: CommunityScreen,
-  },
+const CommunityStack = createStackNavigator(
+  {
+    Community: {
+      screen: CommunityScreen,
+    },
 
-  Comments: {
-    screen: CommentsScreen,
-  },
+    Comments: {
+      screen: CommentsScreen,
+    },
 
-  CreatePost: {
-    screen: CreatePostScreen,
-  },
+    CreatePost: {
+      screen: CreatePostScreen,
+    },
 
-  Favourites: {
-    screen: FavouritesScreen,
+    Favourites: {
+      screen: FavouritesScreen,
+    },
   },
-});
-const ConnectionsStack = createStackNavigator({
-  Connections: {screen: ConnectionsScreen},
-  Profile: {screen: ProfileScreen},
-});
-const ChatsStack = createStackNavigator({
-  Chats: {screen: ChatsScreen},
-  SingleChat: {
-    screen: SingleChatScreen,
+  {
+    defaultNavigationOptions: ({navigation}) => ({
+      ...sharedNavigationOptions(navigation),
+    }),
   },
-});
-const ProfileStack = createStackNavigator({Profile: ProfileScreen});
+);
+const ConnectionsStack = createStackNavigator(
+  {
+    Connections: {screen: ConnectionsScreen},
+    Profile: {screen: ProfileScreen},
+  },
+  {
+    defaultNavigationOptions: ({navigation}) => ({
+      ...sharedNavigationOptions(navigation),
+    }),
+  },
+);
+const ChatsStack = createStackNavigator(
+  {
+    Chats: {screen: ChatsScreen},
+    SingleChat: {
+      screen: SingleChatScreen,
+    },
+  },
+  {
+    defaultNavigationOptions: ({navigation}) => ({
+      ...sharedNavigationOptions(navigation),
+    }),
+  },
+);
+const ProfileStack = createStackNavigator(
+  {Profile: ProfileScreen},
+  {
+    defaultNavigationOptions: ({navigation}) => ({
+      ...sharedNavigationOptions(navigation),
+    }),
+  },
+);
 
 export default createBottomTabNavigator(
   {

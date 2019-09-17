@@ -10,11 +10,13 @@ import {
 import {Query, Mutation, Subscription} from '@apollo/react-components';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
-import {GET_USER_CHATS} from '../AllChats/AllChatsContainer';
 import CircularLoader from '../../components/CircularLoader';
-import {GET_CHAT} from './SingleChatContainer';
 import {Form, Field} from 'react-final-form';
-import {CHAT_SUBSCRIPTION, CREATE_MESSAGE} from '../../config/apollo/queries';
+import {
+  CHAT_SUBSCRIPTION,
+  CREATE_MESSAGE,
+  GET_USER_CHATS,
+} from '../../config/apollo/queries';
 
 class SingleChat extends React.Component {
   constructor(props) {
@@ -25,9 +27,12 @@ class SingleChat extends React.Component {
   }
   render() {
     const {chat, viewer} = this.props;
-    const recipient = chat.members
-      .map(member => member.id)
-      .find(member => member !== viewer.id);
+    const memberNames =
+      'You, ' +
+      chat.members
+        .filter(member => member.id !== viewer.id)
+        .map(member => member.firstName)
+        .join(', ');
     return (
       <Fragment>
         <Subscription
@@ -40,37 +45,79 @@ class SingleChat extends React.Component {
             }
 
             return (
-              <ScrollView
-                contentContainerStyle={styles.root}
-                ref={ref => (this.scrollView = ref)}
-                onContentSizeChange={(contentWidth, contentHeight) => {
-                  this.scrollView.scrollToEnd({animated: false});
-                }}>
-                {chatMessages.map(message => (
-                  <View
-                    key={message.id}
-                    style={[
-                      styles.chatCard,
-                      message.author.id === viewer.id
-                        ? styles.sentMessage
-                        : styles.receivedMessage,
-                    ]}>
-                    <Image
-                      source={
-                        message.author.photo
-                          ? message.author.photo.url
-                          : require('../../assets/PNG/additional_illustrations/profile.png')
-                      }
-                      style={styles.authorPicture}
-                    />
-                    <View style={styles.chatBubble}>
-                      <Text style={styles.chatBubbleText}>
-                        {message.content}
-                      </Text>
+              <View style={styles.fixedRoot}>
+                <View style={styles.membersNameWrapper}>
+                  <Text style={styles.membersText}>{memberNames}</Text>
+                </View>
+                {chatMessages.length === 0 && chat.members.length === 2 ? (
+                  <View style={styles.noMessagesRoot}>
+                    <View style={styles.noMessagePictureWrapper}>
+                      <Image
+                        resizeMode="cover"
+                        style={[styles.noMessagePicture, styles.picture1]}
+                        source={
+                          chat.members[0].photo
+                            ? {uri: chat.members[0].photo.url}
+                            : require('../../assets/PNG/additional_illustrations/profile.png')
+                        }
+                      />
+                      <Image
+                        resizeMode="cover"
+                        style={[styles.noMessagePicture, styles.picture2]}
+                        source={
+                          chat.members[1].photo
+                            ? {uri: chat.members[1].photo.url}
+                            : require('../../assets/PNG/additional_illustrations/profile.png')
+                        }
+                      />
                     </View>
+                    <Text style={styles.heading}>{`Connect with ${
+                      chat.members.find(member => member.id !== viewer.id)
+                        .firstName
+                    } here!`}</Text>
+                    <Text style={styles.subHeading}>
+                      Send a message and get to know each other!
+                    </Text>
                   </View>
-                ))}
-              </ScrollView>
+                ) : (
+                  <ScrollView
+                    contentContainerStyle={styles.root}
+                    ref={ref => (this.scrollView = ref)}
+                    onContentSizeChange={(contentWidth, contentHeight) => {
+                      this.scrollView.scrollToEnd({animated: false});
+                    }}>
+                    {chatMessages.map(message => (
+                      <View
+                        key={message.id}
+                        style={[
+                          styles.chatCard,
+                          message.author.id === viewer.id
+                            ? styles.sentMessage
+                            : styles.receivedMessage,
+                        ]}>
+                        <Image
+                          source={
+                            message.author.photo
+                              ? {uri: message.author.photo.url}
+                              : require('../../assets/PNG/additional_illustrations/profile.png')
+                          }
+                          style={styles.authorPicture}
+                        />
+                        <View
+                          style={
+                            message.author.id === viewer.id
+                              ? styles.chatBubbleSent
+                              : styles.chatBubbleReceived
+                          }>
+                          <Text style={styles.chatBubbleText}>
+                            {message.content}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </ScrollView>
+                )}
+              </View>
             );
           }}
         </Subscription>
@@ -87,7 +134,6 @@ class SingleChat extends React.Component {
                     variables: {
                       conversationId: chat.id,
                       authorId: viewer.id,
-                      recipientId: recipient,
                       content: values.text,
                       sentAt: new Date(),
                     },

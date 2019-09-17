@@ -321,6 +321,18 @@ export const GET_USERS = gql`
     }
   }
 `;
+export const GET_USERS_NOT_IN_CHAT = gql`
+  query($ids: [ID!]!) {
+    allUsers(filter: {id_not_in: $ids}) {
+      id
+      firstName
+      lastName
+      photo {
+        url
+      }
+    }
+  }
+`;
 
 export const CREATE_CHAT = gql`
   mutation createConversation($id1: ID!, $id2: ID!) {
@@ -337,9 +349,6 @@ export const CREATE_CHAT = gql`
       messages {
         content
         author {
-          id
-        }
-        recipient {
           id
         }
         sentAt
@@ -364,11 +373,6 @@ export const GET_USER_CHATS = gql`
         id
         content
         sentAt
-        recipient {
-          id
-          firstName
-          lastName
-        }
         author {
           id
           firstName
@@ -383,14 +387,12 @@ export const CREATE_MESSAGE = gql`
   mutation createMessage(
     $conversationId: ID!
     $authorId: ID!
-    $recipientId: ID!
     $content: String
     $sentAt: DateTime!
   ) {
     createMessage(
       conversationId: $conversationId
       authorId: $authorId
-      recipientId: $recipientId
       content: $content
       sentAt: $sentAt
     ) {
@@ -406,14 +408,6 @@ export const CHAT_SUBSCRIPTION = gql`
         id
         sentAt
         content
-        recipient {
-          id
-          firstName
-          lastName
-          photo {
-            url
-          }
-        }
         author {
           id
           firstName
@@ -437,14 +431,6 @@ export const GET_CHAT = gql`
         id
         sentAt
         content
-        recipient {
-          id
-          firstName
-          lastName
-          photo {
-            url
-          }
-        }
         author {
           id
           firstName
@@ -453,6 +439,19 @@ export const GET_CHAT = gql`
             url
           }
         }
+      }
+    }
+  }
+`;
+
+export const ADD_USER_TO_CHAT = gql`
+  mutation addToUserConversation($chatId: ID!, $userId: ID!) {
+    addToUserConversation(
+      conversationConversationId: $chatId
+      membersUserId: $userId
+    ) {
+      membersUser {
+        id
       }
     }
   }

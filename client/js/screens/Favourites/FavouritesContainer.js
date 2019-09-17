@@ -20,7 +20,7 @@ class FavouritesContainer extends Component {
             <Query query={GET_ALL_POSTS} fetchPolicy="network-only">
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
-                if (error) return <Text>Error!{console.log(error)}</Text>;
+                if (error) return <Text>Error!</Text>;
                 const favedPosts = data.allPosts.filter(post =>
                   context.faves.includes(post.id),
                 );

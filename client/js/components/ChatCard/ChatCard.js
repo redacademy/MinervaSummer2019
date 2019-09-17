@@ -1,24 +1,50 @@
-import React from 'react';
-import {Text, Image, View, TouchableOpacity} from 'react-native';
+import React, {useState, Fragment} from 'react';
+import {
+  Text,
+  Image,
+  View,
+  TouchableOpacity,
+  Modal,
+  TextInput,
+  ScrollView,
+} from 'react-native';
+import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import theme from '../../config/theme';
-import {Mutation} from '@apollo/react-components';
-import {GET_USER_CHATS} from '../../screens/AllChats/AllChatsContainer';
-import {DELETE_CHAT} from '../../config/apollo/queries';
-
+import {Mutation, Query} from '@apollo/react-components';
+import {
+  DELETE_CHAT,
+  GET_USERS,
+  GET_USER_CHATS,
+  ADD_USER_TO_CHAT,
+  GET_USERS_NOT_IN_CHAT,
+} from '../../config/apollo/queries';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import CircularLoader from '../../components/CircularLoader';
+import AddToChatModal from '../AddToChatModal';
 const ChatCard = ({chat, viewer, navigation}) => {
   const {members, messages} = chat;
-  const chatee = members.find(member => member.id !== viewer.id);
-  const chateeName = `${chatee.firstName} ${chatee.lastName}`;
+  const chatees = members.filter(member => member.id !== viewer.id);
+  const chateesIds = members.map(member => member.id);
   const recentMessage = messages[messages.length - 1];
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [optionsVisible, setOptionsVisible] = useState(false);
+  const [addModalVisible, setAddModalVisible] = useState(false);
+
   return (
     <TouchableOpacity
+      activeOpacity={0.6}
       onPress={() => {
         navigation.navigate('SingleChat', {chat});
       }}
-      style={styles.root}>
+      onLongPress={() => {
+        setOptionsVisible(!optionsVisible);
+      }}
+      style={[
+        styles.root,
+        optionsVisible ? {backgroundColor: theme.palette.lightBlue} : null,
+      ]}>
       <View style={styles.picturesWrapper}>
         <Image
           style={[styles.picture, styles.picture1]}
@@ -33,8 +59,40 @@ const ChatCard = ({chat, viewer, navigation}) => {
           source={require('../../assets/PNG/additional_illustrations/profile.png')}
         />
       </View>
-      <View style={styles.chatTextWrapper}>
-        <Text style={styles.chatTitle}>{chateeName}</Text>
+      <View
+        style={[
+          styles.chatTextWrapper,
+          optionsVisible ? {borderColor: theme.palette.lightBlue} : null,
+        ]}>
+        <View style={styles.chatCardTop}>
+          <Text style={styles.chatTitle}>
+            {chatees.map(member => member.firstName).join(', ')}
+          </Text>
+          {optionsVisible ? (
+            <View style={styles.optionsWrapper}>
+              <TouchableOpacity
+                onPress={() => {
+                  setAddModalVisible(true);
+                }}>
+                <Image
+                  resizeMode="contain"
+                  style={styles.optionIcon}
+                  source={require('../../assets/PNG/additional_illustrations/icon_expand.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setDeleteModalVisible(true);
+                }}>
+                <Image
+                  resizeMode="contain"
+                  style={styles.optionIcon}
+                  source={require('../../assets/PNG/additional_illustrations/delete.png')}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : null}
+        </View>
         {recentMessage ? (
           <View style={styles.chatTextBottom}>
             <Text style={styles.chatPreview}>
@@ -42,35 +100,25 @@ const ChatCard = ({chat, viewer, navigation}) => {
                 ? recentMessage.content
                 : recentMessage.content.substring(0, 100) + '...'}
             </Text>
-            <View style={styles.dateDeleteWrapper}>
-              <Mutation
-                mutation={DELETE_CHAT}
-                refetchQueries={() => [
-                  {query: GET_USER_CHATS, variables: {id: viewer.id}},
-                ]}>
-                {deleteConversation => (
-                  <TouchableOpacity
-                    onPress={() =>
-                      deleteConversation({variables: {id: chat.id}})
-                    }>
-                    <FontAwesome
-                      color={theme.palette.red}
-                      size={18}
-                      name="trash-o"
-                    />
-                  </TouchableOpacity>
-                )}
-              </Mutation>
-              <Text style={styles.messageDate}>
-                {new Date(recentMessage.sentAt).toLocaleString('en-us', {
-                  hour: 'numeric',
-                  minute: 'numeric',
-                })}
-              </Text>
-            </View>
+            <Text style={styles.messageDate}>
+              {new Date(recentMessage.sentAt).toLocaleString('en-us', {
+                hour: 'numeric',
+                minute: 'numeric',
+              })}
+            </Text>
           </View>
         ) : null}
       </View>
+      <AddToChatModal
+        chateesIds={chateesIds}
+        viewer={viewer}
+        navigation={navigation}
+        chat={chat}
+        setAddModalVisible={setAddModalVisible}
+        setDeleteModalVisible={setDeleteModalVisible}
+        addModalVisible={addModalVisible}
+        deleteModalVisible={deleteModalVisible}
+      />
     </TouchableOpacity>
   );
 };

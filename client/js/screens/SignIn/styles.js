@@ -3,8 +3,9 @@ import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
   root: {
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignContent: 'center',
+    paddingTop: '20%',
     height: '100%',
     width: '100%',
     padding: 30,
@@ -21,12 +22,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
     marginBottom: 10,
-    fontFamily: theme.fonts.regular,
+    fontFamily: theme.fonts.bold,
+    color: theme.palette.darkGrey,
   },
   signUp: {
     fontFamily: theme.fonts.heavy,
     textAlign: 'center',
     color: theme.palette.darkGrey,
+    marginTop: '8%',
   },
   signIn: {
     marginTop: 30,
@@ -38,6 +41,23 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     width: '80%',
+  },
+  forgotButton: {
+    marginTop: '5%',
+    width: '100%',
+    alignItems: 'center',
+  },
+  forgotText: {
+    fontFamily: theme.fonts.regular,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+    color: theme.palette.darkGrey,
+  },
+  errorRoot: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    paddingHorizontal: '20%',
   },
   errorScreen: {
     flex: 1,
