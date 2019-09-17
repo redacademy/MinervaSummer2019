@@ -60,7 +60,11 @@ const ChatCard = ({chat, viewer, navigation}) => {
             source={require('../../assets/PNG/additional_illustrations/profile.png')}
           />
         </View>
-        <View style={styles.chatTextWrapper}>
+        <View
+          style={[
+            styles.chatTextWrapper,
+            optionsVisible ? {borderColor: theme.palette.lightBlue} : null,
+          ]}>
           <View style={styles.chatCardTop}>
             <Text style={styles.chatTitle}>
               {chatees.map(member => member.firstName).join(', ')}
