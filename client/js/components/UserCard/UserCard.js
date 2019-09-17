@@ -9,7 +9,7 @@ const UserCard = ({user, navigation}) => {
   return (
     <View style={styles.root}>
       <View style={styles.userDetailsWrapper}>
-        {user.photo.url === null ? (
+        {!user.photo || user.photo.url === null ? (
           <Image
             style={styles.userPicture}
             source={require('../../assets/PNG/additional_illustrations/profile.png')}
