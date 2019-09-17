@@ -39,6 +39,25 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     width: '80%',
   },
+  errorScreen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '5%',
+  },
+  errorImage: {
+    flex: 1,
+    width: 150,
+    maxHeight: 150,
+    alignSelf: 'center',
+  },
+  errorTitle: {
+    fontFamily: theme.fonts.bold,
+    fontSize: theme.font.subtitle,
+    width: '50%',
+    marginVertical: '10%',
+    textAlign: 'center',
+  },
 });
 
 export default styles;

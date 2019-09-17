@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, TextInput, Keyboard} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Keyboard,
+  Image,
+} from 'react-native';
 import {Mutation} from '@apollo/react-components';
 import styles from './styles';
 import {withNavigation} from 'react-navigation';
@@ -8,9 +15,7 @@ import {Form, Field} from 'react-final-form';
 import GradientButton from '../../components/GradientButton';
 import {storeToken} from '../../config/models';
 import CircularLoader from '../../components/CircularLoader';
-import {AUTHENTICATE_USER_MUTATION} from '../../config/apollo/queries'
-
-
+import {AUTHENTICATE_USER_MUTATION} from '../../config/apollo/queries';
 
 class SignIn extends Component {
   constructor(props) {
@@ -55,12 +60,20 @@ class SignIn extends Component {
           }
           if (error) {
             return (
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Text>Were sorry, we could not log you in right now</Text>
+              <View style={styles.errorScreen}>
+                <Image
+                  style={styles.errorImage}
+                  resizeMode={'contain'}
+                  source={require('../../assets/PNG/minerva_logos/minerva_leaf.png')}
+                />
+                <Text style={styles.errorTitle}>
+                  We are sorry, we could not log you in right now
+                </Text>
                 <GradientButton
                   text="Back to Sign In"
                   onPress={() => {
                     this.props.navigation.goBack();
+                    this.props.navigation.navigate('SignIn');
                   }}></GradientButton>
               </View>
             );
