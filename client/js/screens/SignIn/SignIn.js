@@ -4,7 +4,12 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+<<<<<<< HEAD
   ImageBackground,
+=======
+  Keyboard,
+  Image,
+>>>>>>> develop
 } from 'react-native';
 import {Mutation} from '@apollo/react-components';
 import styles from './styles';
@@ -75,67 +80,95 @@ class SignIn extends Component {
               );
             }
             return (
-              <Form
-                validate={values => this.validate(values)}
-                onSubmit={values => {
-                  this.onSubmit(authenticateUser, values);
-                }}
-                render={({handleSubmit, pristine}) => (
-                  <View style={styles.root}>
-                    <View style={styles.topInputs}>
-                      <Text style={styles.inputLabels}>Email Address</Text>
-                      <Field
-                        name="email"
-                        required={true}
-                        render={({input, meta}) => (
-                          <View>
-                            <TextInput
-                              type={'email'}
-                              keyboardType={'email-address'}
-                              placeholder={'Enter email address'}
-                              style={styles.textInputs}
-                              autoCorrect={false}
-                              autoCapitalize={'none'}
-                              {...input}
-                            />
-                            {meta.error && meta.touched && (
-                              <Text style={styles.errorMessage}>
-                                {meta.error}
-                              </Text>
-                            )}
-                          </View>
-                        )}
-                      />
-                      <Text style={styles.inputLabels}>Password</Text>
-                      <Field
-                        name="password"
-                        required={true}
-                        render={({input, meta}) => (
-                          <View>
-                            <TextInput
-                              type={'password'}
-                              keyboardType={'default'}
-                              placeholder={'Enter password'}
-                              style={styles.textInputs}
-                              autoCorrect={false}
-                              secureTextEntry={true}
-                              {...input}
-                            />
-                            {meta.error && meta.touched && (
-                              <Text style={styles.errorMessage}>
-                                {meta.error}
-                              </Text>
-                            )}
-                          </View>
-                        )}
-                      />
-                      <TouchableOpacity style={styles.forgotButton}>
-                        <Text style={styles.forgotText}>Forgot Password?</Text>
-                      </TouchableOpacity>
-                    </View>
-                    {this.state.errors ? (
-                      <Text style={styles.errorMessage}>
-                        Invalid email/password combination
+              <View style={styles.errorScreen}>
+                <Image
+                  style={styles.errorImage}
+                  resizeMode={'contain'}
+                  source={require('../../assets/PNG/minerva_logos/minerva_leaf.png')}
+                />
+                <Text style={styles.errorTitle}>
+                  We are sorry, we could not log you in right now
+                </Text>
+                <GradientButton
+                  text="Back to Sign In"
+                  onPress={() => {
+                    this.props.navigation.goBack();
+                    this.props.navigation.navigate('SignIn');
+                  }}></GradientButton>
+              </View>
+            );
+          }
+          return (
+            <Form
+              validate={values => this.validate(values)}
+              onSubmit={values => {
+                this.onSubmit(authenticateUser, values);
+              }}
+              render={({handleSubmit, pristine}) => (
+                <View style={styles.root}>
+                  <View style={styles.topInputs}>
+                    <Text style={styles.inputLabels}>Email Address</Text>
+                    <Field
+                      name="email"
+                      required={true}
+                      render={({input, meta}) => (
+                        <View>
+                          <TextInput
+                            type={'email'}
+                            keyboardType={'email-address'}
+                            placeholder={'Enter email address'}
+                            style={styles.textInputs}
+                            autoCorrect={false}
+                            autoCapitalize={'none'}
+                            {...input}
+                          />
+                          {meta.error && meta.touched && (
+                            <Text style={styles.errorMessage}>
+                              {meta.error}
+                            </Text>
+                          )}
+                        </View>
+                      )}
+                    />
+                    <Text style={styles.inputLabels}>Password</Text>
+                    <Field
+                      name="password"
+                      required={true}
+                      render={({input, meta}) => (
+                        <View>
+                          <TextInput
+                            type={'password'}
+                            keyboardType={'default'}
+                            placeholder={'Enter password'}
+                            style={styles.textInputs}
+                            autoCorrect={false}
+                            secureTextEntry={true}
+                            {...input}
+                          />
+                          {meta.error && meta.touched && (
+                            <Text style={styles.errorMessage}>
+                              {meta.error}
+                            </Text>
+                          )}
+                        </View>
+                      )}
+                    />
+                  </View>
+                  {this.state.errors ? (
+                    <Text style={styles.errorMessage}>
+                      Invalid email/password combination
+                    </Text>
+                  ) : null}
+                  <View styel={styles.bottomButtons}>
+                    <GradientButton
+                      onPress={() => handleSubmit()}
+                      text="Sign In"></GradientButton>
+                    <TouchableOpacity
+                      onPress={() => {
+                        this.props.navigation.navigate('SignUp');
+                      }}>
+                      <Text style={styles.signUp}>
+                        Dont have an account? Sign up
                       </Text>
                     ) : null}
                     <View styel={styles.bottomButtons}>

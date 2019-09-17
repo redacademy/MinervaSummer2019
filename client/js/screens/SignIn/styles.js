@@ -58,6 +58,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     paddingHorizontal: '20%',
+  errorScreen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '5%',
+  },
+  errorImage: {
+    flex: 1,
+    width: 150,
+    maxHeight: 150,
+    alignSelf: 'center',
+  },
+  errorTitle: {
+    fontFamily: theme.fonts.bold,
+    fontSize: theme.font.subtitle,
+    width: '50%',
+    marginVertical: '10%',
+    textAlign: 'center',
   },
 });
 
