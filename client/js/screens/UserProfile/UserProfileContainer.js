@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, View, Image} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import UserProfile from './UserProfile';
 import {Query} from '@apollo/react-components';
 import {removeToken} from '../../config/models';
@@ -8,37 +8,32 @@ import FavesContext from '../../context/FavesContext';
 import CircularLoader from '../../components/CircularLoader';
 import {withNavigation} from 'react-navigation';
 import {USER_QUERY, ALL_INTERESTS} from '../../config/apollo/queries';
-import Modal from 'react-native-modal';
+import SignOutModal from '../../components/UserProfile/signOutModal';
 
 class UserProfileContainer extends Component {
   state = {
-    isModalVisible: false,
+    isLogoutModalVisible: false,
   };
 
-  toggleModal = () => {
-    this.setState({isModalVisible: !this.state.isModalVisible});
+  toggleLogoutModal = () => {
+    this.setState({isLogoutModalVisible: !this.state.isLogoutModalVisible});
   };
   componentDidMount = () => {
-    this.props.navigation.setParams({toggleModal: this.toggleModal});
+    this.props.navigation.setParams({
+      toggleLogoutModal: this.toggleLogoutModal,
+    });
   };
-
   logOut = async () => {
     try {
       removeToken();
       this.props.navigation.navigate('AuthLoading');
-    } catch (e) {
-      throw Error(e);
-    }
+    } catch (e) {}
   };
   static navigationOptions = ({navigation, screenprops}) => ({
     title: 'Profile',
-    headerRight: (
-      <TouchableOpacity onPress={navigation.getParam('toggleModal')}>
-        {navigation.getParam('user') ? (
-          <Text></Text>
-        ) : (
-          <Text style={styles.logout}>Sign Out</Text>
-        )}
+    headerRight: navigation.getParam('user') ? null : (
+      <TouchableOpacity onPress={navigation.getParam('toggleLogoutModal')}>
+        <Text style={styles.logout}>Sign Out</Text>
       </TouchableOpacity>
     ),
   });
@@ -89,27 +84,11 @@ class UserProfileContainer extends Component {
                       myProfile={true}
                     />
 
-                    <Modal
-                      backdropColor="white"
-                      backdropOpacity={1}
-                      isVisible={this.state.isModalVisible}>
-                      <View style={styles.modal}>
-                        <Image
-                          style={styles.attentionImage}
-                          resizeMode={'contain'}
-                          source={require('../../assets/PNG/additional_illustrations/attention.png')}
-                        />
-                        <Text style={styles.name}>Ready to sign Out?</Text>
-                        <View style={styles.modalButtons}>
-                          <TouchableOpacity onPress={this.toggleModal}>
-                            <Text style={styles.modalCancel}>Cancel</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity onPress={this.logOut}>
-                            <Text style={styles.modalConfirm}>Confirm</Text>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </Modal>
+                    <SignOutModal
+                      visible={this.state.isLogoutModalVisible}
+                      toggleLogout={this.toggleLogoutModal}
+                      logOut={this.logOut}
+                    />
                   </View>
                 );
               }}
