@@ -36,7 +36,7 @@ export default class AllChatsContainer extends Component {
             <Query query={GET_USER_CHATS} variables={{id: context.viewer.id}}>
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
-                if (error) return <Text>Error!{console.log(error)}</Text>;
+                if (error) return <Text>Error!</Text>;
 
                 return (
                   <Chats

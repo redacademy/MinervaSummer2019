@@ -131,7 +131,7 @@ const AllChats = ({chats, viewer, navigation, setFilter, chatsType}) => {
           <Query query={GET_USERS} variables={{id: viewer.id}}>
             {({loading, error, data}) => {
               if (loading) return <CircularLoader />;
-              if (error) return <Text>Error!{console.log(error)}</Text>;
+              if (error) return <Text>Error!</Text>;
               return (
                 <Fragment>
                   <View style={styles.searchWrapper}>

@@ -26,6 +26,7 @@ import CircularLoader from '../../components/CircularLoader';
 const ChatCard = ({chat, viewer, navigation}) => {
   const {members, messages} = chat;
   const chatees = members.filter(member => member.id !== viewer.id);
+  const chateesIds = members.map(member => member.id);
   const recentMessage = messages[messages.length - 1];
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [optionsVisible, setOptionsVisible] = useState(false);
@@ -33,6 +34,7 @@ const ChatCard = ({chat, viewer, navigation}) => {
 
   return (
     <TouchableOpacity
+      activeOpacity={0.6}
       onPress={() => {
         navigation.navigate('SingleChat', {chat});
       }}
@@ -161,13 +163,13 @@ const ChatCard = ({chat, viewer, navigation}) => {
               </TouchableOpacity>
             </View>
             <Query
-              query={GET_USERS_NOT_IN_CHAT}
+              query={GET_USERS}
               variables={{
-                ids: [viewer.id, ...chat.members.map(member => member.id)],
+                id: viewer.id,
               }}>
               {({loading, error, data}) => {
                 if (loading) return <CircularLoader />;
-                if (error) return <Text>Error!{console.log(error)}</Text>;
+                if (error) return <Text>Error!</Text>;
                 return (
                   <Fragment>
                     <View style={styles.searchWrapper}>
@@ -196,38 +198,44 @@ const ChatCard = ({chat, viewer, navigation}) => {
                               style={
                                 styles.userName
                               }>{`${user.firstName} ${user.lastName}`}</Text>
-                            <Mutation
-                              mutation={ADD_USER_TO_CHAT}
-                              refetchQueries={() => [
-                                {
-                                  query: GET_USER_CHATS,
-                                  variables: {id: viewer.id},
-                                },
-                              ]}>
-                              {(addToUserConversation, {loading, data}) => {
-                                if (loading) return <CircularLoader />;
-                                if (data)
+                            {chateesIds.includes(user.id) ? (
+                              <Text style={styles.addedText}>Added!</Text>
+                            ) : (
+                              <Mutation
+                                mutation={ADD_USER_TO_CHAT}
+                                refetchQueries={() => [
+                                  {
+                                    query: GET_USER_CHATS,
+                                    variables: {id: viewer.id},
+                                  },
+                                ]}>
+                                {(addToUserConversation, {loading, data}) => {
+                                  if (loading) return <CircularLoader />;
+                                  if (data)
+                                    return (
+                                      <Text style={styles.addedText}>
+                                        Added!
+                                      </Text>
+                                    );
                                   return (
-                                    <Text style={styles.addedText}>Added!</Text>
+                                    <TouchableOpacity
+                                      style={styles.startChatbutton}
+                                      onPress={async () => {
+                                        await addToUserConversation({
+                                          variables: {
+                                            chatId: chat.id,
+                                            userId: user.id,
+                                          },
+                                        });
+                                      }}>
+                                      <Text style={styles.startChatText}>
+                                        Add Member
+                                      </Text>
+                                    </TouchableOpacity>
                                   );
-                                return (
-                                  <TouchableOpacity
-                                    style={styles.startChatbutton}
-                                    onPress={async () => {
-                                      await addToUserConversation({
-                                        variables: {
-                                          chatId: chat.id,
-                                          userId: user.id,
-                                        },
-                                      });
-                                    }}>
-                                    <Text style={styles.startChatText}>
-                                      Add Member
-                                    </Text>
-                                  </TouchableOpacity>
-                                );
-                              }}
-                            </Mutation>
+                                }}
+                              </Mutation>
+                            )}
                           </View>
                         </View>
                       ))}
