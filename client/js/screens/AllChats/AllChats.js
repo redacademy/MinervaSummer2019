@@ -22,9 +22,8 @@ import {
   GET_USER_CHATS,
 } from '../../config/apollo/queries';
 
-const AllChats = ({chats, viewer, navigation}) => {
+const AllChats = ({chats, viewer, navigation, setFilter, chatsType}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [chatsType, setChatsType] = useState('all');
   return (
     <View style={styles.root}>
       <View style={styles.togglesWrapper}>
@@ -35,7 +34,7 @@ const AllChats = ({chats, viewer, navigation}) => {
             styles.toggleBase,
             chatsType === 'all' ? styles.toggleActive : styles.toggleInactive,
           ]}
-          onPress={() => setChatsType('all')}>
+          onPress={() => setFilter('all')}>
           <Text
             style={[
               styles.textBase,
@@ -53,7 +52,7 @@ const AllChats = ({chats, viewer, navigation}) => {
               ? styles.toggleActive
               : styles.toggleInactive,
           ]}
-          onPress={() => setChatsType('individual')}>
+          onPress={() => setFilter('individual')}>
           <Text
             style={[
               styles.textBase,
@@ -71,7 +70,7 @@ const AllChats = ({chats, viewer, navigation}) => {
             styles.toggleBase,
             chatsType === 'group' ? styles.toggleActive : styles.toggleInactive,
           ]}
-          onPress={() => setChatsType('group')}>
+          onPress={() => setFilter('group')}>
           <Text
             style={[
               styles.textBase,

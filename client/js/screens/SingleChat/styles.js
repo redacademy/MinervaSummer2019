@@ -56,6 +56,25 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   input: {flex: 1, padding: '5%'},
+  membersText: {
+    fontFamily: theme.fonts.bold,
+    color: theme.palette.darkGrey,
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  membersNameWrapper: {
+    minHeight: '5%',
+    paddingHorizontal: '10%',
+    paddingVertical: 10,
+    borderBottomColor: theme.palette.lightGrey,
+    borderBottomWidth: 1,
+    alignItems: 'center',
+    marginBottom: '3%',
+    justifyContent: 'center',
+  },
+  fixedRoot: {
+    flex: 1,
+  },
 });
 
 export default styles;

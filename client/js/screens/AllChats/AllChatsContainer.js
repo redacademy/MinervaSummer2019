@@ -25,7 +25,7 @@ export default class AllChatsContainer extends Component {
     } else if (this.state.filter === 'individual') {
       return chats.filter(chat => chat.members.length === 2);
     } else if (this.state.filter === 'group') {
-      return chats.filter(chat => chat.members.length < 2);
+      return chats.filter(chat => chat.members.length > 2);
     }
   };
   render() {
@@ -42,6 +42,8 @@ export default class AllChatsContainer extends Component {
                   <Chats
                     chats={this.filterChats(data.allConversations)}
                     viewer={context.viewer}
+                    setFilter={this.setFilter}
+                    chatsType={this.state.filter}
                   />
                 );
               }}

@@ -27,9 +27,12 @@ class SingleChat extends React.Component {
   }
   render() {
     const {chat, viewer} = this.props;
-    const recipient = chat.members
-      .map(member => member.id)
-      .find(member => member !== viewer.id);
+    const memberNames =
+      'You, ' +
+      chat.members
+        .filter(member => member.id !== viewer.id)
+        .map(member => member.firstName)
+        .join(', ');
     return (
       <Fragment>
         <Subscription
@@ -42,42 +45,47 @@ class SingleChat extends React.Component {
             }
 
             return (
-              <ScrollView
-                contentContainerStyle={styles.root}
-                ref={ref => (this.scrollView = ref)}
-                onContentSizeChange={(contentWidth, contentHeight) => {
-                  this.scrollView.scrollToEnd({animated: false});
-                }}>
-                {chatMessages.map(message => (
-                  <View
-                    key={message.id}
-                    style={[
-                      styles.chatCard,
-                      message.author.id === viewer.id
-                        ? styles.sentMessage
-                        : styles.receivedMessage,
-                    ]}>
-                    <Image
-                      source={
-                        message.author.photo
-                          ? {uri: message.author.photo.url}
-                          : require('../../assets/PNG/additional_illustrations/profile.png')
-                      }
-                      style={styles.authorPicture}
-                    />
+              <View style={styles.fixedRoot}>
+                <View style={styles.membersNameWrapper}>
+                  <Text style={styles.membersText}>{memberNames}</Text>
+                </View>
+                <ScrollView
+                  contentContainerStyle={styles.root}
+                  ref={ref => (this.scrollView = ref)}
+                  onContentSizeChange={(contentWidth, contentHeight) => {
+                    this.scrollView.scrollToEnd({animated: false});
+                  }}>
+                  {chatMessages.map(message => (
                     <View
-                      style={
+                      key={message.id}
+                      style={[
+                        styles.chatCard,
                         message.author.id === viewer.id
-                          ? styles.chatBubbleSent
-                          : styles.chatBubbleReceived
-                      }>
-                      <Text style={styles.chatBubbleText}>
-                        {message.content}
-                      </Text>
+                          ? styles.sentMessage
+                          : styles.receivedMessage,
+                      ]}>
+                      <Image
+                        source={
+                          message.author.photo
+                            ? {uri: message.author.photo.url}
+                            : require('../../assets/PNG/additional_illustrations/profile.png')
+                        }
+                        style={styles.authorPicture}
+                      />
+                      <View
+                        style={
+                          message.author.id === viewer.id
+                            ? styles.chatBubbleSent
+                            : styles.chatBubbleReceived
+                        }>
+                        <Text style={styles.chatBubbleText}>
+                          {message.content}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                ))}
-              </ScrollView>
+                  ))}
+                </ScrollView>
+              </View>
             );
           }}
         </Subscription>
@@ -94,7 +102,6 @@ class SingleChat extends React.Component {
                     variables: {
                       conversationId: chat.id,
                       authorId: viewer.id,
-                      recipientId: recipient,
                       content: values.text,
                       sentAt: new Date(),
                     },
