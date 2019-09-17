@@ -12,12 +12,16 @@ const ChatCard = ({chat, viewer, navigation}) => {
   const chatee = members.find(member => member.id !== viewer.id);
   const chateeName = `${chatee.firstName} ${chatee.lastName}`;
   const recentMessage = messages[messages.length - 1];
-  const [modalVisible, setModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [optionsVisible, setOptionsVisible] = useState(false);
 
   return (
     <TouchableOpacity
       onPress={() => {
         navigation.navigate('SingleChat', {chat});
+      }}
+      onLongPress={() => {
+        setOptionsVisible(!optionsVisible);
       }}
       style={styles.root}>
       <View style={styles.picturesWrapper}>
@@ -37,16 +41,30 @@ const ChatCard = ({chat, viewer, navigation}) => {
       <View style={styles.chatTextWrapper}>
         <View style={styles.chatCardTop}>
           <Text style={styles.chatTitle}>{chateeName}</Text>
-          <TouchableOpacity
-            onPress={() => {
-              setModalVisible(true);
-            }}>
-            <Image
-              resizeMode="contain"
-              style={styles.deleteIcon}
-              source={require('../../assets/PNG/additional_illustrations/delete.png')}
-            />
-          </TouchableOpacity>
+          {optionsVisible ? (
+            <View style={styles.optionsWrapper}>
+              <TouchableOpacity
+                onPress={() => {
+                  setDeleteModalVisible(true);
+                }}>
+                <Image
+                  resizeMode="contain"
+                  style={styles.optionIcon}
+                  source={require('../../assets/PNG/additional_illustrations/delete.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setAddModalVisible(true);
+                }}>
+                <Image
+                  resizeMode="contain"
+                  style={styles.optionIcon}
+                  source={require('../../assets/PNG/additional_illustrations/delete.png')}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : null}
         </View>
         {recentMessage ? (
           <View style={styles.chatTextBottom}>
@@ -64,8 +82,11 @@ const ChatCard = ({chat, viewer, navigation}) => {
           </View>
         ) : null}
       </View>
-      <Modal animationType="fade" transparent={true} visible={modalVisible}>
-        <View style={styles.modalRoot}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={deleteModalVisible}>
+        <View style={styles.deleteModalRoot}>
           <View style={styles.deleteWrapper}>
             <View style={styles.deleteTextWrapper}>
               <Text style={styles.deleteHeading}>Delete Chat?</Text>
@@ -92,7 +113,7 @@ const ChatCard = ({chat, viewer, navigation}) => {
             <TouchableOpacity
               style={styles.deleteButtons}
               onPress={() => {
-                setModalVisible(false);
+                setDeleteModalVisible(false);
               }}>
               <Text style={styles.deleteCancel}>Cancel</Text>
             </TouchableOpacity>

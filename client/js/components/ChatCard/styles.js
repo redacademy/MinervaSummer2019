@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     alignSelf: 'center',
   },
-  deleteIcon: {
-    height: 15,
-    width: 15,
+  optionIcon: {
+    height: 25,
+    width: 25,
   },
   chatCardTop: {
     flexDirection: 'row',
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  modalRoot: {
+  deleteModalRoot: {
     flex: 1,
     justifyContent: 'flex-end',
     paddingBottom: '5%',
@@ -120,6 +120,12 @@ const styles = StyleSheet.create({
   deleteTextWrapper: {
     height: '40%',
     justifyContent: 'center',
+  },
+  optionsWrapper: {
+    flexDirection: 'row',
+    width: '20%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

@@ -7,9 +7,27 @@ import CircularLoader from '../../components/CircularLoader';
 import {GET_USER_CHATS} from '../../config/apollo/queries';
 
 export default class AllChatsContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: 'all',
+    };
+  }
   static navigationOptions = ({navigation}) => ({
     title: 'Chats',
   });
+  setFilter = filter => {
+    this.setState({filter});
+  };
+  filterChats = chats => {
+    if (this.state.filter === 'all' || chats.length === 0) {
+      return chats;
+    } else if (this.state.filter === 'individual') {
+      return chats.filter(chat => chat.members.length === 2);
+    } else if (this.state.filter === 'group') {
+      return chats.filter(chat => chat.members.length < 2);
+    }
+  };
   render() {
     return (
       <FavesContext.Consumer>
@@ -22,7 +40,7 @@ export default class AllChatsContainer extends Component {
 
                 return (
                   <Chats
-                    chats={data.allConversations}
+                    chats={this.filterChats(data.allConversations)}
                     viewer={context.viewer}
                   />
                 );

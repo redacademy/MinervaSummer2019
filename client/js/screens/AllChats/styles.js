@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: '20%',
   },
   root: {
-    width: '100%',
+    flex: 1,
     paddingTop: 20,
   },
   createChatBtn: {
@@ -125,6 +125,64 @@ const styles = StyleSheet.create({
   chatImage: {
     width: '60%',
     height: '50%',
+  },
+  togglesWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingHorizontal: '15%',
+    height: '7%',
+  },
+  toggleActive: {
+    backgroundColor: theme.palette.blue,
+    width: '35%',
+    borderColor: theme.palette.blue,
+    borderWidth: 2,
+  },
+  toggleInactive: {
+    backgroundColor: 'white',
+    width: '35%',
+    borderColor: theme.palette.blue,
+    borderWidth: 2,
+  },
+  toggleBase: {
+    height: '100%',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  individual: {
+    borderRightWidth: 0,
+    borderLeftWidth: 0,
+  },
+  all: {
+    borderColor: theme.palette.blue,
+    borderTopStartRadius: 5,
+    borderBottomStartRadius: 5,
+  },
+  group: {
+    borderColor: theme.palette.blue,
+    borderTopEndRadius: 5,
+    borderBottomEndRadius: 5,
+  },
+  textBase: {
+    fontFamily: theme.fonts.regular,
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  textActive: {
+    color: 'white',
+  },
+  textInactive: {
+    color: theme.palette.blue,
+  },
+  textInput: {
+    borderRadius: 50,
+    borderColor: theme.palette.lightGrey,
+    borderWidth: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
 });
 export default styles;

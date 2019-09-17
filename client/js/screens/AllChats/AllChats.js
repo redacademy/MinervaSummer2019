@@ -24,8 +24,63 @@ import {
 
 const AllChats = ({chats, viewer, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [chatsType, setChatsType] = useState('all');
   return (
-    <Fragment>
+    <View style={styles.root}>
+      <View style={styles.togglesWrapper}>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={[
+            styles.all,
+            styles.toggleBase,
+            chatsType === 'all' ? styles.toggleActive : styles.toggleInactive,
+          ]}
+          onPress={() => setChatsType('all')}>
+          <Text
+            style={[
+              styles.textBase,
+              chatsType === 'all' ? styles.textActive : styles.textInactive,
+            ]}>
+            All
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={[
+            styles.individual,
+            styles.toggleBase,
+            chatsType === 'individual'
+              ? styles.toggleActive
+              : styles.toggleInactive,
+          ]}
+          onPress={() => setChatsType('individual')}>
+          <Text
+            style={[
+              styles.textBase,
+              chatsType === 'individual'
+                ? styles.textActive
+                : styles.textInactive,
+            ]}>
+            Individual
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={[
+            styles.group,
+            styles.toggleBase,
+            chatsType === 'group' ? styles.toggleActive : styles.toggleInactive,
+          ]}
+          onPress={() => setChatsType('group')}>
+          <Text
+            style={[
+              styles.textBase,
+              chatsType === 'group' ? styles.textActive : styles.textInactive,
+            ]}>
+            Group
+          </Text>
+        </TouchableOpacity>
+      </View>
       {chats.length !== 0 ? (
         <ScrollView style={styles.root}>
           {chats.map(chat => (
@@ -82,7 +137,17 @@ const AllChats = ({chats, viewer, navigation}) => {
                 <Fragment>
                   <View style={styles.searchWrapper}>
                     <Text style={styles.searchLabel}>Add Members</Text>
-                    <TextInput placeholder="Search member name..."></TextInput>
+                    <TextInput
+                      style={styles.textInput}
+                      placeholder="Search member name..."
+                    />
+                    <Text
+                      style={[
+                        styles.subHeading,
+                        {textAlign: 'left', fontFamily: theme.fonts.heavy},
+                      ]}>
+                      Connected
+                    </Text>
                   </View>
                   <ScrollView style={styles.scrollRoot}>
                     {data.allUsers.map(user => (
@@ -131,7 +196,7 @@ const AllChats = ({chats, viewer, navigation}) => {
           </Query>
         </View>
       </Modal>
-    </Fragment>
+    </View>
   );
 };
 
