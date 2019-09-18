@@ -48,12 +48,11 @@ class FaveWays extends Component {
         key={item.name}
         onPress={() => this.changeImage(index)}>
         <Image
-          resizeMode={'center'}
+          resizeMode={'contain'}
           style={styles.toMeetImage}
           source={source[item.icon][this.state.image]}
-          style={{maxHeight: 70}}
         />
-        <Text>{item.name}</Text>
+        <Text style={styles.favesTitle}>{item.name}</Text>
       </TouchableOpacity>
     ) : (
       <Text style={{display: 'none'}}></Text>

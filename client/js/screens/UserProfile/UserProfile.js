@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   Button,
+  TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Mutation} from '@apollo/react-components';
@@ -24,6 +25,8 @@ import {
 } from '../../lib/helpers/interest_function';
 import Modal from 'react-native-modal';
 import {CREATE_CONNECTIONS} from '../../config/apollo/queries';
+import ReportUserModal from '../../components/UserProfile/reportUserModal';
+
 
 class UserProfile extends Component {
   constructor(props) {
@@ -31,6 +34,7 @@ class UserProfile extends Component {
     this.state = {
       profileEditable: false,
       ownProfile: true,
+      isReportModalVisible: false,
       profileInfo: {
         name: '',
         lastName: '',
@@ -42,13 +46,13 @@ class UserProfile extends Component {
       },
       interest: {},
       WaysToMeet: {
-        Coffee: {name: 'Coffee', icon: 'coffee', visible: false},
+        coffee: {name: 'Coffee', icon: 'coffee', visible: false},
         afterSchool: {
           name: 'After School',
           icon: 'after_school',
           visible: false,
         },
-        Lunch: {name: 'Lunch', icon: 'lunch', visible: false},
+        lunch: {name: 'Lunch', icon: 'lunch', visible: false},
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
       isModalVisible: false,
@@ -75,14 +79,15 @@ class UserProfile extends Component {
     this.setState({
       profileInfo: {
         name: data.firstName,
-        ownProfile: this.props.ownProfile,
         lastName: data.lastName,
         status: data.lookingFor,
         location: data.location,
         school: data.school,
         bio: data.bio,
         userId: data.id,
+        photo: data.photo ? data.photo.url : null,
       },
+      ownProfile: this.props.myProfile,
       interest: organizer(this.props.info.allInterests, data.interests),
     });
   }
@@ -162,16 +167,16 @@ class UserProfile extends Component {
     });
 
     if (updatedINFO) {
+      await this.props.context.updateViewer(
+        updatedINFO.data.updateUser,
+        this.props.context.viewer.token,
+      );
       this.setState({
         profileEditable: !this.state.profileEditable,
       });
-
-      await this.props.context.updateViewer(
-        updatedINFO,
-        this.props.context.viewer.token,
-      );
     }
   };
+
 
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
@@ -189,9 +194,17 @@ class UserProfile extends Component {
     );
   };
 
+  toggleReportModal = () => {
+    this.setState({isReportModalVisible: !this.state.isReportModalVisible});
+  };
+
+  reportUser = info => {};
+
+
   render() {
     let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
     let listOfInterest = Object.keys(this.state.interest);
+    console.log(this.props);
 
     let viewer = this.props.context.viewer;
     let receiver;
@@ -220,7 +233,11 @@ class UserProfile extends Component {
                   <Image
                     style={styles.profileImage}
                     resizeMode={'cover'}
-                    source={require('../../assets/PNG/additional_illustrations/profile.png')}
+                    source={
+                      this.state.photo
+                        ? {uri: this.state.photo}
+                        : require('../../assets/PNG/additional_illustrations/profile.png')
+                    }
                   />
                   {this.state.profileEditable ? (
                     <View>
@@ -437,9 +454,8 @@ class UserProfile extends Component {
                             interest={section}
                             index={index}
                             show={this.state.profileEditable}
-                            updateInterest={this.updateInterest.bind(
-                              this,
-                            )}></InterestButton>
+                            updateInterest={this.updateInterest.bind(this)}
+                          />
                         ))}
                       </View>
                     </View>
@@ -451,6 +467,19 @@ class UserProfile extends Component {
                     <GradientButton
                       onPress={() => this.editProfileSave(true, updateUser)}
                       text="Save Changes"
+                    />
+                  </View>
+                )}
+                {!this.state.ownProfile && (
+                  <View>
+                    <TouchableOpacity onPress={this.toggleReportModal}>
+                      <Text style={styles.report}>Report User</Text>
+                    </TouchableOpacity>
+                    <ReportUserModal
+                      visible={this.state.isReportModalVisible}
+                      toggleLogout={this.toggleReportModal}
+                      report={this.reportUser}
+                      navigation={this.props.navigation}
                     />
                   </View>
                 )}

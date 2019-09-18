@@ -31,12 +31,14 @@ displayNoConnections = () => {
         style={styles.profilePicture}
         source={require('../../assets/PNG/additional_illustrations/connections.png')}
       />
-      <Text style={styles.noConnectionsHeading}>
-        You don't have any connections yet!
-      </Text>
-      <Text style={styles.noConnectionsSubHeading}>
-        Go ahead and say hello! Find new connections in the suggested tab.
-      </Text>
+      <View>
+        <Text style={styles.noConnectionsHeading}>
+          You don't have any connections yet!
+        </Text>
+        <Text style={styles.noConnectionsSubHeading}>
+          Go ahead and say hello! Find new connections in the suggested tab.
+        </Text>
+      </View>
       <View style={styles.noConnectionsButtonWrapper}>
         <GradientButton
           text={'View Suggested'}
@@ -121,6 +123,7 @@ const Connections = ({suggestedUsers, viewer, selectState, insertState}) => {
           </TouchableOpacity>
         </View>
       </View>
+
 
       {selectState() === 'Suggested'
         ? this.displaySuggestions(suggestedUsers, viewer)

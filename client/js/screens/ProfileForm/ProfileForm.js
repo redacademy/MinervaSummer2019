@@ -47,8 +47,8 @@ class ProfileForm extends React.Component {
         console.log('ImagePicker Error: ', response.error);
       } else {
         let uri = response.uri;
-        this.setState({imageUri: uri});
         if (Platform.OS === 'ios') uri.replace('file://', '');
+        this.setState({imageUri: uri});
       }
     });
   };
@@ -79,6 +79,7 @@ class ProfileForm extends React.Component {
               </Text>
               <Image
                 style={styles.profilePicture}
+                resizeMode="cover"
                 source={
                   this.state.imageUri
                     ? {uri: this.state.imageUri}
@@ -110,7 +111,7 @@ class ProfileForm extends React.Component {
                 name="bio"
                 required={true}
                 render={({input, meta}) => (
-                  <View>
+                  <View style={{width: '100%'}}>
                     <TextInput
                       style={styles.bioInput}
                       type={'text'}
@@ -219,7 +220,12 @@ class ProfileForm extends React.Component {
                   </Text>
                 </TouchableOpacity>
               </View>
-              <GradientButton onPress={() => handleSubmit()} text="Continue" />
+              <View style={styles.button}>
+                <GradientButton
+                  onPress={() => handleSubmit()}
+                  text="Continue"
+                />
+              </View>
               <TouchableOpacity
                 style={styles.inputLabels}
                 onPress={() => {

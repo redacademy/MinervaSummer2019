@@ -4,6 +4,7 @@ import theme from '../../config/theme';
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    height: '100%',
   },
   topicButtonsWrapper: {
     marginVertical: 40,
@@ -51,13 +52,13 @@ const styles = StyleSheet.create({
   noConnectionsWrapper: {
     alignItems: 'center',
     paddingHorizontal: '10%',
-    flex: 1,
     height: '100%',
     justifyContent: 'space-between',
+    marginTop: '10%',
   },
   noConnectionsImage: {
-    width: '50%',
-    height: '50%',
+    width: '70%',
+    height: '70%',
     resizeMode: 'cover',
     marginBottom: '10%',
   },
