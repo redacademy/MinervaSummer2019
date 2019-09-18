@@ -5,49 +5,44 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
   },
-  toggleButtonsWrapper: {
-    marginHorizontal: '10%',
+  topicButtonsWrapper: {
     marginVertical: 40,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    borderRadius: 5,
-    borderColor: theme.palette.blue,
     flexDirection: 'row',
-    borderWidth: 1,
-    backgroundColor: theme.palette.blue,
-    overflow: 'hidden',
+    width: '100%',
   },
-  toggleTextActive: {
+  topicTextActive: {
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 13,
     padding: '4%',
     paddingVertical: '7%',
     fontFamily: theme.fonts.regular,
     color: theme.palette.blue,
   },
-  toggleTextInactive: {
+  topicTextInactive: {
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 13,
     padding: '4%',
     paddingVertical: '7%',
     fontFamily: theme.fonts.bold,
     color: 'white',
   },
-  toggleActive: {
+  topic: {
     flex: 1,
-    backgroundColor: 'white',
-    fontFamily: theme.fonts.bold,
-    textAlign: 'center',
-    height: '100%',
+    height: 60,
     alignItems: 'center',
+    justifyContent: 'center',
+    maxWidth: '30%',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: theme.palette.blue,
   },
-  toggleInactive: {
-    flex: 1,
-    width: '50%',
-    fontFamily: theme.fonts.bold,
-    textAlign: 'center',
-    height: '100%',
-    alignItems: 'center',
+  topicActive: {
+    backgroundColor: 'white',
+  },
+  topicInactive: {
+    borderColor: theme.palette.blue,
     backgroundColor: theme.palette.blue,
   },
   headingsWrapper: {
