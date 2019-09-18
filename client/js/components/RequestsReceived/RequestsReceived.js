@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, Button} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {Mutation} from '@apollo/react-components';
 import {
   UPDATE_USERS_CONNECTIONS,
@@ -17,7 +17,7 @@ const RequestsReceived = ({viewer}) => {
               {console.log(viewer)}
 
               {viewer.connectionsReceived.map(request => (
-                <View>
+                <View style={styles.container}>
                   <View style={styles.userCard}>
                     {!request.sender.photo ||
                     request.sender.photo.url === null ? (
@@ -32,7 +32,7 @@ const RequestsReceived = ({viewer}) => {
                       />
                     )}
 
-                    <View style={styles.messageWrapper}>
+                    <View style={styles.nameWrapper}>
                       <Text style={styles.name}>
                         {request.sender.firstName}
                         <View style={styles.lineB} />
@@ -43,12 +43,13 @@ const RequestsReceived = ({viewer}) => {
                     <Text style={styles.status}>{request.status}</Text>
                   </View>
 
-                  <View>
-                    <Text>{request.message}</Text>
+                  <View style={styles.messageWrapper}>
+                    <Text style={styles.message}>{request.message}</Text>
 
-                    <View>
-                      <Button
-                        title={'Accept'}
+                    <View style={styles.BtnWrapper}>
+                      <TouchableOpacity
+                        style={styles.btnYes}
+                        activeOpacity={0.8}
                         onPress={() => {
                           updateUsersConnections({
                             variables: {
@@ -72,20 +73,23 @@ const RequestsReceived = ({viewer}) => {
                             variables: {
                               id: request.id,
                             },
-                          });
-                        }}
-                      />
+                          }) && navigation.navigate('Connections');
+                        }}>
+                        <Text style={styles.btnYesText}>Accept</Text>
+                      </TouchableOpacity>
 
-                      <Button
-                        title={'Reject'}
-                        // onPress={() =>
-                        //   deleteUsersConnectionsRequest({
-                        //     variables: {
-                        //       id: request.id,
-                        //     },
-                        //   })
-                        // }
-                      />
+                      <TouchableOpacity
+                        style={styles.btnNo}
+                        activeOpacity={0.8}
+                        onPress={() => {
+                          deleteUsersConnectionsRequest({
+                            variables: {
+                              id: request.id,
+                            },
+                          }) && navigation.navigate('Connections');
+                        }}>
+                        <Text style={styles.btnNoText}>Reject</Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 </View>

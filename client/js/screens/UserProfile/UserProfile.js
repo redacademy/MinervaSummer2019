@@ -200,8 +200,6 @@ class UserProfile extends Component {
       receiver = this.props.viewer.User;
     }
 
-    console.log('Viewer', viewer);
-    console.log('Receiver', receiver);
     return (
       <Mutation mutation={UPDATE_PROFILE}>
         {(updateUser, {loading, error}) => {
@@ -252,23 +250,17 @@ class UserProfile extends Component {
                           },
                         ]}>
                         {(createConnection, {loading, data}) => {
-                          console.log(this.props.viewer.User.id);
                           if (data) {
                             return (
                               <GradientButton
                                 text="Pending"
                                 onPress={() =>
-                                  console.log('hi')
+                                  console.log('Pending')
                                 }></GradientButton>
                             );
                           } else {
                             return (
                               <Fragment>
-                                {console.log(
-                                  receiver.userConnections.map(
-                                    friend => friend,
-                                  ),
-                                )}
                                 <View style={styles.buttonWrapper}>
                                   <GradientButton
                                     onPress={() =>

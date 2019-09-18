@@ -2,6 +2,9 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
+  container: {
+    // borderWidth: 1,
+  },
   userCard: {
     paddingHorizontal: 15,
     flexDirection: 'row',
@@ -9,6 +12,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
+    // borderWidth: 1,
   },
 
   image: {
@@ -17,7 +21,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
 
-  messageWrapper: {
+  nameWrapper: {
     justifyContent: 'space-between',
   },
 
@@ -30,14 +34,59 @@ const styles = StyleSheet.create({
     fontSize: theme.font.subtitle,
   },
 
-  message: {
+  status: {
+    color: theme.palette.red,
     fontFamily: theme.fonts.regular,
     fontSize: theme.font.subtitle,
   },
 
-  status: {
-    color: theme.palette.red,
+  messageWrapper: {
+    width: '100%',
+  },
+
+  message: {
+    width: '100%',
+    textAlign: 'center',
     fontFamily: theme.fonts.regular,
+    fontSize: theme.font.subtitle,
+  },
+
+  BtnWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    paddingTop: 20,
+  },
+
+  btnYes: {
+    height: 50,
+    width: '30%',
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: theme.palette.darkBlue,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  btnNo: {
+    height: 50,
+    width: '30%',
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: theme.palette.red,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  btnYesText: {
+    color: theme.palette.darkBlue,
+    fontFamily: theme.fonts.medium,
+    fontSize: theme.font.subtitle,
+  },
+
+  btnNoText: {
+    color: theme.palette.red,
+    fontFamily: theme.fonts.medium,
     fontSize: theme.font.subtitle,
   },
 });
