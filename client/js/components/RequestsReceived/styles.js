@@ -2,6 +2,11 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
+  container: {
+    borderBottomWidth: 1,
+    borderColor: theme.palette.lightGrey,
+  },
+
   userCard: {
     paddingHorizontal: 15,
     flexDirection: 'row',
@@ -52,6 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '100%',
     paddingTop: 20,
+    paddingBottom: 20,
   },
 
   btnYes: {

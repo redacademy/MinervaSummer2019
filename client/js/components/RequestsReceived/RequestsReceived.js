@@ -15,7 +15,7 @@ const RequestsReceived = ({viewer}) => {
           {(deleteUsersConnectionsRequest, {loading}) => (
             <View>
               {viewer.connectionsReceived.map(request => (
-                <View style={styles.container}>
+                <View key={request.id} style={styles.container}>
                   <View style={styles.userCard}>
                     {!request.sender.photo ||
                     request.sender.photo.url === null ? (
