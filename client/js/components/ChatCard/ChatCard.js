@@ -27,7 +27,11 @@ const ChatCard = ({chat, viewer, navigation}) => {
   const {members, messages} = chat;
   const chatees = members.filter(member => member.id !== viewer.id);
   const chateesIds = members.map(member => member.id);
-  const recentMessage = messages[messages.length - 1];
+  const recentMessage =
+    messages[messages.length - 1] &&
+    messages[messages.length - 1].content !== null
+      ? messages[messages.length - 1]
+      : null;
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [addModalVisible, setAddModalVisible] = useState(false);
