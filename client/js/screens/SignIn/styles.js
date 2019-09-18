@@ -78,6 +78,11 @@ const styles = StyleSheet.create({
     marginVertical: '10%',
     textAlign: 'center',
   },
+  backToSignButton: {
+    width: '100%',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
 });
 
 export default styles;
