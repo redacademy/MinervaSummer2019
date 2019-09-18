@@ -161,9 +161,10 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 15,
   },
-  removeIcon: {
+  report: {
     color: theme.palette.red,
-    fontSize: 25,
+    fontSize: theme.font.subtitle,
+    fontFamily: theme.fonts.regular,
   },
   saveButton: {
     flex: 1,
