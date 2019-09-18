@@ -63,10 +63,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: '5%',
     marginBottom: '10%',
+    width: '100%',
   },
   profilePicture: {
     borderRadius: 100,
     width: 200,
+    height: 200,
     marginRight: 'auto',
     marginLeft: 'auto',
     marginTop: '10%',

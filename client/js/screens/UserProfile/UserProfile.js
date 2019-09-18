@@ -46,13 +46,13 @@ class UserProfile extends Component {
       },
       interest: {},
       WaysToMeet: {
-        Coffee: {name: 'Coffee', icon: 'coffee', visible: false},
+        coffee: {name: 'Coffee', icon: 'coffee', visible: false},
         afterSchool: {
           name: 'After School',
           icon: 'after_school',
           visible: false,
         },
-        Lunch: {name: 'Lunch', icon: 'lunch', visible: false},
+        lunch: {name: 'Lunch', icon: 'lunch', visible: false},
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
       isModalVisible: false,
@@ -85,6 +85,7 @@ class UserProfile extends Component {
         school: data.school,
         bio: data.bio,
         userId: data.id,
+        photo: data.photo ? data.photo.url : null,
       },
       ownProfile: this.props.myProfile,
       interest: organizer(this.props.info.allInterests, data.interests),
@@ -166,14 +167,13 @@ class UserProfile extends Component {
     });
 
     if (updatedINFO) {
+      await this.props.context.updateViewer(
+        updatedINFO.data.updateUser,
+        this.props.context.viewer.token,
+      );
       this.setState({
         profileEditable: !this.state.profileEditable,
       });
-
-      await this.props.context.updateViewer(
-        updatedINFO,
-        this.props.context.viewer.token,
-      );
     }
   };
 
@@ -233,7 +233,11 @@ class UserProfile extends Component {
                   <Image
                     style={styles.profileImage}
                     resizeMode={'cover'}
-                    source={require('../../assets/PNG/additional_illustrations/profile.png')}
+                    source={
+                      this.state.photo
+                        ? {uri: this.state.photo}
+                        : require('../../assets/PNG/additional_illustrations/profile.png')
+                    }
                   />
                   {this.state.profileEditable ? (
                     <View>
@@ -454,9 +458,8 @@ class UserProfile extends Component {
                             interest={section}
                             index={index}
                             show={this.state.profileEditable}
-                            updateInterest={this.updateInterest.bind(
-                              this,
-                            )}></InterestButton>
+                            updateInterest={this.updateInterest.bind(this)}
+                          />
                         ))}
                       </View>
                     </View>

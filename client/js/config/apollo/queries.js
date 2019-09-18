@@ -13,6 +13,9 @@ export const ALL_USERS_QUERY = gql`
       lastName
       location
       school
+      photo {
+        url
+      }
       interests {
         id
       }
@@ -464,7 +467,7 @@ export const CREATE_CHAT = gql`
 
 export const GET_USER_CHATS = gql`
   query($id: ID!) {
-    allConversations(filter: {members_some: {id: $id}}) {
+    allConversations(filter: {members_some: {id: $id}}, orderBy: update_DESC) {
       id
       members {
         lastName
@@ -482,6 +485,9 @@ export const GET_USER_CHATS = gql`
           id
           firstName
           lastName
+          photo {
+            url
+          }
         }
       }
     }
@@ -531,6 +537,9 @@ export const GET_CHAT = gql`
     Conversation(id: $id) {
       members {
         id
+        photo {
+          url
+        }
       }
       messages {
         id
@@ -561,6 +570,21 @@ export const ADD_USER_TO_CHAT = gql`
     }
   }
 `;
+
+export const REMOVE_USER_FROM_CHAT = gql`
+  mutation removeFromUserConversation($chatId: ID!, $userId: ID!) {
+    removeFromUserConversation(
+      conversationConversationId: $chatId
+      membersUserId: $userId
+    ) {
+      membersUser {
+        id
+      }
+    }
+  }
+`;
+
+
 
 /*
  * Connections related mutations
@@ -633,3 +657,4 @@ export const DELETE_USERS_CONNECTIONS_REQUEST = gql`
     }
   }
 `;
+

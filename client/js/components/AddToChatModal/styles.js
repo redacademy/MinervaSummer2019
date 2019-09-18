@@ -144,6 +144,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: '3%',
   },
+  removeUserName: {
+    color: theme.palette.darkGrey,
+    fontFamily: theme.fonts.heavy,
+    fontSize: 14,
+  },
   startChatbutton: {
     paddingHorizontal: 7,
     paddingVertical: 3,
@@ -229,6 +234,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
+  removeChatMembersWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    flexWrap: 'wrap',
+  },
   continueButtonWrapper: {
     width: '60%',
     alignItems: 'center',
@@ -238,6 +249,25 @@ const styles = StyleSheet.create({
     color: theme.palette.green,
     fontFamily: theme.font.heavy,
     fontSize: 18,
+  },
+  removeUserWrapper: {
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    marginHorizontal: 10,
+    width: '20%',
+  },
+  removeImageWrapper: {
+    position: 'relative',
+    height: 60,
+    width: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  removeButton: {
+    position: 'absolute',
+    right: 3,
+    top: 3,
+    zIndex: 100,
   },
 });
 

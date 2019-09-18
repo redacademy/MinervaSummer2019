@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: '15%',
     height: '7%',
+    marginBottom: 20,
   },
   toggleActive: {
     backgroundColor: theme.palette.blue,

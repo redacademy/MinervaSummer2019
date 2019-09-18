@@ -86,35 +86,50 @@ class SingleChat extends React.Component {
                     onContentSizeChange={(contentWidth, contentHeight) => {
                       this.scrollView.scrollToEnd({animated: false});
                     }}>
-                    {chatMessages.map(message => (
-                      <View
-                        key={message.id}
-                        style={[
-                          styles.chatCard,
-                          message.author.id === viewer.id
-                            ? styles.sentMessage
-                            : styles.receivedMessage,
-                        ]}>
-                        <Image
-                          source={
-                            message.author.photo
-                              ? {uri: message.author.photo.url}
-                              : require('../../assets/PNG/additional_illustrations/profile.png')
-                          }
-                          style={styles.authorPicture}
-                        />
-                        <View
-                          style={
-                            message.author.id === viewer.id
-                              ? styles.chatBubbleSent
-                              : styles.chatBubbleReceived
-                          }>
-                          <Text style={styles.chatBubbleText}>
-                            {message.content}
-                          </Text>
-                        </View>
-                      </View>
-                    ))}
+                    {chatMessages.map((message, index, array) => {
+                      const endMessage =
+                        !array[index + 1] ||
+                        array[index + 1].author.id !== message.author.id
+                          ? true
+                          : false;
+                      return (
+                        <Fragment key={message.id}>
+                          <View
+                            style={[
+                              styles.chatCard,
+                              message.author.id === viewer.id
+                                ? styles.sentMessage
+                                : styles.receivedMessage,
+                            ]}>
+                            <View style={styles.authorPictureWrapper}>
+                              {endMessage ? (
+                                <Image
+                                  source={
+                                    message.author.photo
+                                      ? {uri: message.author.photo.url}
+                                      : require('../../assets/PNG/additional_illustrations/profile.png')
+                                  }
+                                  style={styles.authorPicture}
+                                />
+                              ) : null}
+                            </View>
+                            <View
+                              style={
+                                message.author.id === viewer.id
+                                  ? styles.chatBubbleSent
+                                  : styles.chatBubbleReceived
+                              }>
+                              <Text style={styles.chatBubbleText}>
+                                {message.content}
+                              </Text>
+                            </View>
+                          </View>
+                          {endMessage ? (
+                            <View style={styles.chatSeperator}></View>
+                          ) : null}
+                        </Fragment>
+                      );
+                    })}
                   </ScrollView>
                 )}
               </View>
@@ -148,6 +163,8 @@ class SingleChat extends React.Component {
                     required={true}
                     render={({input, meta}) => (
                       <TextInput
+                        multiline={true}
+                        scrollEnabled={true}
                         style={styles.input}
                         placeholder={'Type a message...'}
                         keyboardType={'default'}
