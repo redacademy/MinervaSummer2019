@@ -70,6 +70,7 @@ class UserProfile extends Component {
         school: data.school,
         bio: data.bio,
         userId: data.id,
+        photo: data.photo.url,
       },
       interest: organizer(this.props.info.allInterests, data.interests),
     });
@@ -183,7 +184,11 @@ class UserProfile extends Component {
                   <Image
                     style={styles.profileImage}
                     resizeMode={'cover'}
-                    source={require('../../assets/PNG/additional_illustrations/profile.png')}
+                    source={
+                      this.state.photo
+                        ? {uri: this.state.photo}
+                        : require('../../assets/PNG/additional_illustrations/profile.png')
+                    }
                   />
                   {this.state.profileEditable ? (
                     <View>
