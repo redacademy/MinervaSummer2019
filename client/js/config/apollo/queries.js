@@ -59,29 +59,67 @@ export const USER_QUERY = gql`
       connectionsSent {
         id
         status
+        message
         sender {
           id
           firstName
           lastName
+          photo {
+            url
+          }
         }
         receiver {
           id
           firstName
           lastName
+          photo {
+            url
+          }
         }
       }
       connectionsReceived {
         id
         status
+        message
         sender {
           id
           firstName
           lastName
+          photo {
+            url
+          }
+          userConnections {
+            firstName
+            lastName
+            email
+            id
+            bio
+            location
+            school
+            photo {
+              url
+            }
+          }
         }
         receiver {
           id
           firstName
           lastName
+          photo {
+            url
+          }
+          userConnections {
+            firstName
+            lastName
+            email
+            id
+            bio
+            location
+            school
+            photo {
+              url
+            }
+          }
         }
       }
     }
@@ -542,38 +580,38 @@ export const CREATE_CONNECTIONS = gql`
   }
 `;
 
-export const UPDATE_CONNECTIONS_STATUS = gql`
-  mutation updateConnectionRequest(
-    $senderId: ID
-    $receiverId: ID
-    $status: Status
-  ) {
-    createConnectionRequest(
-      senderId: $senderId
-      receiverId: $receiverId
-      status: $status
-    ) {
-      status
-      sender {
-        firstName
-        lastName
-        email
-        id
-      }
-      receiver {
-        firstName
-        lastName
-        email
-        id
-      }
-    }
-  }
-`;
+// export const UPDATE_CONNECTIONS_STATUS = gql`
+//   mutation updateConnectionRequest(
+//     $senderId: ID
+//     $receiverId: ID
+//     $status: Status
+//   ) {
+//     updateConnectionRequest(
+//       senderId: $senderId
+//       receiverId: $receiverId
+//       status: $status
+//     ) {
+//       status
+//       sender {
+//         firstName
+//         lastName
+//         email
+//         id
+//       }
+//       receiver {
+//         firstName
+//         lastName
+//         email
+//         id
+//       }
+//     }
+//   }
+// `;
 
 export const UPDATE_USERS_CONNECTIONS = gql`
   mutation updateUser(
     $senderId: ID!
-    $receiver: ID!
+    $receiverId: ID!
     $senderConnectionId: [ID!]
     $receiverConnectionId: [ID!]
   ) {
@@ -586,7 +624,7 @@ export const UPDATE_USERS_CONNECTIONS = gql`
       }
     }
     receiver: updateUser(
-      id: $receiver
+      id: $receiverId
       userConnectionsIds: $receiverConnectionId
     ) {
       userConnections {
@@ -599,7 +637,7 @@ export const UPDATE_USERS_CONNECTIONS = gql`
   }
 `;
 
-export const DELETE_USERS_CONNECTIONS = gql`
+export const DELETE_USERS_CONNECTIONS_REQUEST = gql`
   mutation deleteConnectionRequest($id: ID!) {
     deleteConnectionRequest(id: $id) {
       id
