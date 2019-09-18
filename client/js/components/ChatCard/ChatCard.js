@@ -50,13 +50,21 @@ const ChatCard = ({chat, viewer, navigation}) => {
           style={[styles.picture, styles.picture1]}
           height={50}
           width={50}
-          source={require('../../assets/PNG/additional_illustrations/profile.png')}
+          source={
+            chat.members[0].photo
+              ? {uri: chat.members[0].photo.url}
+              : require('../../assets/PNG/additional_illustrations/profile.png')
+          }
         />
         <Image
           style={[styles.picture, styles.picture2]}
           height={50}
           width={50}
-          source={require('../../assets/PNG/additional_illustrations/profile.png')}
+          source={
+            chat.members[1].photo
+              ? {uri: chat.members[1].photo.url}
+              : require('../../assets/PNG/additional_illustrations/profile.png')
+          }
         />
       </View>
       <View
@@ -73,6 +81,7 @@ const ChatCard = ({chat, viewer, navigation}) => {
               <TouchableOpacity
                 onPress={() => {
                   setAddModalVisible(true);
+                  setOptionsVisible(false);
                 }}>
                 <Image
                   resizeMode="contain"
@@ -83,6 +92,7 @@ const ChatCard = ({chat, viewer, navigation}) => {
               <TouchableOpacity
                 onPress={() => {
                   setDeleteModalVisible(true);
+                  setOptionsVisible(false);
                 }}>
                 <Image
                   resizeMode="contain"

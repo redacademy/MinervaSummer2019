@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '5%',
     marginVertical: 10,
     borderRadius: 10,
+    minHeight: 75,
   },
   picturesWrapper: {
     position: 'relative',
@@ -27,7 +28,12 @@ const styles = StyleSheet.create({
   picture1: {
     left: 0,
     bottom: 0,
+    width: 55,
+    height: 55,
+    borderRadius: 27.5,
     zIndex: 100,
+    borderColor: 'white',
+    borderWidth: 2,
   },
   picture2: {
     right: 0,
@@ -39,6 +45,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 1,
     marginLeft: '5%',
+    height: '100%',
+    justifyContent: 'space-between',
   },
   chatTitle: {
     fontFamily: theme.fonts.bold,
