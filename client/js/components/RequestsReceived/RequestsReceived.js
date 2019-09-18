@@ -4,14 +4,25 @@ import {Mutation} from '@apollo/react-components';
 import {
   UPDATE_USERS_CONNECTIONS,
   DELETE_USERS_CONNECTIONS_REQUEST,
+  USER_QUERY,
+  SUGGESTED_USERS_QUERY,
 } from '../../config/apollo/queries';
 import styles from './styles';
+import {withNavigation} from 'react-navigation';
 
-const RequestsReceived = ({viewer}) => {
+const RequestsReceived = ({viewer, navigation}) => {
   return (
-    <Mutation mutation={UPDATE_USERS_CONNECTIONS}>
+    <Mutation
+      mutation={UPDATE_USERS_CONNECTIONS}
+      refetchQueries={() => [{query: USER_QUERY, variables: {id: viewer.id}}]}
+      fetchPolicy="network-only">
       {(updateUsersConnections, {loading}) => (
-        <Mutation mutation={DELETE_USERS_CONNECTIONS_REQUEST}>
+        <Mutation
+          mutation={DELETE_USERS_CONNECTIONS_REQUEST}
+          refetchQueries={() => [
+            {query: USER_QUERY, variables: {id: viewer.id}},
+          ]}
+          fetchPolicy="network-only">
           {(deleteUsersConnectionsRequest, {loading}) => (
             <View>
               {viewer.connectionsReceived.map(request => (
@@ -71,7 +82,7 @@ const RequestsReceived = ({viewer}) => {
                             variables: {
                               id: request.id,
                             },
-                          }) && navigation.navigate('Connections');
+                          }) && navigation.navigate('Community');
                         }}>
                         <Text style={styles.btnYesText}>Accept</Text>
                       </TouchableOpacity>
@@ -84,7 +95,7 @@ const RequestsReceived = ({viewer}) => {
                             variables: {
                               id: request.id,
                             },
-                          }) && navigation.navigate('Connections');
+                          }) && navigation.navigate('Community');
                         }}>
                         <Text style={styles.btnNoText}>Reject</Text>
                       </TouchableOpacity>
@@ -100,4 +111,4 @@ const RequestsReceived = ({viewer}) => {
   );
 };
 
-export default RequestsReceived;
+export default withNavigation(RequestsReceived);
