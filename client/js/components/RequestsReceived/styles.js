@@ -2,9 +2,6 @@ import {StyleSheet} from 'react-native';
 import theme from '../../config/theme';
 
 const styles = StyleSheet.create({
-  container: {
-    // borderWidth: 1,
-  },
   userCard: {
     paddingHorizontal: 15,
     flexDirection: 'row',
@@ -12,7 +9,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // borderWidth: 1,
   },
 
   image: {

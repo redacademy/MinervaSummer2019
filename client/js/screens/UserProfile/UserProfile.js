@@ -239,9 +239,7 @@ class UserProfile extends Component {
                         onCompleted={() => (
                           <GradientButton
                             text="Pending"
-                            onPress={() =>
-                              console.log('Pending')
-                            }></GradientButton>
+                            onPress={() => {}}></GradientButton>
                         )}
                         refetchQueries={() => [
                           {
@@ -254,9 +252,7 @@ class UserProfile extends Component {
                             return (
                               <GradientButton
                                 text="Pending"
-                                onPress={() =>
-                                  console.log('Pending')
-                                }></GradientButton>
+                                onPress={() => {}}></GradientButton>
                             );
                           } else {
                             return (
@@ -304,7 +300,7 @@ class UserProfile extends Component {
                                   style={styles.modalPop}>
                                   <View style={styles.modalWrapper}>
                                     <Text style={styles.sender}>
-                                      From:{' '}
+                                      From:
                                       {this.props.context.viewer.firstName}
                                       <View style={styles.lineB} />
                                       {this.props.context.viewer.lastName}

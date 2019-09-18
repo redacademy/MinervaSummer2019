@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
   topicText: {
     textAlign: 'center',
     fontSize: theme.font.subtitle,
+    fontFamily: theme.fonts.heavy,
   },
 
   topicTextInactive: {

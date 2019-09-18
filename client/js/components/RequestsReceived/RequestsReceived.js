@@ -14,8 +14,6 @@ const RequestsReceived = ({viewer}) => {
         <Mutation mutation={DELETE_USERS_CONNECTIONS_REQUEST}>
           {(deleteUsersConnectionsRequest, {loading}) => (
             <View>
-              {console.log(viewer)}
-
               {viewer.connectionsReceived.map(request => (
                 <View style={styles.container}>
                   <View style={styles.userCard}>
