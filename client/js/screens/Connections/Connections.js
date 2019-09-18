@@ -5,7 +5,7 @@ import styles from './styles';
 import GradientButton from '../../components/GradientButton';
 import PendingList from '../../components/PendingList';
 
-displaySuggestions = suggestedUsers => {
+displaySuggestions = (suggestedUsers, viewer) => {
   if (suggestedUsers.length === 0) {
     return (
       <Text>
@@ -13,7 +13,15 @@ displaySuggestions = suggestedUsers => {
       </Text>
     );
   }
-  return suggestedUsers.map(user => <UserCard user={user} key={user.id} />);
+
+  return suggestedUsers
+    .filter(user => {
+      return (
+        user.id != viewer.id &&
+        user.id != viewer.userConnections.map(connections => connections.id)
+      );
+    })
+    .map(user => <UserCard user={user} key={user.id} />);
 };
 
 displayNoConnections = () => {

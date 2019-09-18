@@ -45,6 +45,7 @@ export default class ConnectionsContainer extends Component {
   };
   displaySuggestions = () => {
     const {allUsers} = this.props;
+    console.log(allUsers);
     return allUsers.map(user => (
       <UserCard user={user} key={user.id}></UserCard>
     ));

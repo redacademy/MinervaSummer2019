@@ -9,7 +9,7 @@ const RequestsSent = ({viewer}) => {
 
       {viewer.connectionsSent.map(request => (
         <View style={styles.userCard}>
-          {request.receiver.photo.url === null ? (
+          {!request.receiver.photo || request.receiver.photo.url === null ? (
             <Image
               style={styles.image}
               source={require('../../assets/PNG/additional_illustrations/profile.png')}

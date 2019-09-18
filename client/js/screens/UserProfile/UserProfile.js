@@ -181,8 +181,8 @@ class UserProfile extends Component {
     this.setState({text: text});
   };
 
-  checkConnectionStatus = (receiver, sender) => {
-    return !!sender.connectionsSent.find(
+  checkConnectionStatus = (receiver, viewer) => {
+    return !!viewer.connectionsSent.find(
       connectionSent =>
         connectionSent.receiver.id === receiver.id &&
         connectionSent.status === 'PENDING',
@@ -193,14 +193,14 @@ class UserProfile extends Component {
     let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
     let listOfInterest = Object.keys(this.state.interest);
 
-    let sender = this.props.context.viewer;
+    let viewer = this.props.context.viewer;
     let receiver;
 
     if (this.props.viewer.User) {
       receiver = this.props.viewer.User;
     }
 
-    console.log('Sender', sender);
+    console.log('Viewer', viewer);
     console.log('Receiver', receiver);
     return (
       <Mutation mutation={UPDATE_PROFILE}>
@@ -256,7 +256,7 @@ class UserProfile extends Component {
                           if (data) {
                             return (
                               <GradientButton
-                                text="pending"
+                                text="Pending"
                                 onPress={() =>
                                   console.log('hi')
                                 }></GradientButton>
@@ -264,18 +264,23 @@ class UserProfile extends Component {
                           } else {
                             return (
                               <Fragment>
+                                {console.log(
+                                  receiver.userConnections.map(
+                                    friend => friend,
+                                  ),
+                                )}
                                 <View style={styles.buttonWrapper}>
                                   <GradientButton
                                     onPress={() =>
                                       this.props.myProfile
                                         ? this.editProfile()
                                         : receiver.userConnections.includes(
-                                            sender.id,
+                                            viewer.id,
                                           )
                                         ? `Let's chat`
                                         : this.checkConnectionStatus(
                                             receiver,
-                                            sender,
+                                            viewer,
                                           )
                                         ? null
                                         : this.toggleModal()
@@ -284,12 +289,12 @@ class UserProfile extends Component {
                                       this.props.myProfile
                                         ? 'Edit Profile'
                                         : receiver.userConnections.includes(
-                                            sender.id,
+                                            viewer.id,
                                           )
                                         ? 'Chat'
                                         : this.checkConnectionStatus(
                                             receiver,
-                                            sender,
+                                            viewer,
                                           )
                                         ? 'Pending'
                                         : 'Lets Connect'
