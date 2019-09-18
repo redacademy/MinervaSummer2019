@@ -19,6 +19,9 @@ export const ALL_USERS_QUERY = gql`
       interests {
         id
       }
+      photo {
+        url
+      }
     }
   }
 `;
@@ -43,6 +46,84 @@ export const USER_QUERY = gql`
       }
       posts {
         id
+      }
+      userConnections {
+        firstName
+        lastName
+        email
+        id
+        bio
+        location
+        school
+        photo {
+          url
+        }
+      }
+      connectionsSent {
+        id
+        status
+        message
+        sender {
+          id
+          firstName
+          lastName
+          photo {
+            url
+          }
+        }
+        receiver {
+          id
+          firstName
+          lastName
+          photo {
+            url
+          }
+        }
+      }
+      connectionsReceived {
+        id
+        status
+        message
+        sender {
+          id
+          firstName
+          lastName
+          photo {
+            url
+          }
+          userConnections {
+            firstName
+            lastName
+            email
+            id
+            bio
+            location
+            school
+            photo {
+              url
+            }
+          }
+        }
+        receiver {
+          id
+          firstName
+          lastName
+          photo {
+            url
+          }
+          userConnections {
+            firstName
+            lastName
+            email
+            id
+            bio
+            location
+            school
+            photo {
+              url
+            }
+          }
+        }
       }
     }
   }
@@ -167,6 +248,51 @@ export const AUTHENTICATE_USER_MUTATION = gql`
   }
 `;
 
+export const UPDATE_PROFILE = gql`
+  mutation updateUser(
+    $id: ID!
+    $firstName: String
+    $lastName: String
+    $location: String
+    $school: String
+    $bio: String
+    $lookingFor: String
+    $waysToMeet: [String!]
+    $interestsIds: [ID!]
+  ) {
+    updateUser(
+      id: $id
+      firstName: $firstName
+      lastName: $lastName
+      location: $location
+      school: $school
+      bio: $bio
+      lookingFor: $lookingFor
+      waysToMeet: $waysToMeet
+      interestsIds: $interestsIds
+    ) {
+      id
+      firstName
+      lastName
+      photo {
+        url
+      }
+      location
+      school
+      bio
+      lookingFor
+      waysToMeet
+      interests {
+        title
+        id
+      }
+      posts {
+        id
+      }
+    }
+  }
+`;
+
 /*
  * Post related mutations
  */
@@ -278,51 +404,10 @@ export const DISLIKE_COMMENT_MUTATION = gql`
   }
 `;
 
-//update user profile.
-export const UPDATE_PROFILE = gql`
-  mutation updateUser(
-    $id: ID!
-    $firstName: String
-    $lastName: String
-    $location: String
-    $school: String
-    $bio: String
-    $lookingFor: String
-    $waysToMeet: [String!]
-    $interestsIds: [ID!]
-  ) {
-    updateUser(
-      id: $id
-      firstName: $firstName
-      lastName: $lastName
-      location: $location
-      school: $school
-      bio: $bio
-      lookingFor: $lookingFor
-      waysToMeet: $waysToMeet
-      interestsIds: $interestsIds
-    ) {
-      id
-      firstName
-      lastName
-      photo {
-        url
-      }
-      location
-      school
-      bio
-      lookingFor
-      waysToMeet
-      interests {
-        title
-        id
-      }
-      posts {
-        id
-      }
-    }
-  }
-`;
+
+/*
+ * Chat related mutation
+ */
 
 export const DELETE_CHAT = gql`
   mutation deleteConversation($id: ID!) {
@@ -498,3 +583,78 @@ export const REMOVE_USER_FROM_CHAT = gql`
     }
   }
 `;
+
+
+
+/*
+ * Connections related mutations
+ */
+
+export const CREATE_CONNECTIONS = gql`
+  mutation createConnectionRequest(
+    $message: String
+    $senderId: ID
+    $receiverId: ID
+    $status: Status
+  ) {
+    createConnectionRequest(
+      message: $message
+      senderId: $senderId
+      receiverId: $receiverId
+      status: $status
+    ) {
+      message
+      status
+      sender {
+        firstName
+        lastName
+        email
+        id
+      }
+      receiver {
+        firstName
+        lastName
+        email
+        id
+      }
+    }
+  }
+`;
+
+export const UPDATE_USERS_CONNECTIONS = gql`
+  mutation updateUser(
+    $senderId: ID!
+    $receiverId: ID!
+    $senderConnectionId: [ID!]
+    $receiverConnectionId: [ID!]
+  ) {
+    sender: updateUser(id: $senderId, userConnectionsIds: $senderConnectionId) {
+      userConnections {
+        firstName
+        lastName
+        email
+        id
+      }
+    }
+    receiver: updateUser(
+      id: $receiverId
+      userConnectionsIds: $receiverConnectionId
+    ) {
+      userConnections {
+        firstName
+        lastName
+        email
+        id
+      }
+    }
+  }
+`;
+
+export const DELETE_USERS_CONNECTIONS_REQUEST = gql`
+  mutation deleteConnectionRequest($id: ID!) {
+    deleteConnectionRequest(id: $id) {
+      id
+    }
+  }
+`;
+

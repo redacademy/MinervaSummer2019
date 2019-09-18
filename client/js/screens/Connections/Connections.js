@@ -3,9 +3,9 @@ import {Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
 import UserCard from '../../components/UserCard';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
-import theme from '../../config/theme';
+import PendingList from '../../components/PendingList';
 
-displaySuggestions = suggestedUsers => {
+displaySuggestions = (suggestedUsers, viewer) => {
   if (suggestedUsers.length === 0) {
     return (
       <Text>
@@ -13,12 +13,18 @@ displaySuggestions = suggestedUsers => {
       </Text>
     );
   }
-  return suggestedUsers.map(user => (
-    <UserCard user={user} key={user.id}></UserCard>
-  ));
+
+  return suggestedUsers
+    .filter(user => {
+      return (
+        user.id != viewer.id &&
+        user.id != viewer.userConnections.map(connections => connections.id)
+      );
+    })
+    .map(user => <UserCard user={user} key={user.id} />);
 };
 
-displayNoConnections = toggleForm => {
+displayNoConnections = () => {
   return (
     <View style={styles.noConnectionsWrapper}>
       <Image
@@ -44,60 +50,88 @@ displayNoConnections = toggleForm => {
   );
 };
 
-displayConnected = (toggleForm, suggestedUsers) => {
-  const connectedUsers = [];
-  if ((connectedUsers.length = [0])) {
-    return displayNoConnections(toggleForm);
-  }
+displayConnected = viewer => {
+  return viewer.userConnections.length === 0
+    ? displayNoConnections()
+    : viewer.userConnections.map(user => (
+        <UserCard user={user} key={user.id}></UserCard>
+      ));
 };
 
-const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
+pendingRequests = viewer => {
+  return <PendingList user={viewer} />;
+};
+
+const Connections = ({suggestedUsers, viewer, selectState, insertState}) => {
   return (
     <ScrollView style={styles.root}>
       <View style={styles.headingsWrapper}>
-        <View
-          style={[
-            styles.toggleButtonsWrapper,
-            !state.formToggle
-              ? {backgroundColor: 'white'}
-              : {backgroundColor: theme.palette.blue},
-          ]}>
+        <View style={[styles.topicButtonsWrapper]}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => toggleForm()}
-            style={
-              !state.formToggle ? styles.toggleActive : styles.toggleInactive
-            }>
+            onPress={() => insertState('Suggested')}
+            style={[
+              styles.topic,
+              selectState() === 'Suggested'
+                ? styles.topicActive
+                : styles.topicInactive,
+            ]}>
             <Text
               style={
-                !state.formToggle
-                  ? styles.toggleTextActive
-                  : styles.toggleTextInactive
+                selectState() === 'Suggested'
+                  ? styles.topicTextActive
+                  : styles.topicTextInactive
               }>
               Suggested
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => toggleForm()}
+            onPress={() => insertState('Connected')}
             style={[
-              state.formToggle ? styles.toggleActive : styles.toggleInactive,
-              {borderRadius: 5},
+              styles.topic,
+              selectState() === 'Connected'
+                ? styles.topicActive
+                : styles.topicInactive,
             ]}>
             <Text
               style={
-                state.formToggle
-                  ? styles.toggleTextActive
-                  : styles.toggleTextInactive
+                selectState() === 'Connected'
+                  ? styles.topicTextActive
+                  : styles.topicTextInactive
               }>
               Already Connected
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => insertState('Pending')}
+            style={[
+              styles.topic,
+              selectState() === 'Pending'
+                ? styles.topicActive
+                : styles.topicInactive,
+            ]}>
+            <Text
+              style={
+                selectState() === 'Pending'
+                  ? styles.topicTextActive
+                  : styles.topicTextInactive
+              }>
+              Pending Reguests
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
-      {state.formToggle
+
+
+      {selectState() === 'Suggested'
         ? this.displaySuggestions(suggestedUsers, viewer)
-        : this.displayConnected(toggleForm, suggestedUsers)}
+        : selectState() === 'Connected'
+        ? this.displayConnected(viewer)
+        : selectState() === 'Pending'
+        ? this.pendingRequests(viewer)
+        : null}
     </ScrollView>
   );
 };

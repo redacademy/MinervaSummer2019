@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {
   Text,
   View,
@@ -6,12 +6,13 @@ import {
   Keyboard,
   Image,
   ScrollView,
+  Button,
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Mutation} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
-import {UPDATE_PROFILE} from '../../config/apollo/queries';
+import {UPDATE_PROFILE, USER_QUERY} from '../../config/apollo/queries';
 import styles from './styles';
 import GradientButton from '../../components/GradientButton';
 import InterestButton from '../../components/UserProfile/InterestButton';
@@ -22,7 +23,10 @@ import {
   saveInterest,
   saveWays,
 } from '../../lib/helpers/interest_function';
+import Modal from 'react-native-modal';
+import {CREATE_CONNECTIONS} from '../../config/apollo/queries';
 import ReportUserModal from '../../components/UserProfile/reportUserModal';
+
 
 class UserProfile extends Component {
   constructor(props) {
@@ -51,6 +55,8 @@ class UserProfile extends Component {
         lunch: {name: 'Lunch', icon: 'lunch', visible: false},
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
+      isModalVisible: false,
+      text: '',
     };
 
     if (this.props.myProfile) {
@@ -171,16 +177,41 @@ class UserProfile extends Component {
     }
   };
 
+
+  toggleModal = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
+  };
+
+  onChangeText = text => {
+    this.setState({text: text});
+  };
+
+  checkConnectionStatus = (receiver, viewer) => {
+    return !!viewer.connectionsSent.find(
+      connectionSent =>
+        connectionSent.receiver.id === receiver.id &&
+        connectionSent.status === 'PENDING',
+    );
+  };
+
   toggleReportModal = () => {
     this.setState({isReportModalVisible: !this.state.isReportModalVisible});
   };
 
   reportUser = info => {};
 
+
   render() {
     let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
     let listOfInterest = Object.keys(this.state.interest);
     console.log(this.props);
+
+    let viewer = this.props.context.viewer;
+    let receiver;
+
+    if (this.props.viewer.User) {
+      receiver = this.props.viewer.User;
+    }
 
     return (
       <Mutation mutation={UPDATE_PROFILE}>
@@ -219,14 +250,118 @@ class UserProfile extends Component {
                     </Text>
                   )}
                   {!this.state.profileEditable && (
-                    <View style={styles.buttonWrapper}>
-                      <GradientButton
-                        onPress={() =>
-                          this.props.myProfile ? this.editProfile() : null
-                        }
-                        text={this.props.myProfile ? 'Edit Profile' : 'Message'}
-                        variant={'contained'}
-                      />
+                    <View>
+                      <Mutation
+                        mutation={CREATE_CONNECTIONS}
+                        onCompleted={() => (
+                          <GradientButton
+                            text="Pending"
+                            onPress={() => {}}></GradientButton>
+                        )}
+                        refetchQueries={() => [
+                          {
+                            query: USER_QUERY,
+                            variables: {id: this.props.viewer.User.id},
+                          },
+                        ]}>
+                        {(createConnection, {loading, data}) => {
+                          if (data) {
+                            return (
+                              <GradientButton
+                                text="Pending"
+                                onPress={() => {}}></GradientButton>
+                            );
+                          } else {
+                            return (
+                              <Fragment>
+                                <View style={styles.buttonWrapper}>
+                                  <GradientButton
+                                    onPress={() =>
+                                      this.props.myProfile
+                                        ? this.editProfile()
+                                        : receiver.userConnections.includes(
+                                            viewer.id,
+                                          )
+                                        ? `Let's chat`
+                                        : this.checkConnectionStatus(
+                                            receiver,
+                                            viewer,
+                                          )
+                                        ? null
+                                        : this.toggleModal()
+                                    }
+                                    text={
+                                      this.props.myProfile
+                                        ? 'Edit Profile'
+                                        : receiver.userConnections.includes(
+                                            viewer.id,
+                                          )
+                                        ? 'Chat'
+                                        : this.checkConnectionStatus(
+                                            receiver,
+                                            viewer,
+                                          )
+                                        ? 'Pending'
+                                        : 'Lets Connect'
+                                    }
+                                    variant={'contained'}
+                                  />
+                                </View>
+                                <Modal
+                                  animationIn={'slideInRight'}
+                                  animationOut={'slideOutLeft'}
+                                  isVisible={this.state.isModalVisible}
+                                  onBackdropPress={() =>
+                                    this.setState({isModalVisible: false})
+                                  }
+                                  style={styles.modalPop}>
+                                  <View style={styles.modalWrapper}>
+                                    <Text style={styles.sender}>
+                                      From:
+                                      {this.props.context.viewer.firstName}
+                                      <View style={styles.lineB} />
+                                      {this.props.context.viewer.lastName}
+                                    </Text>
+                                    <TextInput
+                                      onChangeText={text =>
+                                        this.onChangeText(text)
+                                      }
+                                      value={this.text}
+                                      style={styles.modalInput}
+                                      placeholder={
+                                        'I want to connect with you...'
+                                      }
+                                      keyboardType={'default'}
+                                      multiline={true}
+                                    />
+                                    <View style={styles.modalBtn}>
+                                      <Button
+                                        title="Send"
+                                        style={{width: '50%'}}
+                                        onPress={() => {
+                                          createConnection({
+                                            variables: {
+                                              message: this.state.text,
+                                              senderId: this.props.context
+                                                .viewer.id,
+                                              receiverId: this.props.viewer.User
+                                                .id,
+                                              status: 'PENDING',
+                                            },
+                                          });
+                                          this.setState({
+                                            isModalVisible: false,
+                                          });
+                                        }}
+                                      />
+                                    </View>
+                                  </View>
+                                </Modal>
+                              </Fragment>
+                            );
+                          }
+                        }}
+                      </Mutation>
                     </View>
                   )}
                   {this.state.profileEditable ? (
