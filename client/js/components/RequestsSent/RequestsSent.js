@@ -5,8 +5,6 @@ import styles from './styles';
 const RequestsSent = ({viewer}) => {
   return (
     <View>
-      {/* {console.log(viewer)} */}
-
       {viewer.connectionsSent.map(request => (
         <View style={styles.userCard}>
           {!request.receiver.photo || request.receiver.photo.url === null ? (
