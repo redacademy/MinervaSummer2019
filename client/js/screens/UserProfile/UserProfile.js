@@ -32,13 +32,13 @@ class UserProfile extends Component {
       },
       interest: {},
       WaysToMeet: {
-        Coffee: {name: 'Coffee', icon: 'coffee', visible: false},
+        coffee: {name: 'Coffee', icon: 'coffee', visible: false},
         afterSchool: {
           name: 'After School',
           icon: 'after_school',
           visible: false,
         },
-        Lunch: {name: 'Lunch', icon: 'lunch', visible: false},
+        lunch: {name: 'Lunch', icon: 'lunch', visible: false},
         aWalk: {name: 'A Walk', icon: 'walk', visible: false},
       },
     };

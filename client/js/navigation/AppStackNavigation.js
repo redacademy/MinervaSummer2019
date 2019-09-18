@@ -40,6 +40,9 @@ const ConnectionsStack = createStackNavigator(
   {
     Connections: {screen: ConnectionsScreen},
     Profile: {screen: ProfileScreen},
+    SingleChat: {
+      screen: SingleChatScreen,
+    },
   },
   {
     defaultNavigationOptions: ({navigation}) => ({
@@ -61,7 +64,12 @@ const ChatsStack = createStackNavigator(
   },
 );
 const ProfileStack = createStackNavigator(
-  {Profile: ProfileScreen},
+  {
+    Profile: {screen: ProfileScreen},
+    SingleChat: {
+      screen: SingleChatScreen,
+    },
+  },
   {
     defaultNavigationOptions: ({navigation}) => ({
       ...sharedNavigationOptions(navigation),
