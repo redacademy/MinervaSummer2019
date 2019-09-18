@@ -34,7 +34,8 @@ class UserProfileContainer extends Component {
           return this.props.navigation.getParam('user') ? (
             <Query
               query={USER_QUERY}
-              variables={{id: this.props.navigation.getParam('user')}}>
+              variables={{id: this.props.navigation.getParam('user')}}
+              fetchPolicy="network-only">
               {({loading, error, data}) => {
                 let userInfo = data;
 
