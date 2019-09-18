@@ -296,9 +296,8 @@ class UserProfile extends Component {
                             interest={section}
                             index={index}
                             show={this.state.profileEditable}
-                            updateInterest={this.updateInterest.bind(
-                              this,
-                            )}></InterestButton>
+                            updateInterest={this.updateInterest.bind(this)}
+                          />
                         ))}
                       </View>
                     </View>
