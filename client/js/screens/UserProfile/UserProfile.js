@@ -27,7 +27,6 @@ import Modal from 'react-native-modal';
 import {CREATE_CONNECTIONS} from '../../config/apollo/queries';
 import ReportUserModal from '../../components/UserProfile/reportUserModal';
 
-
 class UserProfile extends Component {
   constructor(props) {
     super(props);
@@ -177,7 +176,6 @@ class UserProfile extends Component {
     }
   };
 
-
   toggleModal = () => {
     this.setState({isModalVisible: !this.state.isModalVisible});
   };
@@ -200,16 +198,14 @@ class UserProfile extends Component {
 
   reportUser = info => {};
 
-
   render() {
     let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
     let listOfInterest = Object.keys(this.state.interest);
-    console.log(this.props);
 
     let viewer = this.props.context.viewer;
     let receiver;
 
-    if (this.props.viewer.User) {
+    if (!this.props.myProfile && this.props.viewer.User) {
       receiver = this.props.viewer.User;
     }
 
