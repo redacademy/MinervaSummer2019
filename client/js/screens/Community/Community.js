@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PostList from '../../components/PostList';
-import {ScrollView, TouchableOpacity, View, Text} from 'react-native';
+import {ScrollView, TouchableOpacity, View, Text, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {withNavigation} from 'react-navigation';
 import styles from './styles';
@@ -29,9 +29,18 @@ const Community = ({posts, context, navigation, insertState, getState}) => {
               </View>
             </View>
           </TouchableOpacity>
-
-          <Text style={styles.header}>Topics</Text>
-
+          <View style={styles.headerWrapper}>
+            <Text style={styles.header}>Topics</Text>
+            <TouchableOpacity
+              style={styles.favouriteHeaderButton}
+              onPress={() => navigation.navigate('Favourites')}>
+              <Image
+                resizeMode={'contain'}
+                style={styles.favouriteHeaderIcon}
+                source={require('../../assets/PNG/additional_illustrations/favourite.png')}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={styles.topicsWrapper}>
             <TouchableOpacity
               style={[
