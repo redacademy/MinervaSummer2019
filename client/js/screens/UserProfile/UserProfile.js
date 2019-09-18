@@ -150,14 +150,13 @@ class UserProfile extends Component {
     });
 
     if (updatedINFO) {
+      await this.props.context.updateViewer(
+        updatedINFO.data.updateUser,
+        this.props.context.viewer.token,
+      );
       this.setState({
         profileEditable: !this.state.profileEditable,
       });
-
-      await this.props.context.updateViewer(
-        updatedINFO,
-        this.props.context.viewer.token,
-      );
     }
   };
   render() {
