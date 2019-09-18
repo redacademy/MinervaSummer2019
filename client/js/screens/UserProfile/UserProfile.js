@@ -180,6 +180,7 @@ class UserProfile extends Component {
   render() {
     let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
     let listOfInterest = Object.keys(this.state.interest);
+    console.log(this.props);
 
     return (
       <Mutation mutation={UPDATE_PROFILE}>
@@ -340,6 +341,7 @@ class UserProfile extends Component {
                       visible={this.state.isReportModalVisible}
                       toggleLogout={this.toggleReportModal}
                       report={this.reportUser}
+                      navigation={this.props.navigation}
                     />
                   </View>
                 )}

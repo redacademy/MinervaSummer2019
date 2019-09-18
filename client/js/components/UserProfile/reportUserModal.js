@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, View, Image} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../../screens/UserProfile/styles';
 
-const reportUserModal = ({visible, toggleLogout, report}) => {
+const reportUserModal = ({visible, toggleLogout, report, navigation}) => {
   return (
     <Modal backdropColor="white" backdropOpacity={1} isVisible={visible}>
       <View style={styles.modal}>
@@ -19,7 +19,8 @@ const reportUserModal = ({visible, toggleLogout, report}) => {
           <TouchableOpacity onPress={toggleLogout}>
             <Text style={styles.modalCancel}>Cancel</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleLogout}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('PersonalReport')}>
             <Text style={styles.modalConfirm}>Report</Text>
           </TouchableOpacity>
         </View>
