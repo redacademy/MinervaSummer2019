@@ -73,12 +73,14 @@ class SignIn extends Component {
                   <Text style={styles.errorTitle}>
                     We are sorry, we could not log you in right now
                   </Text>
-                  <GradientButton
-                    text="Back to Sign In"
-                    onPress={() => {
-                      this.props.navigation.goBack();
-                      this.props.navigation.navigate('SignIn');
-                    }}></GradientButton>
+                  <View style={styles.backToSignButton}>
+                    <GradientButton
+                      text="Back to Sign In"
+                      onPress={() => {
+                        this.props.navigation.goBack();
+                        this.props.navigation.navigate('SignIn');
+                      }}></GradientButton>
+                  </View>
                 </View>
               );
             }

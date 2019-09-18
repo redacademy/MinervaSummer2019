@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     fontSize: theme.font.paragraph,
     color: theme.palette.darkGrey,
     fontFamily: theme.fonts.regular,
-    // marginVertical: '1%',
     minWidth: '20%',
     textAlign: 'left',
     textAlignVertical: 'center',
