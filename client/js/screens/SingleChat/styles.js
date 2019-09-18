@@ -89,10 +89,6 @@ const styles = StyleSheet.create({
   picture1: {
     left: 0,
     borderColor: 'white',
-    borderTopLeftRadius: 76,
-    borderBottomLeftRadius: 76,
-    borderTopRightRadius: 76,
-    borderBottomRightRadius: 76,
     borderWidth: 3,
     zIndex: 1000,
     height: 122,
