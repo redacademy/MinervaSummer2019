@@ -234,8 +234,8 @@ class UserProfile extends Component {
                     style={styles.profileImage}
                     resizeMode={'cover'}
                     source={
-                      this.state.photo
-                        ? {uri: this.state.photo}
+                      this.state.profileInfo.photo
+                        ? {uri: this.state.profileInfo.photo}
                         : require('../../assets/PNG/additional_illustrations/profile.png')
                     }
                   />

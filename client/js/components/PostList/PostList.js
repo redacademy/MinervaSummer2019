@@ -77,7 +77,14 @@ class PostList extends Component {
       <View>
         <View style={styles.postWrapper}>
           <View style={styles.topWrapper}>
-            <View style={styles.authorWrapper}>
+            <TouchableOpacity
+              onPress={() => {
+                console.log(post.author.id);
+                this.props.navigation.navigate('Profile', {
+                  user: post.author.id,
+                });
+              }}
+              style={styles.authorWrapper}>
               {post.author.photo.url === null ? (
                 <Image
                   style={styles.image}
@@ -98,7 +105,7 @@ class PostList extends Component {
                 </Text>
                 <Text style={styles.time}>{newDate}</Text>
               </View>
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.postBtn}>
               {faved ? (

@@ -29,6 +29,13 @@ const styles = StyleSheet.create({
     color: theme.palette.mediumGrey,
   },
 
+  headerWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    alignItems: 'center',
+  },
+
   textWrapper: {
     justifyContent: 'center',
     fontSize: theme.font.paragraph,
@@ -93,7 +100,7 @@ const styles = StyleSheet.create({
   },
 
   favouriteHeaderButton: {
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     flexDirection: 'row',
     width: '30%',
   },

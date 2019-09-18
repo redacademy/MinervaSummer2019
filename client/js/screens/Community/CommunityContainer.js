@@ -18,17 +18,6 @@ class CommunityContainer extends Component {
 
   static navigationOptions = ({navigation}) => ({
     title: 'Community',
-    headerRight: (
-      <TouchableOpacity
-        style={styles.favouriteHeaderButton}
-        onPress={() => navigation.navigate('Favourites')}>
-        <Image
-          resizeMode={'contain'}
-          style={styles.favouriteHeaderIcon}
-          source={require('../../assets/PNG/additional_illustrations/favourite.png')}
-        />
-      </TouchableOpacity>
-    ),
   });
 
   insertState = topic => {
