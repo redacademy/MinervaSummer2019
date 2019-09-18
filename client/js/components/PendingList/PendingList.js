@@ -59,9 +59,9 @@ class PendingList extends React.Component {
         </View>
 
         {this.state.formToggle ? (
-          <RequestsSent viewer={user} />
+          <RequestsSent viewer={user} key={user.id} />
         ) : (
-          <RequestsReceived viewer={user} />
+          <RequestsReceived viewer={user} key={user.id} />
         )}
       </View>
     );
