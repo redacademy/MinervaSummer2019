@@ -9,13 +9,13 @@ const styles = StyleSheet.create({
     borderColor: theme.palette.lightGrey,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    marginBottom: 30,
+    marginBottom: 20,
     paddingBottom: '5%',
   },
   userPicture: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     resizeMode: 'contain',
   },
   userDetailsWrapper: {
@@ -47,8 +47,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: theme.palette.darkGrey,
     alignItems: 'baseline',
-    marginRight: '5%',
     fontFamily: theme.fonts.regular,
+  },
+  locationSchoolImage: {
+    height: 14,
+    width: 14,
+    marginRight: '5%',
   },
   userName: {
     fontSize: 18,

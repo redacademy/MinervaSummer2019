@@ -27,10 +27,12 @@ const UserCard = ({user, navigation}) => {
               style={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
+                alignItems: 'center',
               }}>
-              <MaterialCommunityIcons
-                name={'home-city-outline'}
-                style={[styles.locationSchool, {marginTop: '2%'}]}
+              <Image
+                resizeMode="contain"
+                style={styles.locationSchoolImage}
+                source={require('../../assets/PNG/Profile_icons/icon_city.png')}
               />
               <Text style={styles.locationSchool}>{`${user.location}`}</Text>
             </View>
@@ -40,10 +42,12 @@ const UserCard = ({user, navigation}) => {
               style={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
+                alignItems: 'center',
               }}>
-              <MaterialCommunityIcons
-                name={'book-open-page-variant'}
-                style={[styles.locationSchool, {marginTop: '1%'}]}
+              <Image
+                resizeMode="contain"
+                style={styles.locationSchoolImage}
+                source={require('../../assets/PNG/Profile_icons/icon_school.png')}
               />
               <Text style={styles.locationSchool}>{`${user.school}`}</Text>
             </View>

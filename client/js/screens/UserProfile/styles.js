@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingHorizontal: '6%',
     paddingVertical: 10,
-    borderRadius: 15,
+    borderRadius: 18,
   },
   removeIcon: {
     color: theme.palette.red,
