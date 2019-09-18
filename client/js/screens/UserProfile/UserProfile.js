@@ -79,7 +79,7 @@ class UserProfile extends Component {
         school: data.school,
         bio: data.bio,
         userId: data.id,
-        photo: data.photo.url,
+        photo: data.photo ? data.photo.url : null,
       },
       ownProfile: this.props.myProfile,
       interest: organizer(this.props.info.allInterests, data.interests),
