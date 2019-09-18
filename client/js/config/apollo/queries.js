@@ -485,3 +485,16 @@ export const ADD_USER_TO_CHAT = gql`
     }
   }
 `;
+
+export const REMOVE_USER_FROM_CHAT = gql`
+  mutation removeFromUserConversation($chatId: ID!, $userId: ID!) {
+    removeFromUserConversation(
+      conversationConversationId: $chatId
+      membersUserId: $userId
+    ) {
+      membersUser {
+        id
+      }
+    }
+  }
+`;
