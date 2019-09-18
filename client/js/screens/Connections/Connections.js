@@ -93,7 +93,7 @@ const Connections = ({state, suggestedUsers, toggleForm, viewer}) => {
           </TouchableOpacity>
         </View>
       </View>
-      {!state.formToggle
+      {state.formToggle
         ? this.displaySuggestions(suggestedUsers, viewer)
         : this.displayConnected(toggleForm, suggestedUsers)}
     </ScrollView>

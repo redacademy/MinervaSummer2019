@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   chatCard: {
     width: '100%',
-    marginVertical: 10,
+    marginVertical: 5,
   },
   sentMessage: {
     flexDirection: 'row-reverse',
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   chatBubbleText: {
     color: theme.palette.darkGrey,
     fontFamily: theme.fonts.regular,
-    padding: 5,
+    padding: 10,
   },
   authorPicture: {
     height: 50,
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     color: theme.palette.darkGrey,
     fontSize: 14,
     textAlign: 'center',
+    paddingVertical: 2,
   },
   membersNameWrapper: {
     minHeight: '7%',
@@ -78,23 +79,30 @@ const styles = StyleSheet.create({
   noMessagePicture: {
     width: 120,
     height: 120,
-    borderRadius: 75,
     position: 'absolute',
   },
   noMessagePictureWrapper: {
     width: '80%',
     height: '25%',
     position: 'relative',
-    overflow: 'hidden',
   },
   picture1: {
     left: 0,
     borderColor: 'white',
+    borderTopLeftRadius: 76,
+    borderBottomLeftRadius: 76,
+    borderTopRightRadius: 76,
+    borderBottomRightRadius: 76,
     borderWidth: 3,
     zIndex: 1000,
+    height: 122,
+    width: 122,
+    borderRadius: 76,
   },
-  picture1: {
+  picture2: {
     right: 0,
+    zIndex: 50,
+    borderRadius: 75,
   },
   noMessagesRoot: {
     flex: 1,
@@ -115,6 +123,15 @@ const styles = StyleSheet.create({
     marginBottom: '10%',
     textAlign: 'center',
     fontFamily: theme.fonts.regular,
+  },
+  authorPictureWrapper: {
+    width: '17%',
+    alignItems: 'center',
+    minHeight: 50,
+  },
+  chatSeperator: {
+    width: '100%',
+    height: 20,
   },
 });
 

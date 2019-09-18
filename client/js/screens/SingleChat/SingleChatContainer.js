@@ -9,7 +9,7 @@ import {GET_CHAT} from '../../config/apollo/queries';
 
 class SingleChatContainer extends Component {
   static navigationOptions = {
-    title: 'Sign In Details',
+    title: 'Chat',
   };
   render() {
     const {navigation} = this.props;

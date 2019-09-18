@@ -112,7 +112,11 @@ const AddToChatModal = ({
                     <View key={user.id} style={styles.userCard}>
                       <Image
                         style={styles.image}
-                        source={require('../../assets/PNG/additional_illustrations/profile.png')}
+                        source={
+                          user.photo
+                            ? {uri: user.photo.url}
+                            : require('../../assets/PNG/additional_illustrations/profile.png')
+                        }
                       />
                       <View style={styles.chatCardText}>
                         <Text

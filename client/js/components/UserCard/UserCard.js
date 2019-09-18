@@ -11,7 +11,12 @@ const UserCard = ({user, navigation}) => {
       <View style={styles.userDetailsWrapper}>
         <Image
           style={styles.userPicture}
-          source={require('../../assets/PNG/additional_illustrations/profile.png')}
+          resizeMode="cover"
+          source={
+            user.photo
+              ? {uri: user.photo.url}
+              : require('../../assets/PNG/additional_illustrations/profile.png')
+          }
         />
         <View style={styles.userDetails}>
           <Text style={styles.userName}>

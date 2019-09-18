@@ -11,7 +11,7 @@ export default class ConnectionsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formToggle: false,
+      formToggle: true,
     };
   }
   static navigationOptions = {

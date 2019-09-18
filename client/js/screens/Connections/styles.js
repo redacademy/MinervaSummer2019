@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: '10%',
     flex: 1,
-    height: '100%',
     justifyContent: 'space-between',
   },
   noConnectionsImage: {
