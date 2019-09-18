@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, TextInput, Keyboard, Image, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  Keyboard,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Mutation} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
@@ -14,6 +22,7 @@ import {
   saveInterest,
   saveWays,
 } from '../../lib/helpers/interest_function';
+import ReportUserModal from '../../components/UserProfile/reportUserModal';
 
 class UserProfile extends Component {
   constructor(props) {
@@ -21,6 +30,7 @@ class UserProfile extends Component {
     this.state = {
       profileEditable: false,
       ownProfile: true,
+      isReportModalVisible: false,
       profileInfo: {
         name: '',
         lastName: '',
@@ -63,7 +73,6 @@ class UserProfile extends Component {
     this.setState({
       profileInfo: {
         name: data.firstName,
-        ownProfile: this.props.ownProfile,
         lastName: data.lastName,
         status: data.lookingFor,
         location: data.location,
@@ -72,6 +81,7 @@ class UserProfile extends Component {
         userId: data.id,
         photo: data.photo.url,
       },
+      ownProfile: this.props.myProfile,
       interest: organizer(this.props.info.allInterests, data.interests),
     });
   }
@@ -160,9 +170,17 @@ class UserProfile extends Component {
       });
     }
   };
+
+  toggleReportModal = () => {
+    this.setState({isReportModalVisible: !this.state.isReportModalVisible});
+  };
+
+  reportUser = info => {};
+
   render() {
     let waysToMeetSelected = Object.keys(this.state.WaysToMeet);
     let listOfInterest = Object.keys(this.state.interest);
+    console.log(this.props);
 
     return (
       <Mutation mutation={UPDATE_PROFILE}>
@@ -314,6 +332,19 @@ class UserProfile extends Component {
                     <GradientButton
                       onPress={() => this.editProfileSave(true, updateUser)}
                       text="Save Changes"
+                    />
+                  </View>
+                )}
+                {!this.state.ownProfile && (
+                  <View>
+                    <TouchableOpacity onPress={this.toggleReportModal}>
+                      <Text style={styles.report}>Report User</Text>
+                    </TouchableOpacity>
+                    <ReportUserModal
+                      visible={this.state.isReportModalVisible}
+                      toggleLogout={this.toggleReportModal}
+                      report={this.reportUser}
+                      navigation={this.props.navigation}
                     />
                   </View>
                 )}
