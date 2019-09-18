@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
   input: {
     minHeight: '30%',
     fontSize: 16,
+    paddingTop: '6%',
   },
 
   chips: {
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   opWrapper: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
   },
 
   topic: {
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: '2%',
   },
 
   topicInactive: {

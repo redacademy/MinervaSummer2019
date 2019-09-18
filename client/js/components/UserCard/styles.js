@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     width: '90%',
-    paddingTop: '15%',
+    paddingTop: '7%',
   },
 });
 
