@@ -269,6 +269,23 @@ export const UPDATE_PROFILE = gql`
       interestsIds: $interestsIds
     ) {
       id
+      firstName
+      lastName
+      photo {
+        url
+      }
+      location
+      school
+      bio
+      lookingFor
+      waysToMeet
+      interests {
+        title
+        id
+      }
+      posts {
+        id
+      }
     }
   }
 `;
@@ -383,6 +400,7 @@ export const DISLIKE_COMMENT_MUTATION = gql`
     }
   }
 `;
+
 
 /*
  * Chat related mutation
