@@ -29,6 +29,7 @@ const CommunityStack = createStackNavigator(
     Favourites: {
       screen: FavouritesScreen,
     },
+    Profile: {screen: ProfileScreen},
   },
   {
     defaultNavigationOptions: ({navigation}) => ({
