@@ -58,7 +58,7 @@ class PostList extends Component {
   removePost = async (deletePost, authorId, viewerId, viewerPosts, postId) => {
     const viewerPostIds = viewerPosts.map(post => post.id);
 
-    if (authorId === viewerId && viewerPostIds.includes(postId)) {
+    if (authorId === viewerId) {
       try {
         postId && (await deletePost({variables: {id: postId}}));
         this.hideMenu();

@@ -15,6 +15,7 @@ const CreatePost = ({getState, insertState, navigation, viewer}) => {
     <View style={{flex: 1}}>
       <Mutation
         mutation={CREATE_POST}
+        refetchQueries={[{query: CREATE_POST}]}
         update={(cache, {data: {createPost}}) => {
           const {allPosts} = cache.readQuery({query: GET_ALL_POSTS});
           cache.writeQuery({

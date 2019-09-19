@@ -9,7 +9,6 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import {Mutation} from '@apollo/react-components';
 import CircularLoader from '../../components/CircularLoader';
 import {UPDATE_PROFILE, USER_QUERY} from '../../config/apollo/queries';
@@ -166,10 +165,6 @@ class UserProfile extends Component {
     });
 
     if (updatedINFO) {
-      await this.props.context.updateViewer(
-        updatedINFO.data.updateUser,
-        this.props.context.viewer.token,
-      );
       this.setState({
         profileEditable: !this.state.profileEditable,
       });
