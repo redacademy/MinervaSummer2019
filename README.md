@@ -4,7 +4,7 @@ Minnerva is an app that is built upon React-Native. It is where young women can 
 
 ## Overviews
 
-![HomePage](Home_Page.gif)
+![HomePage](./screenshots/Home_Page.gif)
 ![CreatePost](Create_Post.gif)
 ![Overview](Overview.gif)
 
