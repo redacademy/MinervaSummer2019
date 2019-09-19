@@ -85,7 +85,7 @@ class PostList extends Component {
                 });
               }}
               style={styles.authorWrapper}>
-              {post.author.photo.url === null ? (
+              {post.author.photo === null ? (
                 <Image
                   style={styles.image}
                   source={require('../../assets/PNG/additional_illustrations/profile.png')}

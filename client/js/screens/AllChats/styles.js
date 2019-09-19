@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   noChatRoot: {
     paddingVertical: '10%',
     alignItems: 'center',
-    height: '80%',
+    height: '70%',
     paddingHorizontal: '20%',
   },
   root: {
