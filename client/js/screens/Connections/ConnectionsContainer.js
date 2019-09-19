@@ -11,15 +11,21 @@ export default class ConnectionsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formToggle: true,
+      selectTopic: 'Suggested',
     };
   }
   static navigationOptions = {
     title: 'Connections',
   };
-  toggleForm = () => {
-    this.setState({formToggle: !this.state.formToggle});
+
+  insertState = topic => {
+    this.setState({selectTopic: topic});
   };
+
+  selectState = () => {
+    return this.state.selectTopic;
+  };
+
   fisherYatesShuffle = a => {
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -39,6 +45,7 @@ export default class ConnectionsContainer extends Component {
   };
   displaySuggestions = () => {
     const {allUsers} = this.props;
+  
     return allUsers.map(user => (
       <UserCard user={user} key={user.id}></UserCard>
     ));
@@ -60,10 +67,11 @@ export default class ConnectionsContainer extends Component {
                 }
                 return (
                   <Connections
-                    toggleForm={this.toggleForm}
                     state={this.state}
                     suggestedUsers={data.allUsers}
                     viewer={context.viewer}
+                    insertState={this.insertState}
+                    selectState={this.selectState}
                   />
                 );
               }}

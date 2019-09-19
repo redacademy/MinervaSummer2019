@@ -24,7 +24,6 @@ type User @model {
   commentLikes: [Comment!]! @relation(name: "CommentLikes")
   conversation: [Conversation!]! @relation(name: "UserConversation")
   messagesSent: [Message!]! @relation(name: "UserMessageSent")
-  messagesReceived: [Message!]! @relation(name: "UserMessageReceived")
   connectionsSent: [ConnectionRequest!]! @relation (name: "ConnectionsSent")
   connectionsReceived: [ConnectionRequest!]! @relation (name: "ConnectionsReceived")
 }
@@ -70,7 +69,6 @@ type File @model {
 type Message @model {
   id: ID! @isUnique
   author: User! @relation(name: "UserMessageSent")
-  recipient: User! @relation(name: "UserMessageReceived")
   content: String
   conversation: Conversation @relation (name: "MessagesOnConversation")
   sentAt: DateTime!

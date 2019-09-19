@@ -252,6 +252,43 @@ const styles = StyleSheet.create({
     maxHeight: 150,
     alignSelf: 'center',
   },
+
+  modalPop: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+
+  modalWrapper: {
+    backgroundColor: 'white',
+    height: '20%',
+    borderRadius: 25,
+    padding: 10,
+  },
+
+  sender: {
+    fontFamily: theme.fonts.regular,
+    color: theme.palette.darkGrey,
+    fontSize: theme.font.subHeader,
+    paddingLeft: 10,
+  },
+
+  modalInput: {
+    height: 50,
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
+
+  lineB: {
+    width: 2,
+  },
+
+  modalBtn: {
+    paddingTop: 10,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
