@@ -11,6 +11,7 @@ const UserCard = ({user, navigation}) => {
       <View style={styles.userDetailsWrapper}>
         {!user.photo || user.photo.url === null ? (
           <Image
+            resizeMode={'cover'}
             style={styles.userPicture}
             source={require('../../assets/PNG/additional_illustrations/profile.png')}
           />
@@ -44,7 +45,7 @@ const UserCard = ({user, navigation}) => {
                 alignItems: 'center',
               }}>
               <Image
-                resizeMode="contain"
+                resizeMode="contain\"
                 style={styles.locationSchoolImage}
                 source={require('../../assets/PNG/Profile_icons/icon_school.png')}
               />
