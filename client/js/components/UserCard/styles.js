@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
     color: theme.palette.darkGrey,
   },
   userBio: {
-    marginVertical: '3%',
+    marginVertical: '2%',
     fontSize: 14,
     color: theme.palette.darkGrey,
     fontFamily: theme.fonts.regular,
   },
   aboutMeHeading: {
-    paddingTop: '10%',
+    paddingTop: '5%',
     fontSize: 16,
     color: theme.palette.darkGrey,
     fontFamily: theme.fonts.heavy,
