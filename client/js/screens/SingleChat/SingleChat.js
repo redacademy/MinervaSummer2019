@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import {Query, Mutation, Subscription} from '@apollo/react-components';
 import styles from './styles';
@@ -156,7 +157,7 @@ class SingleChat extends React.Component {
                   values.text = '';
                 }
               }}
-              render={({handleSubmit, pristine, form}) => (
+              render={({handleSubmit, pristine, form, reset}) => (
                 <View style={styles.inputWrapper}>
                   <Field
                     name="text"
@@ -168,6 +169,12 @@ class SingleChat extends React.Component {
                         style={styles.input}
                         placeholder={'Type a message...'}
                         keyboardType={'default'}
+                        enablesReturnKeyAutomatically={true}
+                        returnKeyType="done"
+                        keyboardAppearance="light"
+                        onSubmitEditing={({nativeEvent}) => {
+                          Keyboard.dismiss();
+                        }}
                         {...input}
                       />
                     )}

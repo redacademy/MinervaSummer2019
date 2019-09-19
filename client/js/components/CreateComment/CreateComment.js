@@ -1,18 +1,24 @@
 import React from 'react';
-import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+  Image,
+} from 'react-native';
 import {Mutation} from '@apollo/react-components';
 
 import styles from './styles';
 import {GET_ALL_POSTS} from '../../config/apollo/queries';
-import {CREATE_COMMENT} from '../../config/apollo/queries'
-
+import {CREATE_COMMENT} from '../../config/apollo/queries';
 
 const CreateComment = ({postId, toggleCommentDisplay, viewer}) => {
   const [text, onChangeText] = React.useState();
 
   return (
     <View style={styles.container}>
-      {viewer.photo.url === null ? (
+      {viewer.photo === null ? (
         <Image
           style={styles.image}
           source={require('../../assets/PNG/additional_illustrations/profile.png')}
@@ -32,6 +38,9 @@ const CreateComment = ({postId, toggleCommentDisplay, viewer}) => {
               style={styles.input}
               placeholder={'Share Your Thoughts...'}
               keyboardType={'default'}
+              enablesReturnKeyAutomatically={true}
+              returnKeyType={'send'}
+              keyboardAppearance="light"
             />
             <TouchableOpacity
               onPress={() => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import CreatePost from './CreatePost';
+import {Keyboard} from 'react-native';
 
 export default class CreatePostContainer extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ export default class CreatePostContainer extends React.Component {
 
   insertState = topic => {
     this.setState({selectPostTpoic: topic});
+    Keyboard.dismiss();
   };
 
   getState = () => {

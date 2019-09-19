@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Keyboard} from 'react-native';
 import Ionics from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -26,12 +26,20 @@ const CreatePost = ({getState, insertState, navigation, viewer}) => {
           <View>
             <View style={styles.inputWrapper}>
               <TextInput
+                returnKeyType={'done'}
                 onChangeText={text => onChangeText(text)}
                 value={text}
                 placeholder={'Share Your Thoughts...'}
-                keyboardType={'default'}
                 multiline={true}
                 style={styles.input}
+                keyboardType={'default'}
+                enablesReturnKeyAutomatically={true}
+                returnKeyType="done"
+                returnKeyLabel="done"
+                keyboardAppearance="light"
+                onSubmitEditing={() => {
+                  Keyboard.dismiss();
+                }}
               />
             </View>
 
@@ -46,7 +54,9 @@ const CreatePost = ({getState, insertState, navigation, viewer}) => {
                       ? styles.topicActive
                       : styles.topicInactive,
                   ]}
-                  onPress={() => insertState('General')}>
+                  onPress={() => {
+                    insertState('General');
+                  }}>
                   <Text
                     style={[
                       styles.topicText,
