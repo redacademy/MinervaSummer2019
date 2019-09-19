@@ -39,7 +39,6 @@ const CreateComment = ({postId, toggleCommentDisplay, viewer}) => {
               placeholder={'Share Your Thoughts...'}
               keyboardType={'default'}
               enablesReturnKeyAutomatically={true}
-              returnKeyType={'send'}
               keyboardAppearance="light"
             />
             <TouchableOpacity

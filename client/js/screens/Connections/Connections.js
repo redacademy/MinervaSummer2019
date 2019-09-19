@@ -72,6 +72,7 @@ const Connections = ({suggestedUsers, viewer, selectState, insertState}) => {
             onPress={() => insertState('Suggested')}
             style={[
               styles.topic,
+              styles.suggested,
               selectState() === 'Suggested'
                 ? styles.topicActive
                 : styles.topicInactive,
@@ -90,6 +91,7 @@ const Connections = ({suggestedUsers, viewer, selectState, insertState}) => {
             onPress={() => insertState('Connected')}
             style={[
               styles.topic,
+              styles.connected,
               selectState() === 'Connected'
                 ? styles.topicActive
                 : styles.topicInactive,
@@ -100,7 +102,7 @@ const Connections = ({suggestedUsers, viewer, selectState, insertState}) => {
                   ? styles.topicTextActive
                   : styles.topicTextInactive
               }>
-              Already Connected
+              Connected
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -108,6 +110,7 @@ const Connections = ({suggestedUsers, viewer, selectState, insertState}) => {
             onPress={() => insertState('Pending')}
             style={[
               styles.topic,
+              styles.pending,
               selectState() === 'Pending'
                 ? styles.topicActive
                 : styles.topicInactive,
@@ -118,12 +121,11 @@ const Connections = ({suggestedUsers, viewer, selectState, insertState}) => {
                   ? styles.topicTextActive
                   : styles.topicTextInactive
               }>
-              Pending Reguests
+              Pending
             </Text>
           </TouchableOpacity>
         </View>
       </View>
-
 
       {selectState() === 'Suggested'
         ? this.displaySuggestions(suggestedUsers, viewer)

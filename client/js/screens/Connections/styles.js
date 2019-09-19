@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   topicButtonsWrapper: {
-    marginVertical: 40,
-    justifyContent: 'space-around',
+    marginVertical: 30,
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     width: '100%',
@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     padding: '4%',
     paddingVertical: '7%',
-    fontFamily: theme.fonts.regular,
-    color: theme.palette.blue,
+    fontFamily: theme.fonts.heavy,
+    color: 'white',
   },
   topicTextInactive: {
     textAlign: 'center',
@@ -27,24 +27,23 @@ const styles = StyleSheet.create({
     padding: '4%',
     paddingVertical: '7%',
     fontFamily: theme.fonts.bold,
-    color: 'white',
+    color: theme.palette.blue,
   },
   topic: {
     flex: 1,
-    height: 60,
     alignItems: 'center',
     justifyContent: 'center',
     maxWidth: '30%',
+    height: 40,
     borderWidth: 1,
-    borderRadius: 5,
     borderColor: theme.palette.blue,
   },
   topicActive: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.blue,
   },
   topicInactive: {
     borderColor: theme.palette.blue,
-    backgroundColor: theme.palette.blue,
+    backgroundColor: 'white',
   },
   headingsWrapper: {
     justifyContent: 'center',
@@ -76,7 +75,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: '10%',
   },
-  noConnectionsButtonWrapper: {},
+  connected: {
+    borderRightWidth: 0,
+    borderLeftWidth: 0,
+  },
+  suggested: {
+    borderColor: theme.palette.blue,
+    borderTopStartRadius: 5,
+    borderBottomStartRadius: 5,
+  },
+  pending: {
+    borderColor: theme.palette.blue,
+    borderTopEndRadius: 5,
+    borderBottomEndRadius: 5,
+  },
 });
 
 export default styles;
